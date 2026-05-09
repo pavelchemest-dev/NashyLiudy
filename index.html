@@ -13,28 +13,30 @@
             --secondary: #FF6B35;
             --secondary-dark: #E55A2B;
             --white: #FFFFFF;
-            --light-bg: #F5F7FA;
-            --gray: #64748B;
+            --light-bg: #F8FAFC;
+            --medium-bg: #E2E8F0;
             --dark-bg: #0F172A;
-            --gradient: linear-gradient(135deg, #1E3A5F 0%, #2E5A8F 100%);
+            --text-dark: #1E293B;
+            --text-light: #64748B;
+            --border: #CBD5E1;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Montserrat', sans-serif;
             background: var(--light-bg);
-            color: var(--primary);
+            color: var(--text-dark);
             line-height: 1.6;
         }
 
         /* Navigation */
         nav {
-            background: var(--gradient);
+            background: var(--primary);
             padding: 20px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 4px 20px rgba(30, 58, 95, 0.3);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
         .nav-content { display: flex; justify-content: space-between; align-items: center; }
@@ -55,27 +57,27 @@
 
         /* Hero Section */
         .hero {
-            background: var(--gradient);
-            padding: 100px 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            padding: 80px 0;
             text-align: center;
             color: var(--white);
         }
         .hero h1 {
-            font-size: 56px;
+            font-size: 48px;
             font-weight: 900;
             margin-bottom: 20px;
         }
         .hero h1 span { color: var(--secondary); }
         .hero p {
-            font-size: 24px;
+            font-size: 20px;
             margin-bottom: 40px;
             opacity: 0.95;
         }
         .hero-stats {
             display: flex;
             justify-content: center;
-            gap: 60px;
-            margin: 50px 0;
+            gap: 50px;
+            margin: 40px 0;
             flex-wrap: wrap;
         }
         .stat { text-align: center; }
@@ -88,19 +90,18 @@
         .stat-label { font-size: 14px; opacity: 0.9; }
 
         /* Sections */
-        section { padding: 80px 0; }
+        section { padding: 60px 0; }
         .section-title {
             text-align: center;
-            font-size: 42px;
+            font-size: 36px;
             font-weight: 800;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
             color: var(--primary);
         }
 
         /* CRM Dashboard */
         .crm-dashboard { 
-            background: var(--white);
-            color: var(--primary);
+            background: var(--light-bg);
         }
         .stats-grid {
             display: grid;
@@ -109,39 +110,50 @@
             margin-bottom: 40px;
         }
         .stat-card {
-            background: var(--gradient);
+            background: var(--white);
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(30, 58, 95, 0.2);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             text-align: center;
-            color: var(--white);
+            border-left: 4px solid var(--secondary);
         }
         .stat-number-card {
             font-size: 48px;
             font-weight: 900;
-            color: var(--secondary);
+            color: var(--primary);
+            display: block;
+            margin-bottom: 10px;
         }
-        .stat-label-card { font-size: 16px; opacity: 0.95; }
+        .stat-label-card { 
+            font-size: 16px; 
+            color: var(--text-light);
+            font-weight: 500;
+        }
 
         /* Search & Filters */
         .search-panel {
-            background: var(--light-bg);
+            background: var(--white);
             padding: 30px;
-            border-radius: 15px;
+            border-radius: 12px;
             margin-bottom: 30px;
-            box-shadow: 0 5px 20px rgba(30, 58, 95, 0.1);
-            border: 2px solid var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
         .search-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
         .form-group { display: flex; flex-direction: column; }
-        .form-group label { margin-bottom: 5px; font-weight: 600; color: var(--primary); }
+        .form-group label { 
+            margin-bottom: 8px; 
+            font-weight: 600; 
+            color: var(--text-dark);
+            font-size: 14px;
+        }
         .form-group input, .form-group select {
             padding: 12px;
-            border: 2px solid var(--primary);
+            border: 2px solid var(--border);
             border-radius: 8px;
             font-family: inherit;
             background: var(--white);
-            color: var(--primary);
+            color: var(--text-dark);
+            font-size: 14px;
         }
         .form-group input:focus, .form-group select:focus {
             outline: none;
@@ -154,6 +166,7 @@
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s;
+            font-size: 14px;
         }
         .btn-primary { 
             background: var(--secondary); 
@@ -162,27 +175,30 @@
         .btn-primary:hover { 
             background: var(--secondary-dark); 
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.4);
+            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
         }
 
         /* Candidates Table */
         .candidates-table {
             background: var(--white);
-            border-radius: 15px;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 5px 20px rgba(30, 58, 95, 0.15);
-            border: 2px solid var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
         table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #E2E8F0; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid var(--medium-bg); }
         th { 
             background: var(--primary); 
             color: var(--white); 
             font-weight: 700;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 0.5px;
         }
         tr:hover { background: var(--light-bg); }
+        td { color: var(--text-dark); font-size: 14px; }
         .status { 
-            padding: 5px 15px; 
+            padding: 6px 16px; 
             border-radius: 20px; 
             font-size: 12px; 
             font-weight: 600;
@@ -195,17 +211,18 @@
 
         /* Telegram Bot Section */
         .bot-section { 
-            background: var(--gradient);
+            background: var(--primary);
+        }
+        .bot-section .section-title {
             color: var(--white);
         }
         .bot-interface {
             max-width: 600px;
             margin: 0 auto;
             background: var(--white);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 40px rgba(30, 58, 95, 0.3);
-            color: var(--primary);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
         .bot-message {
             background: var(--light-bg);
@@ -213,6 +230,10 @@
             border-radius: 10px;
             margin-bottom: 15px;
             border-left: 4px solid var(--secondary);
+            color: var(--text-dark);
+        }
+        .bot-message strong {
+            color: var(--primary);
         }
         .bot-input {
             display: flex;
@@ -222,13 +243,16 @@
         .bot-input input {
             flex: 1;
             padding: 12px;
-            border: 2px solid var(--primary);
+            border: 2px solid var(--border);
             border-radius: 8px;
             font-family: inherit;
+            color: var(--text-dark);
         }
 
         /* Vacancies */
-        .vacancies { background: var(--light-bg); }
+        .vacancies { 
+            background: var(--white);
+        }
         .vacancies-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -236,58 +260,73 @@
         }
         .vacancy-card {
             background: var(--white);
-            border-radius: 15px;
+            border-radius: 12px;
             padding: 30px;
-            box-shadow: 0 5px 20px rgba(30, 58, 95, 0.15);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
             transition: transform 0.3s;
-            border-top: 5px solid var(--secondary);
+            border: 2px solid var(--medium-bg);
         }
         .vacancy-card:hover { 
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(30, 58, 95, 0.25);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            border-color: var(--secondary);
         }
         .vacancy-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         .vacancy-title { 
-            font-size: 24px; 
+            font-size: 22px; 
             font-weight: 800; 
             color: var(--primary);
         }
         .vacancy-salary { 
-            font-size: 28px; 
+            font-size: 24px; 
             font-weight: 900; 
             color: var(--secondary);
         }
+        .vacancy-card p {
+            color: var(--text-dark);
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .vacancy-card strong {
+            color: var(--primary);
+        }
 
         /* Contact Form */
+        .contact {
+            background: var(--light-bg);
+        }
         .contact-form {
             max-width: 600px;
             margin: 0 auto;
             background: var(--white);
             padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(30, 58, 95, 0.2);
-            border: 2px solid var(--primary);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
         }
         .form-row { margin-bottom: 20px; }
         .form-row label { 
             display: block; 
             margin-bottom: 8px; 
             font-weight: 600;
-            color: var(--primary);
+            color: var(--text-dark);
+            font-size: 14px;
         }
         .form-row input, .form-row select, .form-row textarea {
             width: 100%;
             padding: 12px;
-            border: 2px solid var(--primary);
+            border: 2px solid var(--border);
             border-radius: 8px;
             font-family: inherit;
             background: var(--white);
-            color: var(--primary);
+            color: var(--text-dark);
+            font-size: 14px;
         }
         .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
             outline: none;
@@ -296,22 +335,25 @@
 
         /* Footer */
         footer { 
-            background: var(--primary); 
+            background: var(--dark-bg); 
             padding: 40px 0; 
             text-align: center;
             color: var(--white);
         }
         footer a { color: var(--secondary); text-decoration: none; }
+        footer p { margin: 5px 0; }
 
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links { display: none; }
-            .hero h1 { font-size: 36px; }
-            .hero p { font-size: 18px; }
-            .section-title { font-size: 32px; }
-            th, td { padding: 10px; font-size: 14px; }
+            .hero h1 { font-size: 32px; }
+            .hero p { font-size: 16px; }
+            .section-title { font-size: 28px; }
             .hero-stats { gap: 30px; }
             .stat-number { font-size: 36px; }
+            table { font-size: 12px; }
+            th, td { padding: 10px 8px; }
+            .vacancy-header { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
@@ -353,8 +395,8 @@
                 </div>
             </div>
 
-            <a href="#contact" class="btn btn-primary" style="font-size: 18px; padding: 18px 50px; display: inline-block; margin: 10px;">Найти работу</a>
-            <a href="#vacancies" class="btn btn-primary" style="font-size: 18px; padding: 18px 50px; display: inline-block; margin: 10px; background: var(--white); color: var(--primary);">Все вакансии</a>
+            <a href="#contact" class="btn btn-primary" style="font-size: 16px; padding: 16px 40px; display: inline-block; margin: 10px;">Найти работу</a>
+            <a href="#vacancies" class="btn btn-primary" style="font-size: 16px; padding: 16px 40px; display: inline-block; margin: 10px; background: var(--white); color: var(--primary);">Все вакансии</a>
         </div>
     </section>
 
@@ -366,19 +408,19 @@
             <!-- Statistics -->
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-number-card" id="totalCandidates">400+</div>
+                    <span class="stat-number-card" id="totalCandidates">8+</span>
                     <div class="stat-label-card">Всего кандидатов</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number-card" id="newCandidates">150</div>
+                    <span class="stat-number-card" id="newCandidates">4</span>
                     <div class="stat-label-card">Новых сегодня</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number-card" id="settledCandidates">85</div>
+                    <span class="stat-number-card" id="settledCandidates">2</span>
                     <div class="stat-label-card">Заселено</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number-card" id="reserveCandidates">120</div>
+                    <span class="stat-number-card" id="reserveCandidates">1</span>
                     <div class="stat-label-card">В резерве</div>
                 </div>
             </div>
@@ -452,7 +494,7 @@
     <!-- Telegram Bot -->
     <section class="bot-section" id="bot">
         <div class="container">
-            <h2 class="section-title" style="color: var(--white);">🤖 Telegram Бот</h2>
+            <h2 class="section-title">🤖 Telegram Бот</h2>
             <div class="bot-interface">
                 <div class="bot-message">
                     <strong>🤖 Бот:</strong><br>
@@ -511,7 +553,7 @@
     </section>
 
     <!-- Contact Form -->
-    <section id="contact">
+    <section class="contact" id="contact">
         <div class="container">
             <h2 class="section-title">📞 Оставить заявку</h2>
             <form class="contact-form" onsubmit="submitForm(event)">
