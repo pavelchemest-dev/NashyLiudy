@@ -307,41 +307,13 @@
                     <label>Статус</label>
                     <select id="searchStatus">
                         <option value="">Все статусы</option>
-                        <optgroup label="📋 Новая заявка">
-                            <option value="Новая заявка">Новая заявка</option>
-                            <option value="Согласование условий">Согласование условий</option>
-                            <option value="Опубликована">Опубликована</option>
-                        </optgroup>
-                        <optgroup label="🔍 Поиск кандидатов">
-                            <option value="Первичный скрининг">Первичный скрининг</option>
-                            <option value="Созвон / Скрининг">Созвон / Скрининг</option>
-                            <option value="Техническое собеседование">Техническое собеседование</option>
-                            <option value="Оффер отправлен">Оффер отправлен</option>
-                            <option value="Оффер принят">Оффер принят</option>
-                        </optgroup>
-                        <optgroup label="🏪 Ритейл">
-                            <option value="Направлен в магазин">Направлен в магазин</option>
-                            <option value="СМС напоминание">СМС напоминание</option>
-                            <option value="No-show">No-show</option>
-                        </optgroup>
-                        <optgroup label="🚌 Вахта">
-                            <option value="Направлен на медосмотр">Направлен на медосмотр</option>
-                            <option value="Медосмотр пройден">Медосмотр пройден</option>
-                            <option value="Ожидание пропуска / СБ">Ожидание пропуска / СБ</option>
-                            <option value="Покупка билетов">Покупка билетов</option>
-                            <option value="Билеты куплены">Билеты куплены</option>
-                            <option value="Трансфер до объекта">Трансфер до объекта</option>
-                        </optgroup>
-                        <optgroup label="✅ Адаптация">
-                            <option value="Стажировка (Дейли)">Стажировка (Дейли)</option>
-                            <option value="Вахта на объекте">Вахта на объекте</option>
-                            <option value="Закрытая потребность">Закрытая потребность</option>
-                        </optgroup>
-                        <optgroup label="⚠️ Проблемные">
-                            <option value="Кандидат отказ">Кандидат отказ</option>
-                            <option value="Забракован Клиентом">Забракован Клиентом</option>
-                            <option value="Срыв выхода">Срыв выхода</option>
-                        </optgroup>
+                        <option value="новый">Новый</option>
+                        <option value="лид">Лид</option>
+                        <option value="резерв">Резерв</option>
+                        <option value="перезвонить">Перезвонить</option>
+                        <option value="нет паспорта">Нет паспорта</option>
+                        <option value="паспорт проверен">Паспорт проверен</option>
+                        <option value="заселился">Заселился</option>
                     </select>
                 </div>
                 <div class="form-group" style="flex: 0;">
@@ -353,5 +325,278 @@
             <div id="listView">
                 <div class="candidates-table">
                     <table>
-                        <thead
-                        <thead
+                        <thead>
+                            <tr>
+                                <th>Тип</th>
+                                <th>ФИО</th>
+                                <th>Телефон</th>
+                                <th>Город</th>
+                                <th>Должность</th>
+                                <th>Проект</th>
+                                <th>Статус</th>
+                            </tr>
+                        </thead>
+                        <tbody id="candidatesTableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="kanbanView" style="display: none;">
+                <div class="kanban-board" id="kanbanBoard"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vacancies -->
+    <section id="vacancies">
+        <div class="container">
+            <h2 class="section-title">💼 Актуальные вакансии</h2>
+            <div class="vacancies-grid">
+                <div class="vacancy-card">
+                    <div class="vacancy-title">Разнорабочий (Аби)</div>
+                    <div class="vacancy-salary">310 ₽/час</div>
+                    <div class="vacancy-details">
+                        <p><strong>📍</strong> г. Владимир</p>
+                        <p><strong>🏭</strong> Производство колбасных изделий</p>
+                        <p><strong>🌡️</strong> +4 до +12°C</p>
+                        <p><strong>🍽️</strong> Питание включено</p>
+                        <p><strong>🛏️</strong> Общежитие 6-8 человек</p>
+                    </div>
+                </div>
+                <div class="vacancy-card">
+                    <div class="vacancy-title">Комплектовщик (ЛЕНТА)</div>
+                    <div class="vacancy-salary">до 5500 ₽/смена</div>
+                    <div class="vacancy-details">
+                        <p><strong>📍</strong> МО, г. Чехов</p>
+                        <p><strong>📦</strong> Складской комплекс</p>
+                        <p><strong>🌡️</strong> Теплый склад</p>
+                        <p><strong>🍽️</strong> Комплексный обед</p>
+                        <p><strong>🛏️</strong> Общежитие</p>
+                    </div>
+                </div>
+                <div class="vacancy-card">
+                    <div class="vacancy-title">Грузчик (АШАН)</div>
+                    <div class="vacancy-salary">3400 ₽/смена</div>
+                    <div class="vacancy-details">
+                        <p><strong>📍</strong> МО, г. Домодедово</p>
+                        <p><strong>📦</strong> Складской комплекс</p>
+                        <p><strong>⏰</strong> Вахта от 35 смен</p>
+                        <p><strong>🛏️</strong> Общежитие 6-8 чел</p>
+                        <p><strong>🚌</strong> Корпоративный транспорт</p>
+                    </div>
+                </div>
+                <div class="vacancy-card retail">
+                    <div class="vacancy-title">Кассир (ЛЕНТА)</div>
+                    <div class="vacancy-salary">до 65 000 ₽/мес</div>
+                    <div class="vacancy-details">
+                        <p><strong>📍</strong> По месту жительства</p>
+                        <p><strong>🏪</strong> Гипермаркеты ЛЕНТА</p>
+                        <p><strong>⏰</strong> График 2/2 или 3/3</p>
+                        <p><strong>👔</strong> Оформление по ТК РФ</p>
+                        <p><strong>🎓</strong> Медкнижка (оформим)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">📞 Оставить заявку</h2>
+            <form class="contact-form" onsubmit="submitForm(event)" style="max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+                <div class="form-row" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Ваше имя *</label>
+                    <input type="text" required placeholder="Иванов Иван Иванович" style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px;">
+                </div>
+                <div class="form-row" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Телефон *</label>
+                    <input type="tel" required placeholder="+7 (___) ___-__-__" style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px;">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Отправить заявку</button>
+            </form>
+            <div style="text-align: center; margin-top: 20px;">
+                📞 <strong>HR-менеджер:</strong> <a href="tel:+79023086595" style="color: var(--secondary); text-decoration: none; font-weight: 700;">+7 (902) 308-65-95</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Кадровое агентство «Наши Люди». Все права защищены.</p>
+            <p>📞 <a href="tel:+79023086595">+7 (902) 308-65-95</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Статусы с цветами
+        const statuses = {
+            "новый": {color: "#3498DB", group: "new"},
+            "лид": {color: "#F39C12", group: "lead"},
+            "резерв": {color: "#95A5A6", group: "reserve"},
+            "перезвонить": {color: "#E67E22", group: "callback"},
+            "нет паспорта": {color: "#E74C3C", group: "no_passport"},
+            "паспорт проверен": {color: "#2ECC71", group: "passport_ok"},
+            "заселился": {color: "#27AE60", group: "settled"}
+        };
+
+        let candidatesData = [];
+        let currentView = 'list';
+
+        // Загрузка данных из CSV
+        async function loadData() {
+            try {
+                const response = await fetch('applicants_database.csv');
+                if (!response.ok) throw new Error('Failed to load CSV');
+                
+                const text = await response.text();
+                const lines = text.trim().split('\n');
+                
+                candidatesData = lines.slice(1).map(line => {
+                    const regex = /,(?=(?:(?:[^"]*"){2})*[^"]*$)/;
+                    const parts = line.split(regex);
+                    const clean = (str) => str ? str.replace(/^"|"$/g, '').trim() : "";
+                    
+                    return {
+                        fio: clean(parts[0]),
+                        phone: clean(parts[1]),
+                        city: clean(parts[2]),
+                        position: clean(parts[3]),
+                        status: clean(parts[4]),
+                        project: clean(parts[5]),
+                        type: clean(parts[6]) || (parts[5] && (parts[5].toLowerCase().includes('аби') || parts[5].toLowerCase().includes('мпз') || parts[5].toLowerCase().includes('ашан') || parts[5].toLowerCase().includes('лен')) ? 'вахта' : 'ритейл')
+                    };
+                }).filter(c => c.fio);
+
+                renderView();
+            } catch (error) {
+                console.error('Error loading CSV:', error);
+            }
+        }
+
+        function switchView(view) {
+            currentView = view;
+            document.getElementById('listView').style.display = view === 'list' ? 'block' : 'none';
+            document.getElementById('kanbanView').style.display = view === 'kanban' ? 'block' : 'none';
+            document.getElementById('btnList').classList.toggle('active', view === 'list');
+            document.getElementById('btnKanban').classList.toggle('active', view === 'kanban');
+            renderView();
+        }
+
+        function renderView() {
+            if (currentView === 'list') renderList();
+            else renderKanban();
+            updateStats();
+        }
+
+        function getFilteredData() {
+            const nameFilter = document.getElementById('searchName').value.toLowerCase();
+            const typeFilter = document.getElementById('searchType').value;
+            const statusFilter = document.getElementById('searchStatus').value;
+            
+            return candidatesData.filter(c => {
+                return (!nameFilter || c.fio.toLowerCase().includes(nameFilter)) &&
+                       (!typeFilter || c.type === typeFilter) &&
+                       (!statusFilter || c.status === statusFilter);
+            });
+        }
+
+        function renderList() {
+            const tbody = document.getElementById('candidatesTableBody');
+            tbody.innerHTML = '';
+            const data = getFilteredData();
+            
+            data.forEach(c => {
+                const statusObj = statuses[c.status] || {color: "#95A5A6"};
+                const typeBadge = c.type === 'ритейл' 
+                    ? '<span class="type-badge type-retail">РИТЕЙЛ</span>' 
+                    : '<span class="type-badge type-shift">ВАХТА</span>';
+                
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${typeBadge}</td>
+                    <td>${c.fio}</td>
+                    <td>${c.phone}</td>
+                    <td>${c.city}</td>
+                    <td>${c.position}</td>
+                    <td>${c.project}</td>
+                    <td><span class="status-badge" style="background: ${statusObj.color}">${c.status}</span></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function renderKanban() {
+            const board = document.getElementById('kanbanBoard');
+            board.innerHTML = '';
+            const data = getFilteredData();
+            
+            const groups = {
+                "new": "📋 Новые",
+                "lead": "🎯 Лиды",
+                "reserve": "💾 Резерв",
+                "callback": "📞 Перезвонить",
+                "no_passport": "❌ Нет паспорта",
+                "passport_ok": "✅ Паспорт проверен",
+                "settled": "🏠 Заселились"
+            };
+
+            Object.keys(groups).forEach(groupKey => {
+                const groupData = data.filter(c => {
+                    const statusInfo = statuses[c.status];
+                    return statusInfo && statusInfo.group === groupKey;
+                });
+                
+                if (groupData.length === 0) return;
+                
+                const col = document.createElement('div');
+                col.className = 'kanban-column';
+                col.innerHTML = `
+                    <div class="column-header" style="background: ${groupData[0] ? statuses[groupData[0].status].color : '#95A5A6'}">
+                        <span>${groups[groupKey]}</span>
+                        <span class="column-count">${groupData.length}</span>
+                    </div>
+                    <div class="column-body"></div>
+                `;
+                
+                const body = col.querySelector('.column-body');
+                groupData.forEach(c => {
+                    const card = document.createElement('div');
+                    const isRetail = c.type === 'ритейл';
+                    card.className = `kanban-card ${isRetail ? 'is-retail' : 'is-shift'}`;
+                    card.innerHTML = `
+                        <div class="card-header">
+                            <span class="card-name">${c.fio}</span>
+                            <span class="type-badge ${isRetail ? 'type-retail' : 'type-shift'}">${c.type.toUpperCase()}</span>
+                        </div>
+                        <div class="card-info">📞 ${c.phone}</div>
+                        <div class="card-info">📍 ${c.city}</div>
+                        <div class="card-info">💼 ${c.position}</div>
+                        ${c.project ? `<div class="card-info">🏢 ${c.project}</div>` : ''}
+                    `;
+                    body.appendChild(card);
+                });
+                
+                board.appendChild(col);
+            });
+        }
+
+        function updateStats() {
+            document.getElementById('totalCandidates').textContent = candidatesData.length;
+            document.getElementById('newCandidates').textContent = candidatesData.filter(c => c.status === 'новый').length;
+            document.getElementById('shiftCandidates').textContent = candidatesData.filter(c => c.type === 'вахта').length;
+            document.getElementById('retailCandidates').textContent = candidatesData.filter(c => c.type === 'ритейл').length;
+        }
+
+        function submitForm(e) {
+            e.preventDefault();
+            alert('✅ Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
+            e.target.reset();
+        }
+
+        // Init
+        window.onload = loadData;
+    </script>
+</body>
+</html>
