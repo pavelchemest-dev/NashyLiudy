@@ -21,6 +21,137 @@
             --border: #CBD5E1;
             --success: #10B981;
             --danger: #EF4444;
+/* --- Стили для Вакансий --- */
+.vacancies-section {
+    background-color: #f8fafc;
+    padding: 60px 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.section-title {
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+}
+
+.section-subtitle {
+    font-size: 18px;
+    color: var(--text-light);
+}
+
+.category-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 40px 0 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.category-title--shift {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.category-title--retail {
+    color: #10B981; /* Зеленый цвет для ритейла */
+    border-color: #10B981;
+}
+
+.vacancies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+}
+
+.vacancy-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-top: 4px solid transparent;
+    display: flex;
+    flex-direction: column;
+}
+
+.vacancy-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
+}
+
+/* Типы карточек */
+.vacancy-card.type-shift { border-top-color: var(--primary); }
+.vacancy-card.type-retail { border-top-color: #10B981; }
+
+.vacancy-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.vacancy-salary {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--secondary);
+    margin-bottom: 15px;
+}
+
+.vacancy-features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+.feature {
+    font-size: 13px;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.feature strong {
+    color: var(--text-dark);
+}
+
+.vacancy-footer {
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #f1f5f9;
+    font-size: 13px;
+    color: #64748B;
+    font-weight: 600;
+    text-align: center;
+}
+
+.btn-apply {
+    display: block;
+    width: 100%;
+    text-align: center;
+    background: var(--primary);
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 15px;
+    transition: background 0.3s;
+}
+
+.btn-apply:hover {
+    background: var(--primary-light);
+}
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -255,6 +386,237 @@
     </section>
 
     <!-- CRM Dashboard -->
+<!-- Секция Вакансий -->
+<section class="vacancies-section" id="vacancies">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Актуальные вакансии</h2>
+            <p class="section-subtitle">Подбор персонала для складов, производств и магазинов</p>
+        </div>
+
+        <!-- ГРУППА: ВАХТА -->
+        <h3 class="category-title category-title--shift">🚜 Вахта (Склады и производства)</h3>
+        <div class="vacancies-grid">
+            
+            <!-- АБИ -->
+            <div class="vacancy-card type-shift">
+                <div class="vacancy-name">АБИ (г. Владимир)</div>
+                <div class="vacancy-salary">310 ₽/час</div>
+                <div class="vacancy-features">
+                    <div class="feature">📍 г. Владимир</div>
+                    <div class="feature">👫 М/Ж</div>
+                    <div class="feature">🌡️ +4 до +12°C</div>
+                    <div class="feature">🍽️ Питание есть</div>
+                    <div class="feature">🛏️ Общежитие 6-8 чел</div>
+                    <div class="feature">🚌 Трансфер</div>
+                </div>
+                <a href="#contact" class="btn-apply">Откликнуться</a>
+            </div>
+
+            <!-- МПЗ Протвино -->
+            <div class="vacancy-card type-shift">
+                <div class="vacancy-name">МПЗ Протвино</div>
+                <div class="vacancy-salary">290 ₽/час</div>
+                <div class="vacancy-features">
+                    <div class="feature">📍 г. Протвино</div>
+                    <div class="feature">👫 М/Ж (23-50 лет)</div>
+                    <div class="feature">🌡️ +7 до +8°C</div>
+                    <div class="feature">🍽️ 2-разовое питание</div>
+                    <div class="feature">🛏️ Общежитие 10-14 чел</div>
+                    <div class="feature">🚌 Корпоративный</div>
+                </div>
+                <a href="#contact" class="btn-apply">Откликнуться</a>
+            </div>
+
+            <!-- ЛЕНТА Склад -->
+            <div class="vacancy-card type-shift">
+                <div class="vacancy-name">ЛЕНТА (Склад, г. Чехов)</div>
+                <div class="vacancy-salary">до 5500 ₽/смена</div>
+                <div class="vacancy-features">
+                    <div class="feature">📍 г. Чехов</div>
+                    <div class="feature">👤 Комплектовщики/Грузчики</div>
+                    <div class="feature">🌡️ Теплый склад</div>
+                    <div class="feature">🍽️ Комплексный обед</div>
+                    <div class="feature">🛏️ Общежитие</div>
+                    <div class="feature">🚌 Корпоративный</div>
+                </div>
+                <a href="#contact" class="btn-apply">Откликнуться</a>
+            </div>
+
+            <!-- АШАН Склад -->
+            <div class="vacancy-card type-shift">
+                <div class="vacancy-name">АШАН (Склад, Домодедово)</div>
+                <div class="vacancy-salary">от 3400 ₽/смена</div>
+                <div class="vacancy-features">
+                    <div class="feature">📍 г. Домодедово</div>
+                    <div class="feature">👤 Комплектовщики/Грузчики</div>
+                    <div class="feature">🌡️ Теплый склад</div>
+                    <div class="feature"> Питание нет</div>
+                    <div class="feature">🛏️ Общежитие</div>
+                    <div class="feature">🚌 Корпоративный</div>
+                </div>
+                <a href="#contact" class="btn-apply">Откликнуться</a>
+            </div>
+
+            <!-- Яндекс Софьино -->
+            <div class="vacancy-card type-shift">
+                <div class="vacancy-name">Яндекс (Софьино)</div>
+                <div class="vacancy-salary">до 5632 ₽/смена</div>
+                <div class="vacancy-features">
+                    <div class="feature">📍 Раменский р-н</div>
+                    <div class="feature">👤 Операторы ТСД (до 45 лет)</div>
+                    <div class="feature">🌡️ Теплый склад</div>
+                    <div class="feature">🍽️ Питание есть</div>
+                    <div class="feature">🛏️ Общежитие</div>
+                    <div class="feature">🚶 Пешком 20 мин</div>
+                </div>
+                <a href="#contact" class="btn-apply">Откликнуться</a>
+            </div>
+
+            <!-- Ла Мода -->
+            <div class="vacancy-card type-shift">
+                <div class="vacancy-name">Ла Мода (Софьино)</div>
+                <div class="vacancy-salary">до 4330 ₽/смена</div>
+                <div class="vacancy-features">
+                    <div class="feature">📍 Раменский р-н</div>
+                    <div class="feature">👤 Комплектовщики (до 40 лет)</div>
+                    <div class="feature">🌡️ Категория А</div>
+                    <div class="feature">🍽️ Обед за 1 руб</div>
+                    <div class="feature">🛏️ Общежитие 8 чел</div>
+                    <div class="feature">🚶 Пешком</div>
+                </div>
+                <a href="#contact" class="btn-apply">Откликнуться</a>
+            </div>
+
+            <!-- Фрикейк -->
+            <div class="vacancy-card type-shift">
+                <div class="vacancy-name">Фрикейк (Москва)</div>
+                <div class="vacancy-salary">300 ₽/час</div>
+                <div class="vacancy-features">
+                    <div class="feature">📍 ул. Рябиновая, 53</div>
+                    <div class="feature">👤 Только мужчины (до 45 лет)</div>
+                    <div class="feature">🌡️ +6 до +18°C</div>
+                    <div class="feature">🍽️ Питание есть</div>
+                    <div class="feature">🛏️ Общежитие</div>
+                    <div class="feature">🚶 Пешком 2.7 км</div>
+                </div>
+                <a href="#contact" class="btn-apply">Откликнуться</a>
+            </div>
+
+             <!-- Спортмастер -->
+             <div class="vacancy-card type-shift">
+                <div class="vacancy-name">Спортмастер (Балашиха)</div>
+                <div class="vacancy-salary">до 4290 ₽/смена</div>
+                <div class="vacancy-features">
+                    <div class="feature">📍 г. Балашиха</div>
+                    <div class="feature">👤 Операторы/Грузчики</div>
+                    <div class="feature">🌡️ Категория А</div>
+                    <div class="feature">🍽️ Питание есть</div>
+                    <div class="feature">🛏️ Общежитие</div>
+                    <div class="feature">🚌 Корпоративный</div>
+                </div>
+                <a href="#contact" class="btn-apply">Откликнуться</a>
+            </div>
+
+             <!-- ФМ Чехов -->
+             <div class="vacancy-card type-shift">
+                <div class="vacancy-name">ФМ Чехов</div>
+                <div class="vacancy-salary">300 ₽/час</div>
+                <div class="vacancy-features">
+                    <div class="feature">📍 г. Чехов</div>
+                    <div class="feature">👤 Комплектовщики ТСД</div>
+                    <div class="feature">🌡️ Категория А</div>
+                    <div class="feature">🍽️ Питание есть</div>
+                    <div class="feature">🛏️ Общежитие</div>
+                    <div class="feature">🚌 Корпоративный</div>
+                </div>
+                <a href="#contact" class="btn-apply">Откликнуться</a>
+            </div>
+
+            <!-- МПЗ Рублевский -->
+            <div class="vacancy-card type-shift">
+                <div class="vacancy-name">МПЗ Рублевский</div>
+                <div class="vacancy-salary">290 ₽/час</div>
+                <div class="vacancy-features">
+                    <div class="feature">📍 Москва (Молодежная)</div>
+                    <div class="feature">👤 Разнорабочие (до 55 лет)</div>
+                    <div class="feature">🌡️ +5°C</div>
+                    <div class="feature">🍽️ Питание есть</div>
+                    <div class="feature">🛏️ Общежитие</div>
+                    <div class="feature">🚌 Трансфер</div>
+                </div>
+                <a href="#contact" class="btn-apply">Откликнуться</a>
+            </div>
+
+             <!-- Норд Палп -->
+             <div class="vacancy-card type-shift">
+                <div class="vacancy-name">Норд Палп (Форносово)</div>
+                <div class="vacancy-salary">310 ₽/час</div>
+                <div class="vacancy-features">
+                    <div class="feature">📍 п. Форносово</div>
+                    <div class="feature">👤 Грузчики/Фасовщики</div>
+                    <div class="feature">🌡️ Обычный</div>
+                    <div class="feature">🚫 Питание нет</div>
+                    <div class="feature">🛏️ Общежитие 4 чел</div>
+                    <div class="feature">🚶 Шаговая доступность</div>
+                </div>
+                <a href="#contact" class="btn-apply">Откликнуться</a>
+            </div>
+
+             <!-- Парфюм Стиль -->
+             <div class="vacancy-card type-shift">
+                <div class="vacancy-name">Парфюм Стиль (Электрогорск)</div>
+                <div class="vacancy-salary">290 ₽/час</div>
+                <div class="vacancy-features">
+                    <div class="feature">📍 г. Электрогорск</div>
+                    <div class="feature">👤 Грузчики/Упаковщики</div>
+                    <div class="feature">🌡️ Обычный</div>
+                    <div class="feature">🚫 Питание нет</div>
+                    <div class="feature">🛏️ Общежитие</div>
+                    <div class="feature">🚶 Пешком 15 мин</div>
+                </div>
+                <a href="#contact" class="btn-apply">Откликнуться</a>
+            </div>
+
+        </div>
+
+        <!-- ГРУППА: РИТЕЙЛ -->
+        <h3 class="category-title category-title--retail">🛍️ Ритейл (Местная работа)</h3>
+        <div class="vacancies-grid">
+            
+            <!-- ЛЕНТА Ритейл -->
+            <div class="vacancy-card type-retail">
+                <div class="vacancy-name">ЛЕНТА (Магазин)</div>
+                <div class="vacancy-salary">до 65 000 ₽/мес</div>
+                <div class="vacancy-features">
+                    <div class="feature">📍 По месту жительства</div>
+                    <div class="feature">👤 Кассиры/Грузчики</div>
+                    <div class="feature">⏰ График 2/2</div>
+                    <div class="feature">👔 Оформление ТК РФ</div>
+                    <div class="feature">🏠 Без общежития</div>
+                    <div class="feature">💼 Медкнижка (оформим)</div>
+                </div>
+                <a href="#contact" class="btn-apply">Откликнуться</a>
+            </div>
+
+            <!-- АШАН Ритейл -->
+            <div class="vacancy-card type-retail">
+                <div class="vacancy-name">АШАН (Магазин)</div>
+                <div class="vacancy-salary">до 60 000 ₽/мес</div>
+                <div class="vacancy-features">
+                    <div class="feature">📍 По месту жительства</div>
+                    <div class="feature">👤 Продавцы/Кассиры</div>
+                    <div class="feature">⏰ Гибкий график</div>
+                    <div class="feature">👔 Официальная работа</div>
+                    <div class="feature">🏠 Без общежития</div>
+                    <div class="feature">📦 Стабильность</div>
+                </div>
+                <a href="#contact" class="btn-apply">Откликнуться</a>
+            </div>
+
+        </div>
+    </div>
+</section>
     <section class="crm-dashboard" id="crm">
         <div class="container">
             <h2 class="section-title">📊 CRM Система</h2>
