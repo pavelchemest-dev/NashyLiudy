@@ -38,21 +38,12 @@
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
         .nav-content { display: flex; justify-content: space-between; align-items: center; }
-        .logo { 
-            font-size: 28px; 
-            font-weight: 900; 
-            color: var(--white);
-        }
+        .logo { font-size: 28px; font-weight: 900; color: var(--white); }
         .logo span { color: var(--secondary); }
         .nav-links { display: flex; gap: 30px; }
-        .nav-links a {
-            color: var(--white);
-            text-decoration: none;
-            font-weight: 600;
-            transition: color 0.3s;
-        }
+        .nav-links a { color: var(--white); text-decoration: none; font-weight: 600; transition: color 0.3s; }
         .nav-links a:hover { color: var(--secondary); }
 
         /* Hero Section */
@@ -62,47 +53,67 @@
             text-align: center;
             color: var(--white);
         }
-        .hero h1 {
-            font-size: 48px;
-            font-weight: 900;
-            margin-bottom: 20px;
-        }
+        .hero h1 { font-size: 48px; font-weight: 900; margin-bottom: 20px; }
         .hero h1 span { color: var(--secondary); }
-        .hero p {
-            font-size: 20px;
-            margin-bottom: 40px;
-            opacity: 0.95;
-        }
-        .hero-stats {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            margin: 40px 0;
-            flex-wrap: wrap;
-        }
-        .stat { text-align: center; }
-        .stat-number {
-            font-size: 48px;
-            font-weight: 900;
-            color: var(--secondary);
-            display: block;
-        }
-        .stat-label { font-size: 14px; opacity: 0.9; }
+        .hero p { font-size: 20px; margin-bottom: 40px; opacity: 0.95; }
 
         /* Sections */
         section { padding: 60px 0; }
-        .section-title {
-            text-align: center;
-            font-size: 36px;
-            font-weight: 800;
-            margin-bottom: 50px;
-            color: var(--primary);
-        }
+        .section-title { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 30px; color: var(--primary); }
 
-        /* CRM Dashboard */
-        .crm-dashboard { 
-            background: var(--light-bg);
+        /* CRM Controls */
+        .crm-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
         }
+        .view-switcher {
+            display: flex;
+            background: var(--white);
+            padding: 5px;
+            border-radius: 8px;
+            border: 2px solid var(--primary);
+        }
+        .view-btn {
+            padding: 8px 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-weight: 700;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+        .view-btn.active { background: var(--primary); color: var(--white); }
+
+        /* Search Panel */
+        .search-panel {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+        .form-group { flex: 1; min-width: 200px; }
+        .form-group label { margin-bottom: 5px; font-weight: 600; color: var(--text-dark); font-size: 14px; display: block; }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+        }
+        .btn { padding: 10px 25px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+        .btn-primary { background: var(--secondary); color: var(--white); }
+        .btn-primary:hover { background: var(--secondary-dark); }
+
+        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -130,55 +141,7 @@
             font-weight: 500;
         }
 
-        /* Search & Filters */
-        .search-panel {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        .search-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-        .form-group { display: flex; flex-direction: column; }
-        .form-group label { 
-            margin-bottom: 8px; 
-            font-weight: 600; 
-            color: var(--text-dark);
-            font-size: 14px;
-        }
-        .form-group input, .form-group select {
-            padding: 12px;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            font-family: inherit;
-            background: var(--white);
-            color: var(--text-dark);
-            font-size: 14px;
-        }
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: var(--secondary);
-        }
-        .btn {
-            padding: 12px 30px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-size: 14px;
-        }
-        .btn-primary { 
-            background: var(--secondary); 
-            color: var(--white);
-        }
-        .btn-primary:hover { 
-            background: var(--secondary-dark); 
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
-        }
-
-        /* Candidates Table */
+        /* LIST VIEW (Table) */
         .candidates-table {
             background: var(--white);
             border-radius: 12px;
@@ -186,174 +149,76 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
         table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 15px; text-align: left; border-bottom: 1px solid var(--medium-bg); }
-        th { 
-            background: var(--primary); 
-            color: var(--white); 
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 13px;
-            letter-spacing: 0.5px;
-        }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--medium-bg); }
+        th { background: var(--primary); color: var(--white); font-weight: 700; font-size: 13px; text-transform: uppercase; }
         tr:hover { background: var(--light-bg); }
-        td { color: var(--text-dark); font-size: 14px; }
-        .status { 
-            padding: 6px 16px; 
-            border-radius: 20px; 
-            font-size: 12px; 
-            font-weight: 600;
-            display: inline-block;
-        }
-        .status-new { background: #10B981; color: var(--white); }
-        .status-settled { background: var(--primary); color: var(--white); }
-        .status-reserve { background: var(--secondary); color: var(--white); }
-        .status-callback { background: #EF4444; color: var(--white); }
+        
+        /* Badges */
+        .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; color: white; display: inline-block; }
+        .type-badge { padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; color: white; display: inline-block; margin-right: 5px; }
+        .type-shift { background: var(--primary); }
+        .type-retail { background: #10B981; }
 
-        /* Telegram Bot Section */
-        .bot-section { 
-            background: var(--primary);
-        }
-        .bot-section .section-title {
-            color: var(--white);
-        }
-        .bot-interface {
-            max-width: 600px;
-            margin: 0 auto;
-            background: var(--white);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-        }
-        .bot-message {
-            background: var(--light-bg);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            border-left: 4px solid var(--secondary);
-            color: var(--text-dark);
-        }
-        .bot-message strong {
-            color: var(--primary);
-        }
-        .bot-input {
+        /* KANBAN VIEW */
+        .kanban-board {
             display: flex;
-            gap: 10px;
-            margin-top: 20px;
+            overflow-x: auto;
+            gap: 20px;
+            padding-bottom: 20px;
+            align-items: flex-start;
         }
-        .bot-input input {
-            flex: 1;
-            padding: 12px;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            font-family: inherit;
-            color: var(--text-dark);
-        }
-
-        /* Vacancies */
-        .vacancies { 
-            background: var(--white);
-        }
-        .vacancies-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-        .vacancy-card {
+        .kanban-column {
+            min-width: 300px;
             background: var(--white);
             border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-            border: 2px solid var(--medium-bg);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
         }
-        .vacancy-card:hover { 
-            transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-            border-color: var(--secondary);
-        }
-        .vacancy-header {
+        .column-header {
+            padding: 15px;
+            color: white;
+            border-radius: 12px 12px 0 0;
+            font-weight: 700;
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 10px;
         }
-        .vacancy-title { 
-            font-size: 22px; 
-            font-weight: 800; 
-            color: var(--primary);
-        }
-        .vacancy-salary { 
-            font-size: 24px; 
-            font-weight: 900; 
-            color: var(--secondary);
-        }
-        .vacancy-card p {
-            color: var(--text-dark);
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-        .vacancy-card strong {
-            color: var(--primary);
-        }
-
-        /* Contact Form */
-        .contact {
+        .column-count { background: rgba(255,255,255,0.3); padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+        .column-body { padding: 15px; max-height: 600px; overflow-y: auto; }
+        
+        .kanban-card {
             background: var(--light-bg);
-        }
-        .contact-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: var(--white);
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
-        .form-row { margin-bottom: 20px; }
-        .form-row label { 
-            display: block; 
-            margin-bottom: 8px; 
-            font-weight: 600;
-            color: var(--text-dark);
-            font-size: 14px;
-        }
-        .form-row input, .form-row select, .form-row textarea {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid var(--border);
+            padding: 15px;
             border-radius: 8px;
-            font-family: inherit;
-            background: var(--white);
-            color: var(--text-dark);
-            font-size: 14px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--secondary);
+            cursor: pointer;
+            transition: transform 0.2s;
         }
-        .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
-            outline: none;
-            border-color: var(--secondary);
-        }
+        .kanban-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .kanban-card.is-retail { border-left-color: #10B981; }
+        .kanban-card.is-shift { border-left-color: var(--primary); }
+        
+        .card-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
+        .card-name { font-weight: 700; color: var(--primary); }
+        .card-info { font-size: 12px; color: var(--text-light); margin-bottom: 3px; }
+        
+        /* Vacancies */
+        .vacancies-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .vacancy-card { background: var(--white); border-radius: 12px; padding: 30px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); border-top: 5px solid var(--secondary); }
+        .vacancy-title { font-size: 22px; font-weight: 800; color: var(--primary); margin-bottom: 10px; }
+        .vacancy-salary { font-size: 24px; font-weight: 900; color: var(--secondary); margin-bottom: 15px; }
 
         /* Footer */
-        footer { 
-            background: var(--dark-bg); 
-            padding: 40px 0; 
-            text-align: center;
-            color: var(--white);
-        }
+        footer { background: var(--dark-bg); padding: 40px 0; text-align: center; color: var(--white); }
         footer a { color: var(--secondary); text-decoration: none; }
-        footer p { margin: 5px 0; }
 
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .hero h1 { font-size: 32px; }
-            .hero p { font-size: 16px; }
-            .section-title { font-size: 28px; }
-            .hero-stats { gap: 30px; }
-            .stat-number { font-size: 36px; }
-            table { font-size: 12px; }
-            th, td { padding: 10px 8px; }
-            .vacancy-header { flex-direction: column; align-items: flex-start; }
+            .search-panel { flex-direction: column; }
+            .kanban-column { min-width: 280px; }
         }
     </style>
 </head>
@@ -366,7 +231,6 @@
                 <div class="logo">НАШИ <span>ЛЮДИ</span></div>
                 <div class="nav-links">
                     <a href="#crm">CRM</a>
-                    <a href="#bot">Telegram Бот</a>
                     <a href="#vacancies">Вакансии</a>
                     <a href="#contact">Контакты</a>
                 </div>
@@ -379,247 +243,178 @@
         <div class="container">
             <h1>Вахта. <span>Жильё.</span> Стабильность.</h1>
             <p>Подбираем персонал для складов, производств и ритейла по всей России</p>
-            
-            <div class="hero-stats">
-                <div class="stat">
-                    <span class="stat-number">500+</span>
-                    <span class="stat-label">Работаем с 2020 года</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">50+</span>
-                    <span class="stat-label">Партнёров</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">98%</span>
-                    <span class="stat-label">Закрытых вакансий</span>
-                </div>
-            </div>
-
-            <a href="#contact" class="btn btn-primary" style="font-size: 16px; padding: 16px 40px; display: inline-block; margin: 10px;">Найти работу</a>
-            <a href="#vacancies" class="btn btn-primary" style="font-size: 16px; padding: 16px 40px; display: inline-block; margin: 10px; background: var(--white); color: var(--primary);">Все вакансии</a>
+            <a href="#contact" class="btn btn-primary" style="font-size: 16px; padding: 16px 40px;">Оставить заявку</a>
         </div>
     </section>
 
     <!-- CRM Dashboard -->
     <section class="crm-dashboard" id="crm">
         <div class="container">
-            <h2 class="section-title">📊 CRM Система</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                <h2 class="section-title" style="margin-bottom: 0;">📊 CRM Система</h2>
+                
+                <!-- View Switcher -->
+                <div class="view-switcher">
+                    <button class="view-btn active" onclick="switchView('list')" id="btnList">
+                        <i class="fas fa-list"></i> Список
+                    </button>
+                    <button class="view-btn" onclick="switchView('kanban')" id="btnKanban">
+                        <i class="fas fa-columns"></i> Канбан
+                    </button>
+                </div>
+            </div>
             
-            <!-- Statistics -->
-            <div class="stats-grid">
+            <!-- Stats -->
+            <div class="stats-grid" style="margin: 30px 0;">
                 <div class="stat-card">
-                    <span class="stat-number-card" id="totalCandidates">8+</span>
+                    <span class="stat-number-card" id="totalCandidates">0</span>
                     <div class="stat-label-card">Всего кандидатов</div>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number-card" id="newCandidates">4</span>
+                    <span class="stat-number-card" id="newCandidates">0</span>
                     <div class="stat-label-card">Новых сегодня</div>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number-card" id="settledCandidates">2</span>
-                    <div class="stat-label-card">Заселено</div>
+                    <span class="stat-number-card" id="shiftCandidates">0</span>
+                    <div class="stat-label-card">Вахта</div>
                 </div>
                 <div class="stat-card">
-                    <span class="stat-number-card" id="reserveCandidates">1</span>
-                    <div class="stat-label-card">В резерве</div>
+                    <span class="stat-number-card" id="retailCandidates">0</span>
+                    <div class="stat-label-card">Ритейл</div>
                 </div>
             </div>
+            
+            <br>
 
             <!-- Search Panel -->
             <div class="search-panel">
-                <div class="search-form">
-                    <div class="form-group">
-                        <label>Поиск по имени</label>
-                        <input type="text" id="searchName" placeholder="ФИО кандидата">
-                    </div>
-                    <div class="form-group">
-                        <label>Город</label>
-                        <select id="searchCity">
-                            <option value="">Все города</option>
-                            <option>Москва</option>
-                            <option>Уфа</option>
-                            <option>Казань</option>
-                            <option>Нижний Новгород</option>
-                            <option>Ярославль</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Должность</label>
-                        <select id="searchPosition">
-                            <option value="">Все должности</option>
-                            <option>Грузчик</option>
-                            <option>Комплектовщик</option>
-                            <option>Разнорабочий</option>
-                            <option>Упаковщик</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Статус</label>
-                        <select id="searchStatus">
-                            <option value="">Все статусы</option>
-                            <option>new</option>
-                            <option>settled</option>
-                            <option>reserve</option>
-                            <option>callback</option>
-                        </select>
-                    </div>
-                    <div class="form-group" style="display: flex; align-items: flex-end;">
-                        <button class="btn btn-primary" onclick="searchCandidates()">🔍 Найти</button>
-                    </div>
+                <div class="form-group">
+                    <label>Поиск по имени</label>
+                    <input type="text" id="searchName" placeholder="ФИО кандидата">
+                </div>
+                <div class="form-group">
+                    <label>Тип вакансии</label>
+                    <select id="searchType">
+                        <option value="">Все типы</option>
+                        <option value="вахта">Вахта</option>
+                        <option value="ритейл">Ритейл (местные)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Статус</label>
+                    <select id="searchStatus">
+                        <option value="">Все статусы</option>
+                        <optgroup label="📋 Новая заявка">
+                            <option value="Новая заявка">Новая заявка</option>
+                            <option value="Согласование условий">Согласование условий</option>
+                            <option value="Опубликована">Опубликована</option>
+                        </optgroup>
+                        <optgroup label="🔍 Поиск кандидатов">
+                            <option value="Первичный скрининг">Первичный скрининг</option>
+                            <option value="Созвон / Скрининг">Созвон / Скрининг</option>
+                            <option value="Техническое собеседование">Техническое собеседование</option>
+                            <option value="Оффер отправлен">Оффер отправлен</option>
+                            <option value="Оффер принят">Оффер принят</option>
+                        </optgroup>
+                        <optgroup label="🏪 Ритейл">
+                            <option value="Направлен в магазин">Направлен в магазин</option>
+                            <option value="СМС напоминание">СМС напоминание</option>
+                            <option value="No-show">No-show</option>
+                        </optgroup>
+                        <optgroup label="🚌 Вахта">
+                            <option value="Направлен на медосмотр">Направлен на медосмотр</option>
+                            <option value="Медосмотр пройден">Медосмотр пройден</option>
+                            <option value="Ожидание пропуска / СБ">Ожидание пропуска / СБ</option>
+                            <option value="Покупка билетов">Покупка билетов</option>
+                            <option value="Билеты куплены">Билеты куплены</option>
+                            <option value="Трансфер до объекта">Трансфер до объекта</option>
+                        </optgroup>
+                        <optgroup label="✅ Адаптация">
+                            <option value="Стажировка (Дейли)">Стажировка (Дейли)</option>
+                            <option value="Вахта на объекте">Вахта на объекте</option>
+                            <option value="Закрытая потребность">Закрытая потребность</option>
+                        </optgroup>
+                        <optgroup label="⚠️ Проблемные">
+                            <option value="Кандидат отказ">Кандидат отказ</option>
+                            <option value="Забракован Клиентом">Забракован Клиентом</option>
+                            <option value="Срыв выхода">Срыв выхода</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="form-group" style="flex: 0;">
+                    <button class="btn btn-primary" onclick="renderView()">🔍 Найти</button>
                 </div>
             </div>
 
-            <!-- Candidates Table -->
-            <div class="candidates-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ФИО</th>
-                            <th>Телефон</th>
-                            <th>Город</th>
-                            <th>Должность</th>
-                            <th>Проект</th>
-                            <th>Статус</th>
-                            <th>Действия</th>
-                        </tr>
-                    </thead>
-                    <tbody id="candidatesTableBody">
-                        <!-- Data will be loaded here -->
-                    </tbody>
-                </table>
+            <!-- Views Container -->
+            <div id="listView">
+                <div class="candidates-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Тип</th>
+                                <th>ФИО</th>
+                                <th>Телефон</th>
+                                <th>Должность</th>
+                                <th>Проект / Магазин</th>
+                                <th>Статус</th>
+                                <th>Дата обновления</th>
+                            </tr>
+                        </thead>
+                        <tbody id="candidatesTableBody"></tbody>
+                    </table>
+                </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Telegram Bot -->
-    <section class="bot-section" id="bot">
-        <div class="container">
-            <h2 class="section-title">🤖 Telegram Бот</h2>
-            <div class="bot-interface">
-                <div class="bot-message">
-                    <strong>🤖 Бот:</strong><br>
-                    Добро пожаловать в CRM "Наши Люди"!
-                </div>
-                <div class="bot-message">
-                    <strong>🤖 Бот:</strong><br>
-                    Выберите действие:<br>
-                    🏠 Заселить (Направление)<br>
-                    🔍 Найти вакансию<br>
-                    📋 Список проектов<br>
-                    ➕ Добавить кандидата
-                </div>
-                <div class="bot-input">
-                    <input type="text" id="botInput" placeholder="Введите команду...">
-                    <button class="btn btn-primary" onclick="sendBotCommand()">Отправить</button>
-                </div>
+            <div id="kanbanView" style="display: none;">
+                <div class="kanban-board" id="kanbanBoard"></div>
             </div>
         </div>
     </section>
 
     <!-- Vacancies -->
-    <section class="vacancies" id="vacancies">
+    <section id="vacancies">
         <div class="container">
             <h2 class="section-title">💼 Актуальные вакансии</h2>
             <div class="vacancies-grid">
-                <!-- Склад -->
                 <div class="vacancy-card">
-                    <div class="vacancy-header">
-                        <div class="vacancy-title">Комплектовщик</div>
-                        <div class="vacancy-salary">300₽/час</div>
-                    </div>
-                    <p><strong>Проекты:</strong> ЛамОда, Яндекс, Лента</p>
-                    <p><strong>Условия:</strong> Вахта, проживание бесплатно, ТСД</p>
-                    <button class="btn btn-primary" style="margin-top: 15px;">Откликнуться</button>
+                    <div class="vacancy-title">Комплектовщик (Вахта)</div>
+                    <div class="vacancy-salary">300₽/час</div>
+                    <p>Проекты: ЛамОда, Яндекс, Лента</p>
+                    <p>Условия: Проживание бесплатно</p>
                 </div>
-                <!-- Склад -->
                 <div class="vacancy-card">
-                    <div class="vacancy-header">
-                        <div class="vacancy-title">Грузчик</div>
-                        <div class="vacancy-salary">340₽/час</div>
-                    </div>
-                    <p><strong>Проекты:</strong> Аби, Ашан, Спорттовары</p>
-                    <p><strong>Условия:</strong> Вахта, аванс 5000₽/неделю</p>
-                    <button class="btn btn-primary" style="margin-top: 15px;">Откликнуться</button>
+                    <div class="vacancy-title">Грузчик (Вахта)</div>
+                    <div class="vacancy-salary">340₽/час</div>
+                    <p>Проекты: Аби, Ашан, Спорттовары</p>
+                    <p>Условия: Аванс 5000₽/неделю</p>
                 </div>
-                <!-- Производство -->
-                <div class="vacancy-card">
-                    <div class="vacancy-header">
-                        <div class="vacancy-title">Разнорабочий</div>
-                        <div class="vacancy-salary">290₽/час</div>
-                    </div>
-                    <p><strong>Проекты:</strong> МПЗ, Фрикейк, Норд Палп</p>
-                    <p><strong>Условия:</strong> Проживание, питание, форма</p>
-                    <button class="btn btn-primary" style="margin-top: 15px;">Откликнуться</button>
-                </div>
-                <!-- Ритейл -->
-                <div class="vacancy-card">
-                    <div class="vacancy-header">
-                        <div class="vacancy-title">Кассир / Продавец</div>
-                        <div class="vacancy-salary">до 65 000₽/мес</div>
-                    </div>
-                    <p><strong>Проекты:</strong> ЛЕНТА (все города)</p>
-                    <p><strong>Условия:</strong> График 2/2, медкнижка (оформим)</p>
-                    <button class="btn btn-primary" style="margin-top: 15px;">Откликнуться</button>
-                </div>
-                <!-- Ритейл -->
-                <div class="vacancy-card">
-                    <div class="vacancy-header">
-                        <div class="vacancy-title">Мерчендайзер</div>
-                        <div class="vacancy-salary">до 50 000₽/мес</div>
-                    </div>
-                    <p><strong>Проекты:</strong> ЛЕНТА, FMCG сети</p>
-                    <p><strong>Условия:</strong> Мобильный график, обучение</p>
-                    <button class="btn btn-primary" style="margin-top: 15px;">Откликнуться</button>
-                </div>
-                <!-- Ритейл -->
-                <div class="vacancy-card">
-                    <div class="vacancy-header">
-                        <div class="vacancy-title">Администратор зала</div>
-                        <div class="vacancy-salary">до 75 000₽/мес</div>
-                    </div>
-                    <p><strong>Проекты:</strong> ЛЕНТА</p>
-                    <p><strong>Условия:</strong> Управление сменой, карьерный рост</p>
-                    <button class="btn btn-primary" style="margin-top: 15px;">Откликнуться</button>
+                <div class="vacancy-card" style="border-top-color: #10B981;">
+                    <div class="vacancy-title">Кассир (Ритейл)</div>
+                    <div class="vacancy-salary">до 65 000₽/мес</div>
+                    <p>Сети: ЛЕНТА</p>
+                    <p>Условия: График 2/2, Местная работа</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Contact Form -->
-    <section class="contact" id="contact">
+    <section id="contact">
         <div class="container">
             <h2 class="section-title">📞 Оставить заявку</h2>
-            <form class="contact-form" onsubmit="submitForm(event)">
-                <div class="form-row">
-                    <label>Ваше имя *</label>
-                    <input type="text" required placeholder="Иванов Иван Иванович">
+            <form class="contact-form" onsubmit="submitForm(event)" style="max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
+                <div class="form-row" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Ваше имя *</label>
+                    <input type="text" required placeholder="Иванов Иван Иванович" style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px;">
                 </div>
-                <div class="form-row">
-                    <label>Телефон *</label>
-                    <input type="tel" required placeholder="+7 (___) ___-__-__">
-                </div>
-                <div class="form-row">
-                    <label>Город</label>
-                    <input type="text" placeholder="Москва">
-                </div>
-                <div class="form-row">
-                    <label>Желаемая должность</label>
-                    <select>
-                        <option>Комплектовщик</option>
-                        <option>Грузчик</option>
-                        <option>Разнорабочий</option>
-                        <option>Упаковщик</option>
-                        <option>Кассир (ЛЕНТА)</option>
-                        <option>Продавец (ЛЕНТА)</option>
-                    </select>
-                </div>
-                <div class="form-row">
-                    <label>Комментарий</label>
-                    <textarea rows="3" placeholder="Гражданство, опыт работы..."></textarea>
+                <div class="form-row" style="margin-bottom: 20px;">
+                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Телефон *</label>
+                    <input type="tel" required placeholder="+7 (___) ___-__-__" style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px;">
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Отправить заявку</button>
             </form>
-            <div style="text-align: center; margin-top: 20px; color: var(--primary);">
+            <div style="text-align: center; margin-top: 20px;">
                 📞 <strong>HR-менеджер:</strong> <a href="tel:+79023086595" style="color: var(--secondary); text-decoration: none; font-weight: 700;">+7 (902) 308-65-95</a>
             </div>
         </div>
@@ -629,121 +424,189 @@
     <footer>
         <div class="container">
             <p>&copy; 2026 Кадровое агентство «Наши Люди». Все права защищены.</p>
-            <p>📞 HR-менеджер: <a href="tel:+79023086595">+7 (902) 308-65-95</a> | ✉️ <a href="mailto:hr@nashilyudi.ru">hr@nashilyudi.ru</a></p>
+            <p>📞 <a href="tel:+79023086595">+7 (902) 308-65-95</a></p>
         </div>
     </footer>
 
     <script>
-        // Sample data from your documents
-        const candidatesData = [
-            {fio: "Кубрин Андрей Анатольевич", phone: "+79933699527", city: "Москва", position: "Грузчик", project: "Аби (Владимир)", status: "settled"},
-            {fio: "Салиман Сулиман Мухамад", phone: "+79996272579", city: "Волгоград", position: "Комплектовщик", project: "ЛЕНТА Чехов", status: "new"},
-            {fio: "Шамухаммедов Гуванч", phone: "+79617921382", city: "Москва", position: "Комплектовщик", project: "ЛЕНТА Чехов", status: "new"},
-            {fio: "Балакин Михаил Николаевич", phone: "+79877594642", city: "Нижний Новгород", position: "Грузчик", project: "Аби (Владимир)", status: "new"},
-            {fio: "Тихорский Евгений Иванович", phone: "+79492968667", city: "Донецк", position: "Грузчик", project: "Аби (Владимир)", status: "reserve"},
-            {fio: "Николаев Никита", phone: "+79999709206", city: "Челябинск", position: "Грузчик", project: "", status: "callback"},
-            {fio: "Степин Антон Сергеевич", phone: "+79273100877", city: "Уфа", position: "Разнорабочий", project: "Аби (Владимир)", status: "new"},
-            {fio: "Полянских Никита Алексеевич", phone: "+79501539938", city: "", position: "Разнорабочий", project: "Аби (Владимир)", status: "settled"},
-        ];
-
-        // Load candidates on page load
-        window.onload = function() {
-            renderCandidates(candidatesData);
-            updateStats();
+        // Статусы CRM с цветами
+        const statuses = {
+            "Новая заявка": {group: "new", color: "#95A5A6"},
+            "Согласование условий": {group: "new", color: "#3498DB"},
+            "Опубликована": {group: "new", color: "#2ECC71"},
+            "Первичный скрининг": {group: "search", color: "#F39C12"},
+            "Созвон / Скрининг": {group: "search", color: "#E67E22"},
+            "Техническое собеседование": {group: "search", color: "#D35400"},
+            "Оффер отправлен": {group: "search", color: "#9B59B6"},
+            "Оффер принят": {group: "search", color: "#8E44AD"},
+            "Направлен в магазин": {group: "retail", color: "#1ABC9C"},
+            "СМС напоминание": {group: "retail", color: "#16A085"},
+            "No-show": {group: "retail", color: "#E74C3C"},
+            "Направлен на медосмотр": {group: "shift", color: "#3498DB"},
+            "Медосмотр пройден": {group: "shift", color: "#2980B9"},
+            "Медосмотр забракован": {group: "shift", color: "#C0392B"},
+            "Ожидание пропуска / СБ": {group: "shift", color: "#8E44AD"},
+            "Покупка билетов": {group: "shift", color: "#F39C12"},
+            "Билеты куплены": {group: "shift", color: "#D35400"},
+            "Трансфер до объекта": {group: "shift", color: "#E67E22"},
+            "Стажировка (Дейли)": {group: "adaptation", color: "#1ABC9C"},
+            "Вахта на объекте": {group: "adaptation", color: "#16A085"},
+            "Закрытая потребность": {group: "adaptation", color: "#27AE60"},
+            "Кандидат отказ": {group: "problem", color: "#E74C3C"},
+            "Забракован Клиентом": {group: "problem", color: "#C0392B"},
+            "Срыв выхода": {group: "problem", color: "#922B21"},
+            "Need клиент / Переоткрыть": {group: "problem", color: "#A93226"},
+            "Замена требуется": {group: "support", color: "#F5B041"},
+            "Продление вахты": {group: "support", color: "#F39C12"},
+            "Закрыт / Сдан в архив": {group: "support", color: "#7F8C8D"}
         };
 
-        function renderCandidates(data) {
+        // Пример данных (замените на загрузку из CSV/базы)
+        const candidatesData = [
+            {fio: "Балакин Михаил", phone: "+79877594642", position: "Разнорабочий", project: "Аби (Владимир)", status: "Билеты куплены", type: "вахта", updated: "11.05.2026"},
+            {fio: "Тихорский Евгений", phone: "+79492968667", position: "Грузчик", project: "Аби (Владимир)", status: "Резерв", type: "вахта", updated: "08.05.2026"},
+            {fio: "Кубрин Андрей", phone: "+79933699527", position: "Грузчик", project: "Аби (Владимир)", status: "Ожидание пропуска / СБ", type: "вахта", updated: "06.05.2026"},
+            {fio: "Полянских Никита", phone: "+79501539938", position: "Разнорабочий", project: "Аби (Владимир)", status: "Закрытая потребность", type: "вахта", updated: "02.05.2026"},
+            {fio: "Иванова Мария", phone: "+79991112233", position: "Кассир", project: "ЛЕНТА (Ритейл)", status: "Направлен в магазин", type: "ритейл", updated: "10.05.2026"},
+            {fio: "Петров Сергей", phone: "+79994445566", position: "Грузчик", project: "ЛЕНТА (Ритейл)", status: "Стажировка (Дейли)", type: "ритейл", updated: "09.05.2026"},
+        ];
+
+        let currentView = 'list';
+
+        function switchView(view) {
+            currentView = view;
+            document.getElementById('listView').style.display = view === 'list' ? 'block' : 'none';
+            document.getElementById('kanbanView').style.display = view === 'kanban' ? 'block' : 'none';
+            
+            document.getElementById('btnList').classList.toggle('active', view === 'list');
+            document.getElementById('btnKanban').classList.toggle('active', view === 'kanban');
+            
+            renderView();
+        }
+
+        function renderView() {
+            if (currentView === 'list') {
+                renderList();
+            } else {
+                renderKanban();
+            }
+            updateStats();
+        }
+
+        function getFilteredData() {
+            const nameFilter = document.getElementById('searchName').value.toLowerCase();
+            const typeFilter = document.getElementById('searchType').value;
+            const statusFilter = document.getElementById('searchStatus').value;
+            
+            return candidatesData.filter(c => {
+                return (!nameFilter || c.fio.toLowerCase().includes(nameFilter)) &&
+                       (!typeFilter || c.type === typeFilter) &&
+                       (!statusFilter || c.status === statusFilter);
+            });
+        }
+
+        function renderList() {
             const tbody = document.getElementById('candidatesTableBody');
             tbody.innerHTML = '';
+            const data = getFilteredData();
             
-            data.forEach(candidate => {
-                const row = document.createElement('tr');
-                const statusClass = `status-${candidate.status}`;
-                const statusText = {
-                    'new': 'Новый',
-                    'settled': 'Заселен',
-                    'reserve': 'Резерв',
-                    'callback': 'Перезвонить'
-                }[candidate.status];
+            data.forEach(c => {
+                const statusObj = statuses[c.status] || {color: "#95A5A6"};
+                const typeBadge = c.type === 'ритейл' 
+                    ? '<span class="type-badge type-retail">РИТЕЙЛ</span>' 
+                    : '<span class="type-badge type-shift">ВАХТА</span>';
                 
+                const row = document.createElement('tr');
                 row.innerHTML = `
-                    <td>${candidate.fio}</td>
-                    <td>${candidate.phone}</td>
-                    <td>${candidate.city}</td>
-                    <td>${candidate.position}</td>
-                    <td>${candidate.project}</td>
-                    <td><span class="status ${statusClass}">${statusText}</span></td>
-                    <td>
-                        <button class="btn btn-primary" style="padding: 5px 15px; font-size: 12px;" onclick="showDirection('${candidate.fio}')">
-                            🏠 Направление
-                        </button>
-                    </td>
+                    <td>${typeBadge}</td>
+                    <td>${c.fio}</td>
+                    <td>${c.phone}</td>
+                    <td>${c.position}</td>
+                    <td>${c.project}</td>
+                    <td><span class="status-badge" style="background: ${statusObj.color}">${c.status}</span></td>
+                    <td>${c.updated}</td>
                 `;
                 tbody.appendChild(row);
             });
         }
 
-        function searchCandidates() {
-            const name = document.getElementById('searchName').value.toLowerCase();
-            const city = document.getElementById('searchCity').value;
-            const position = document.getElementById('searchPosition').value;
-            const status = document.getElementById('searchStatus').value;
-            
-            const filtered = candidatesData.filter(c => {
-                return (!name || c.fio.toLowerCase().includes(name)) &&
-                       (!city || c.city === city) &&
-                       (!position || c.position === position) &&
-                       (!status || c.status === status);
+        function renderKanban() {
+            const board = document.getElementById('kanbanBoard');
+            board.innerHTML = '';
+            const data = getFilteredData();
+
+            // Группируем статусы
+            const groups = {
+                "new": "📋 Новая заявка",
+                "search": "🔍 Поиск кандидатов",
+                "retail": "🏪 Ритейл",
+                "shift": "🚌 Вахта",
+                "adaptation": "✅ Адаптация",
+                "problem": "⚠️ Проблемные",
+                "support": "🔄 Сопровождение"
+            };
+
+            Object.keys(groups).forEach(groupKey => {
+                const groupStatuses = Object.entries(statuses)
+                    .filter(([status, info]) => info.group === groupKey)
+                    .map(([status, info]) => status);
+                
+                groupStatuses.forEach(statusName => {
+                    const columnData = data.filter(c => c.status === statusName);
+                    const statusInfo = statuses[statusName] || {color: "#95A5A6"};
+                    
+                    const col = document.createElement('div');
+                    col.className = 'kanban-column';
+                    col.style.borderTop = `4px solid ${statusInfo.color}`;
+                    col.innerHTML = `
+                        <div class="column-header" style="background: ${statusInfo.color}">
+                            <span>${statusName}</span>
+                            <span class="column-count">${columnData.length}</span>
+                        </div>
+                        <div class="column-body"></div>
+                    `;
+                    
+                    const body = col.querySelector('.column-body');
+                    columnData.forEach(c => {
+                        const card = document.createElement('div');
+                        const isRetail = c.type === 'ритейл';
+                        card.className = `kanban-card ${isRetail ? 'is-retail' : 'is-shift'}`;
+                        
+                        card.innerHTML = `
+                            <div class="card-header">
+                                <span class="card-name">${c.fio}</span>
+                                <span class="type-badge ${isRetail ? 'type-retail' : 'type-shift'}">${c.type.toUpperCase()}</span>
+                            </div>
+                            <div class="card-info">📞 ${c.phone}</div>
+                            <div class="card-info">🏢 ${c.project}</div>
+                            <div class="card-info">💼 ${c.position}</div>
+                            <div class="card-info" style="margin-top: 8px; font-size: 11px; color: #64748B">
+                                📅 ${c.updated}
+                            </div>
+                        `;
+                        body.appendChild(card);
+                    });
+                    
+                    board.appendChild(col);
+                });
             });
-            
-            renderCandidates(filtered);
         }
 
         function updateStats() {
-            document.getElementById('totalCandidates').textContent = candidatesData.length + '+';
-            document.getElementById('newCandidates').textContent = candidatesData.filter(c => c.status === 'new').length;
-            document.getElementById('settledCandidates').textContent = candidatesData.filter(c => c.status === 'settled').length;
-            document.getElementById('reserveCandidates').textContent = candidatesData.filter(c => c.status === 'reserve').length;
-        }
-
-        function sendBotCommand() {
-            const input = document.getElementById('botInput');
-            const command = input.value.trim();
-            
-            if (command === '/start' || command === 'меню') {
-                alert('🤖 Бот:\n\nВыберите действие:\n🏠 Заселить (Направление)\n🔍 Найти вакансию\n📋 Список проектов\n➕ Добавить кандидата');
-            } else if (command.includes('Аби') || command.includes('ЛамОда')) {
-                showDirection(command);
-            } else {
-                alert('🤖 Бот: Введите название проекта для получения направления (например: Аби, ЛамОда, Фрикейк)');
-            }
-            
-            input.value = '';
-        }
-
-        function showDirection(project) {
-            const hostels = {
-                'Аби': '📄 НАПРАВЛЕНИЕ НА ЗАСЕЛЕНИЕ\n\n🏢 Проект: Аби (Владимир)\n📍 Адрес: г. Владимир, с. Богослово, ул. Совхозная 2а\n🚌 Маршрут: От ж/д вокзала на авт. 132 до Ленина, далее авт. 124 до Богослово.\n⏰ Время: Заселение до 23:00\n\n👤 Администратор: Дарья +79209000825\n📞 Менеджер: Петр +79296600012\n\n⚠️ При себе обязательно иметь ПАСПОРТ!\n🆘 HR-поддержка: +7 (902) 308-65-95',
-                'ЛамОда': '📄 НАПРАВЛЕНИЕ НА ЗАСЕЛЕНИЕ\n\n🏢 Проект: ЛамОда Софьино\n📍 Адрес: МО, Раменский р-н, кв. 4/218, стр. 68\n🚌 Маршрут: От м. Котельники на автобусе 558 до ост. РЦ Перекресток. Пешком 250м.\n⏰ Время: Заселение до 21:00\n\n👤 Администратор: Мария +79648312383\n📞 Менеджер: Наталья +79397901945\n\n⚠️ При себе обязательно иметь ПАСПОРТ!\n🆘 HR-поддержка: +7 (902) 308-65-95',
-                'Фрикейк': '📄 НАПРАВЛЕНИЕ НА ЗАСЕЛЕНИЕ\n\n🏢 Проект: Фрикейк\n📍 Адрес: Москва, ул. Наташи Ковшовой д.8\n🚌 Маршрут: м. Тульская → Севастопольская → Каховская → Аминьевская МЦД4 → Очаково → пешком\n⏰ Время: Заселение до 22:00\n\n👤 Администратор: Петр +79296600012\n📞 Менеджер: Анна +79919819756\n\n⚠️ При себе обязательно иметь ПАСПОРТ!\n🆘 HR-поддержка: +7 (902) 308-65-95'
-            };
-            
-            let direction = hostels['Аби'];
-            for (let key in hostels) {
-                if (project.toLowerCase().includes(key.toLowerCase())) {
-                    direction = hostels[key];
-                    break;
-                }
-            }
-            
-            alert(direction);
+            const data = candidatesData;
+            document.getElementById('totalCandidates').textContent = data.length;
+            document.getElementById('newCandidates').textContent = data.filter(c => c.status === 'Новая заявка').length;
+            document.getElementById('shiftCandidates').textContent = data.filter(c => c.type === 'вахта').length;
+            document.getElementById('retailCandidates').textContent = data.filter(c => c.type === 'ритейл').length;
         }
 
         function submitForm(e) {
             e.preventDefault();
-            alert('✅ Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
-            e.target.reset();
+            alert('✅ Заявка отправлена!');
         }
+
+        // Init
+        window.onload = renderView;
     </script>
 </body>
 </html>
