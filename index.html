@@ -521,15 +521,17 @@
         <div class="container">
             <h2 class="section-title">💼 Актуальные вакансии</h2>
             <div class="vacancies-grid">
+                <!-- Склад -->
                 <div class="vacancy-card">
                     <div class="vacancy-header">
                         <div class="vacancy-title">Комплектовщик</div>
                         <div class="vacancy-salary">300₽/час</div>
                     </div>
                     <p><strong>Проекты:</strong> ЛамОда, Яндекс, Лента</p>
-                    <p><strong>Условия:</strong> Вахта, проживание бесплатно</p>
+                    <p><strong>Условия:</strong> Вахта, проживание бесплатно, ТСД</p>
                     <button class="btn btn-primary" style="margin-top: 15px;">Откликнуться</button>
                 </div>
+                <!-- Склад -->
                 <div class="vacancy-card">
                     <div class="vacancy-header">
                         <div class="vacancy-title">Грузчик</div>
@@ -539,13 +541,44 @@
                     <p><strong>Условия:</strong> Вахта, аванс 5000₽/неделю</p>
                     <button class="btn btn-primary" style="margin-top: 15px;">Откликнуться</button>
                 </div>
+                <!-- Производство -->
                 <div class="vacancy-card">
                     <div class="vacancy-header">
                         <div class="vacancy-title">Разнорабочий</div>
                         <div class="vacancy-salary">290₽/час</div>
                     </div>
                     <p><strong>Проекты:</strong> МПЗ, Фрикейк, Норд Палп</p>
-                    <p><strong>Условия:</strong> Проживание, питание</p>
+                    <p><strong>Условия:</strong> Проживание, питание, форма</p>
+                    <button class="btn btn-primary" style="margin-top: 15px;">Откликнуться</button>
+                </div>
+                <!-- Ритейл -->
+                <div class="vacancy-card">
+                    <div class="vacancy-header">
+                        <div class="vacancy-title">Кассир / Продавец</div>
+                        <div class="vacancy-salary">до 65 000₽/мес</div>
+                    </div>
+                    <p><strong>Проекты:</strong> ЛЕНТА (все города)</p>
+                    <p><strong>Условия:</strong> График 2/2, медкнижка (оформим)</p>
+                    <button class="btn btn-primary" style="margin-top: 15px;">Откликнуться</button>
+                </div>
+                <!-- Ритейл -->
+                <div class="vacancy-card">
+                    <div class="vacancy-header">
+                        <div class="vacancy-title">Мерчендайзер</div>
+                        <div class="vacancy-salary">до 50 000₽/мес</div>
+                    </div>
+                    <p><strong>Проекты:</strong> ЛЕНТА, FMCG сети</p>
+                    <p><strong>Условия:</strong> Мобильный график, обучение</p>
+                    <button class="btn btn-primary" style="margin-top: 15px;">Откликнуться</button>
+                </div>
+                <!-- Ритейл -->
+                <div class="vacancy-card">
+                    <div class="vacancy-header">
+                        <div class="vacancy-title">Администратор зала</div>
+                        <div class="vacancy-salary">до 75 000₽/мес</div>
+                    </div>
+                    <p><strong>Проекты:</strong> ЛЕНТА</p>
+                    <p><strong>Условия:</strong> Управление сменой, карьерный рост</p>
                     <button class="btn btn-primary" style="margin-top: 15px;">Откликнуться</button>
                 </div>
             </div>
@@ -576,6 +609,8 @@
                         <option>Грузчик</option>
                         <option>Разнорабочий</option>
                         <option>Упаковщик</option>
+                        <option>Кассир (ЛЕНТА)</option>
+                        <option>Продавец (ЛЕНТА)</option>
                     </select>
                 </div>
                 <div class="form-row">
@@ -584,6 +619,9 @@
                 </div>
                 <button type="submit" class="btn btn-primary" style="width: 100%;">Отправить заявку</button>
             </form>
+            <div style="text-align: center; margin-top: 20px; color: var(--primary);">
+                📞 <strong>HR-менеджер:</strong> <a href="tel:+79023086595" style="color: var(--secondary); text-decoration: none; font-weight: 700;">+7 (902) 308-65-95</a>
+            </div>
         </div>
     </section>
 
@@ -591,7 +629,7 @@
     <footer>
         <div class="container">
             <p>&copy; 2026 Кадровое агентство «Наши Люди». Все права защищены.</p>
-            <p>📞 <a href="tel:+79639738004">+7 (963) 973-80-04</a> | ✉️ <a href="mailto:info@nashilyudi.ru">info@nashilyudi.ru</a></p>
+            <p>📞 HR-менеджер: <a href="tel:+79023086595">+7 (902) 308-65-95</a> | ✉️ <a href="mailto:hr@nashilyudi.ru">hr@nashilyudi.ru</a></p>
         </div>
     </footer>
 
@@ -685,9 +723,9 @@
 
         function showDirection(project) {
             const hostels = {
-                'Аби': '📄 НАПРАВЛЕНИЕ НА ЗАСЕЛЕНИЕ\n\n🏢 Проект: Аби (Владимир)\n📍 Адрес: г. Владимир, с. Богослово, ул. Совхозная 2а\n🚌 Маршрут: От ж/д вокзала на авт. 132 до Ленина, далее авт. 124 до Богослово.\n⏰ Время: Заселение до 23:00\n\n👤 Администратор: Дарья +79209000825\n📞 Менеджер: Петр +79296600012\n\n⚠️ При себе обязательно иметь ПАСПОРТ!\n🆘 Поддержка: +79639738004',
-                'ЛамОда': '📄 НАПРАВЛЕНИЕ НА ЗАСЕЛЕНИЕ\n\n🏢 Проект: ЛамОда Софьино\n📍 Адрес: МО, Раменский р-н, кв. 4/218, стр. 68\n🚌 Маршрут: От м. Котельники на автобусе 558 до ост. РЦ Перекресток. Пешком 250м.\n⏰ Время: Заселение до 21:00\n\n👤 Администратор: Мария +79648312383\n📞 Менеджер: Наталья +79397901945\n\n⚠️ При себе обязательно иметь ПАСПОРТ!\n🆘 Поддержка: +79639738004',
-                'Фрикейк': '📄 НАПРАВЛЕНИЕ НА ЗАСЕЛЕНИЕ\n\n🏢 Проект: Фрикейк\n📍 Адрес: Москва, ул. Наташи Ковшовой д.8\n🚌 Маршрут: м. Тульская → Севастопольская → Каховская → Аминьевская МЦД4 → Очаково → пешком\n⏰ Время: Заселение до 22:00\n\n👤 Администратор: Петр +79296600012\n📞 Менеджер: Анна +79919819756\n\n⚠️ При себе обязательно иметь ПАСПОРТ!\n🆘 Поддержка: +79639738004'
+                'Аби': '📄 НАПРАВЛЕНИЕ НА ЗАСЕЛЕНИЕ\n\n🏢 Проект: Аби (Владимир)\n📍 Адрес: г. Владимир, с. Богослово, ул. Совхозная 2а\n🚌 Маршрут: От ж/д вокзала на авт. 132 до Ленина, далее авт. 124 до Богослово.\n⏰ Время: Заселение до 23:00\n\n👤 Администратор: Дарья +79209000825\n📞 Менеджер: Петр +79296600012\n\n⚠️ При себе обязательно иметь ПАСПОРТ!\n🆘 HR-поддержка: +7 (902) 308-65-95',
+                'ЛамОда': '📄 НАПРАВЛЕНИЕ НА ЗАСЕЛЕНИЕ\n\n🏢 Проект: ЛамОда Софьино\n📍 Адрес: МО, Раменский р-н, кв. 4/218, стр. 68\n🚌 Маршрут: От м. Котельники на автобусе 558 до ост. РЦ Перекресток. Пешком 250м.\n⏰ Время: Заселение до 21:00\n\n👤 Администратор: Мария +79648312383\n📞 Менеджер: Наталья +79397901945\n\n⚠️ При себе обязательно иметь ПАСПОРТ!\n🆘 HR-поддержка: +7 (902) 308-65-95',
+                'Фрикейк': '📄 НАПРАВЛЕНИЕ НА ЗАСЕЛЕНИЕ\n\n🏢 Проект: Фрикейк\n📍 Адрес: Москва, ул. Наташи Ковшовой д.8\n🚌 Маршрут: м. Тульская → Севастопольская → Каховская → Аминьевская МЦД4 → Очаково → пешком\n⏰ Время: Заселение до 22:00\n\n👤 Администратор: Петр +79296600012\n📞 Менеджер: Анна +79919819756\n\n⚠️ При себе обязательно иметь ПАСПОРТ!\n🆘 HR-поддержка: +7 (902) 308-65-95'
             };
             
             let direction = hostels['Аби'];
