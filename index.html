@@ -19,6 +19,8 @@
             --text-dark: #1E293B;
             --text-light: #64748B;
             --border: #CBD5E1;
+            --success: #10B981;
+            --danger: #EF4444;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -62,31 +64,51 @@
         .section-title { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 30px; color: var(--primary); }
 
         /* CRM Controls */
-        .crm-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 15px;
-        }
         .view-switcher {
             display: flex;
             background: var(--white);
             padding: 5px;
             border-radius: 8px;
             border: 2px solid var(--primary);
+            justify-content: center;
+            margin: 0 auto 20px auto;
+            width: fit-content;
         }
         .view-btn {
-            padding: 8px 20px;
+            padding: 10px 25px;
             border: none;
             background: transparent;
             cursor: pointer;
             font-weight: 700;
             border-radius: 5px;
             transition: all 0.3s;
+            font-size: 16px;
         }
         .view-btn.active { background: var(--primary); color: var(--white); }
+
+        /* Stats */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .stat-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            text-align: center;
+            border-left: 5px solid var(--secondary);
+        }
+        .stat-number-card {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--primary);
+            display: block;
+            margin-bottom: 10px;
+        }
+        .stat-label-card { font-size: 16px; color: var(--text-light); font-weight: 500; }
 
         /* Search Panel */
         .search-panel {
@@ -104,44 +126,17 @@
         .form-group label { margin-bottom: 5px; font-weight: 600; color: var(--text-dark); font-size: 14px; display: block; }
         .form-group input, .form-group select {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             border: 2px solid var(--border);
             border-radius: 8px;
             font-family: inherit;
+            font-size: 14px;
         }
-        .btn { padding: 10px 25px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.3s; }
+        .btn { padding: 12px 30px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.3s; font-size: 16px; }
         .btn-primary { background: var(--secondary); color: var(--white); }
-        .btn-primary:hover { background: var(--secondary-dark); }
+        .btn-primary:hover { background: var(--secondary-dark); transform: translateY(-2px); }
 
-        /* Stats Grid */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-        .stat-card {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            text-align: center;
-            border-left: 4px solid var(--secondary);
-        }
-        .stat-number-card {
-            font-size: 48px;
-            font-weight: 900;
-            color: var(--primary);
-            display: block;
-            margin-bottom: 10px;
-        }
-        .stat-label-card { 
-            font-size: 16px; 
-            color: var(--text-light);
-            font-weight: 500;
-        }
-
-        /* LIST VIEW (Table) */
+        /* Table View */
         .candidates-table {
             background: var(--white);
             border-radius: 12px;
@@ -149,31 +144,33 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         }
         table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid var(--medium-bg); }
-        th { background: var(--primary); color: var(--white); font-weight: 700; font-size: 13px; text-transform: uppercase; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid var(--medium-bg); }
+        th { background: var(--primary); color: var(--white); font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
         tr:hover { background: var(--light-bg); }
-        
-        /* Badges */
-        .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; color: white; display: inline-block; }
-        .type-badge { padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; color: white; display: inline-block; margin-right: 5px; }
-        .type-shift { background: var(--primary); }
-        .type-retail { background: #10B981; }
 
-        /* KANBAN VIEW */
+        /* Badges */
+        .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; color: white; display: inline-block; white-space: nowrap; }
+        .type-badge { padding: 5px 10px; border-radius: 6px; font-size: 11px; font-weight: 800; color: white; display: inline-block; margin-right: 5px; }
+        .type-shift { background: var(--primary); }
+        .type-retail { background: var(--success); }
+
+        /* Kanban View */
         .kanban-board {
             display: flex;
             overflow-x: auto;
             gap: 20px;
             padding-bottom: 20px;
             align-items: flex-start;
+            min-height: 600px;
         }
         .kanban-column {
-            min-width: 300px;
+            min-width: 320px;
             background: var(--white);
             border-radius: 12px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             display: flex;
             flex-direction: column;
+            max-height: 800px;
         }
         .column-header {
             padding: 15px;
@@ -182,32 +179,40 @@
             font-weight: 700;
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
         .column-count { background: rgba(255,255,255,0.3); padding: 2px 8px; border-radius: 10px; font-size: 12px; }
-        .column-body { padding: 15px; max-height: 600px; overflow-y: auto; }
+        .column-body { padding: 15px; overflow-y: auto; flex: 1; }
         
         .kanban-card {
             background: var(--light-bg);
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 10px;
-            border-left: 4px solid var(--secondary);
+            border-left: 5px solid var(--secondary);
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
         .kanban-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .kanban-card.is-retail { border-left-color: #10B981; }
+        .kanban-card.is-retail { border-left-color: var(--success); }
         .kanban-card.is-shift { border-left-color: var(--primary); }
         
-        .card-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
-        .card-name { font-weight: 700; color: var(--primary); }
-        .card-info { font-size: 12px; color: var(--text-light); margin-bottom: 3px; }
+        .card-header { display: flex; justify-content: space-between; margin-bottom: 8px; align-items: start; }
+        .card-name { font-weight: 700; color: var(--primary); font-size: 14px; }
+        .card-info { font-size: 12px; color: var(--text-light); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
         
         /* Vacancies */
         .vacancies-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .vacancy-card { background: var(--white); border-radius: 12px; padding: 30px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); border-top: 5px solid var(--secondary); }
+        .vacancy-card { background: var(--white); border-radius: 12px; padding: 30px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); border-top: 5px solid var(--secondary); transition: transform 0.3s; }
+        .vacancy-card:hover { transform: translateY(-5px); }
+        .vacancy-card.retail { border-top-color: var(--success); }
         .vacancy-title { font-size: 22px; font-weight: 800; color: var(--primary); margin-bottom: 10px; }
         .vacancy-salary { font-size: 24px; font-weight: 900; color: var(--secondary); margin-bottom: 15px; }
+        .vacancy-details p { margin-bottom: 8px; font-size: 14px; color: var(--text-dark); }
+        .vacancy-details strong { color: var(--primary); }
 
         /* Footer */
         footer { background: var(--dark-bg); padding: 40px 0; text-align: center; color: var(--white); }
@@ -218,7 +223,9 @@
             .nav-links { display: none; }
             .hero h1 { font-size: 32px; }
             .search-panel { flex-direction: column; }
-            .kanban-column { min-width: 280px; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            table { font-size: 12px; }
+            th, td { padding: 10px 8px; }
         }
     </style>
 </head>
@@ -243,29 +250,27 @@
         <div class="container">
             <h1>Вахта. <span>Жильё.</span> Стабильность.</h1>
             <p>Подбираем персонал для складов, производств и ритейла по всей России</p>
-            <a href="#contact" class="btn btn-primary" style="font-size: 16px; padding: 16px 40px;">Оставить заявку</a>
+            <a href="#contact" class="btn btn-primary" style="font-size: 18px; padding: 18px 50px;">Оставить заявку</a>
         </div>
     </section>
 
     <!-- CRM Dashboard -->
     <section class="crm-dashboard" id="crm">
         <div class="container">
-            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
-                <h2 class="section-title" style="margin-bottom: 0;">📊 CRM Система</h2>
-                
-                <!-- View Switcher -->
-                <div class="view-switcher">
-                    <button class="view-btn active" onclick="switchView('list')" id="btnList">
-                        <i class="fas fa-list"></i> Список
-                    </button>
-                    <button class="view-btn" onclick="switchView('kanban')" id="btnKanban">
-                        <i class="fas fa-columns"></i> Канбан
-                    </button>
-                </div>
+            <h2 class="section-title">📊 CRM Система</h2>
+            
+            <!-- View Switcher -->
+            <div class="view-switcher">
+                <button class="view-btn active" onclick="switchView('list')" id="btnList">
+                    <i class="fas fa-list"></i> Список
+                </button>
+                <button class="view-btn" onclick="switchView('kanban')" id="btnKanban">
+                    <i class="fas fa-columns"></i> Канбан
+                </button>
             </div>
             
             <!-- Stats -->
-            <div class="stats-grid" style="margin: 30px 0;">
+            <div class="stats-grid">
                 <div class="stat-card">
                     <span class="stat-number-card" id="totalCandidates">0</span>
                     <div class="stat-label-card">Всего кандидатов</div>
@@ -283,14 +288,12 @@
                     <div class="stat-label-card">Ритейл</div>
                 </div>
             </div>
-            
-            <br>
 
             <!-- Search Panel -->
             <div class="search-panel">
                 <div class="form-group">
                     <label>Поиск по имени</label>
-                    <input type="text" id="searchName" placeholder="ФИО кандидата">
+                    <input type="text" id="searchName" placeholder="ФИО кандидата...">
                 </div>
                 <div class="form-group">
                     <label>Тип вакансии</label>
@@ -350,263 +353,5 @@
             <div id="listView">
                 <div class="candidates-table">
                     <table>
-                        <thead>
-                            <tr>
-                                <th>Тип</th>
-                                <th>ФИО</th>
-                                <th>Телефон</th>
-                                <th>Должность</th>
-                                <th>Проект / Магазин</th>
-                                <th>Статус</th>
-                                <th>Дата обновления</th>
-                            </tr>
-                        </thead>
-                        <tbody id="candidatesTableBody"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div id="kanbanView" style="display: none;">
-                <div class="kanban-board" id="kanbanBoard"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Vacancies -->
-    <section id="vacancies">
-        <div class="container">
-            <h2 class="section-title">💼 Актуальные вакансии</h2>
-            <div class="vacancies-grid">
-                <div class="vacancy-card">
-                    <div class="vacancy-title">Комплектовщик (Вахта)</div>
-                    <div class="vacancy-salary">300₽/час</div>
-                    <p>Проекты: ЛамОда, Яндекс, Лента</p>
-                    <p>Условия: Проживание бесплатно</p>
-                </div>
-                <div class="vacancy-card">
-                    <div class="vacancy-title">Грузчик (Вахта)</div>
-                    <div class="vacancy-salary">340₽/час</div>
-                    <p>Проекты: Аби, Ашан, Спорттовары</p>
-                    <p>Условия: Аванс 5000₽/неделю</p>
-                </div>
-                <div class="vacancy-card" style="border-top-color: #10B981;">
-                    <div class="vacancy-title">Кассир (Ритейл)</div>
-                    <div class="vacancy-salary">до 65 000₽/мес</div>
-                    <p>Сети: ЛЕНТА</p>
-                    <p>Условия: График 2/2, Местная работа</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Form -->
-    <section id="contact">
-        <div class="container">
-            <h2 class="section-title">📞 Оставить заявку</h2>
-            <form class="contact-form" onsubmit="submitForm(event)" style="max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                <div class="form-row" style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Ваше имя *</label>
-                    <input type="text" required placeholder="Иванов Иван Иванович" style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px;">
-                </div>
-                <div class="form-row" style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Телефон *</label>
-                    <input type="tel" required placeholder="+7 (___) ___-__-__" style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px;">
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Отправить заявку</button>
-            </form>
-            <div style="text-align: center; margin-top: 20px;">
-                📞 <strong>HR-менеджер:</strong> <a href="tel:+79023086595" style="color: var(--secondary); text-decoration: none; font-weight: 700;">+7 (902) 308-65-95</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2026 Кадровое агентство «Наши Люди». Все права защищены.</p>
-            <p>📞 <a href="tel:+79023086595">+7 (902) 308-65-95</a></p>
-        </div>
-    </footer>
-
-    <script>
-        // Статусы CRM с цветами
-        const statuses = {
-            "Новая заявка": {group: "new", color: "#95A5A6"},
-            "Согласование условий": {group: "new", color: "#3498DB"},
-            "Опубликована": {group: "new", color: "#2ECC71"},
-            "Первичный скрининг": {group: "search", color: "#F39C12"},
-            "Созвон / Скрининг": {group: "search", color: "#E67E22"},
-            "Техническое собеседование": {group: "search", color: "#D35400"},
-            "Оффер отправлен": {group: "search", color: "#9B59B6"},
-            "Оффер принят": {group: "search", color: "#8E44AD"},
-            "Направлен в магазин": {group: "retail", color: "#1ABC9C"},
-            "СМС напоминание": {group: "retail", color: "#16A085"},
-            "No-show": {group: "retail", color: "#E74C3C"},
-            "Направлен на медосмотр": {group: "shift", color: "#3498DB"},
-            "Медосмотр пройден": {group: "shift", color: "#2980B9"},
-            "Медосмотр забракован": {group: "shift", color: "#C0392B"},
-            "Ожидание пропуска / СБ": {group: "shift", color: "#8E44AD"},
-            "Покупка билетов": {group: "shift", color: "#F39C12"},
-            "Билеты куплены": {group: "shift", color: "#D35400"},
-            "Трансфер до объекта": {group: "shift", color: "#E67E22"},
-            "Стажировка (Дейли)": {group: "adaptation", color: "#1ABC9C"},
-            "Вахта на объекте": {group: "adaptation", color: "#16A085"},
-            "Закрытая потребность": {group: "adaptation", color: "#27AE60"},
-            "Кандидат отказ": {group: "problem", color: "#E74C3C"},
-            "Забракован Клиентом": {group: "problem", color: "#C0392B"},
-            "Срыв выхода": {group: "problem", color: "#922B21"},
-            "Need клиент / Переоткрыть": {group: "problem", color: "#A93226"},
-            "Замена требуется": {group: "support", color: "#F5B041"},
-            "Продление вахты": {group: "support", color: "#F39C12"},
-            "Закрыт / Сдан в архив": {group: "support", color: "#7F8C8D"}
-        };
-
-        // Пример данных (замените на загрузку из CSV/базы)
-        const candidatesData = [
-            {fio: "Балакин Михаил", phone: "+79877594642", position: "Разнорабочий", project: "Аби (Владимир)", status: "Билеты куплены", type: "вахта", updated: "11.05.2026"},
-            {fio: "Тихорский Евгений", phone: "+79492968667", position: "Грузчик", project: "Аби (Владимир)", status: "Резерв", type: "вахта", updated: "08.05.2026"},
-            {fio: "Кубрин Андрей", phone: "+79933699527", position: "Грузчик", project: "Аби (Владимир)", status: "Ожидание пропуска / СБ", type: "вахта", updated: "06.05.2026"},
-            {fio: "Полянских Никита", phone: "+79501539938", position: "Разнорабочий", project: "Аби (Владимир)", status: "Закрытая потребность", type: "вахта", updated: "02.05.2026"},
-            {fio: "Иванова Мария", phone: "+79991112233", position: "Кассир", project: "ЛЕНТА (Ритейл)", status: "Направлен в магазин", type: "ритейл", updated: "10.05.2026"},
-            {fio: "Петров Сергей", phone: "+79994445566", position: "Грузчик", project: "ЛЕНТА (Ритейл)", status: "Стажировка (Дейли)", type: "ритейл", updated: "09.05.2026"},
-        ];
-
-        let currentView = 'list';
-
-        function switchView(view) {
-            currentView = view;
-            document.getElementById('listView').style.display = view === 'list' ? 'block' : 'none';
-            document.getElementById('kanbanView').style.display = view === 'kanban' ? 'block' : 'none';
-            
-            document.getElementById('btnList').classList.toggle('active', view === 'list');
-            document.getElementById('btnKanban').classList.toggle('active', view === 'kanban');
-            
-            renderView();
-        }
-
-        function renderView() {
-            if (currentView === 'list') {
-                renderList();
-            } else {
-                renderKanban();
-            }
-            updateStats();
-        }
-
-        function getFilteredData() {
-            const nameFilter = document.getElementById('searchName').value.toLowerCase();
-            const typeFilter = document.getElementById('searchType').value;
-            const statusFilter = document.getElementById('searchStatus').value;
-            
-            return candidatesData.filter(c => {
-                return (!nameFilter || c.fio.toLowerCase().includes(nameFilter)) &&
-                       (!typeFilter || c.type === typeFilter) &&
-                       (!statusFilter || c.status === statusFilter);
-            });
-        }
-
-        function renderList() {
-            const tbody = document.getElementById('candidatesTableBody');
-            tbody.innerHTML = '';
-            const data = getFilteredData();
-            
-            data.forEach(c => {
-                const statusObj = statuses[c.status] || {color: "#95A5A6"};
-                const typeBadge = c.type === 'ритейл' 
-                    ? '<span class="type-badge type-retail">РИТЕЙЛ</span>' 
-                    : '<span class="type-badge type-shift">ВАХТА</span>';
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${typeBadge}</td>
-                    <td>${c.fio}</td>
-                    <td>${c.phone}</td>
-                    <td>${c.position}</td>
-                    <td>${c.project}</td>
-                    <td><span class="status-badge" style="background: ${statusObj.color}">${c.status}</span></td>
-                    <td>${c.updated}</td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        function renderKanban() {
-            const board = document.getElementById('kanbanBoard');
-            board.innerHTML = '';
-            const data = getFilteredData();
-
-            // Группируем статусы
-            const groups = {
-                "new": "📋 Новая заявка",
-                "search": "🔍 Поиск кандидатов",
-                "retail": "🏪 Ритейл",
-                "shift": "🚌 Вахта",
-                "adaptation": "✅ Адаптация",
-                "problem": "⚠️ Проблемные",
-                "support": "🔄 Сопровождение"
-            };
-
-            Object.keys(groups).forEach(groupKey => {
-                const groupStatuses = Object.entries(statuses)
-                    .filter(([status, info]) => info.group === groupKey)
-                    .map(([status, info]) => status);
-                
-                groupStatuses.forEach(statusName => {
-                    const columnData = data.filter(c => c.status === statusName);
-                    const statusInfo = statuses[statusName] || {color: "#95A5A6"};
-                    
-                    const col = document.createElement('div');
-                    col.className = 'kanban-column';
-                    col.style.borderTop = `4px solid ${statusInfo.color}`;
-                    col.innerHTML = `
-                        <div class="column-header" style="background: ${statusInfo.color}">
-                            <span>${statusName}</span>
-                            <span class="column-count">${columnData.length}</span>
-                        </div>
-                        <div class="column-body"></div>
-                    `;
-                    
-                    const body = col.querySelector('.column-body');
-                    columnData.forEach(c => {
-                        const card = document.createElement('div');
-                        const isRetail = c.type === 'ритейл';
-                        card.className = `kanban-card ${isRetail ? 'is-retail' : 'is-shift'}`;
-                        
-                        card.innerHTML = `
-                            <div class="card-header">
-                                <span class="card-name">${c.fio}</span>
-                                <span class="type-badge ${isRetail ? 'type-retail' : 'type-shift'}">${c.type.toUpperCase()}</span>
-                            </div>
-                            <div class="card-info">📞 ${c.phone}</div>
-                            <div class="card-info">🏢 ${c.project}</div>
-                            <div class="card-info">💼 ${c.position}</div>
-                            <div class="card-info" style="margin-top: 8px; font-size: 11px; color: #64748B">
-                                📅 ${c.updated}
-                            </div>
-                        `;
-                        body.appendChild(card);
-                    });
-                    
-                    board.appendChild(col);
-                });
-            });
-        }
-
-        function updateStats() {
-            const data = candidatesData;
-            document.getElementById('totalCandidates').textContent = data.length;
-            document.getElementById('newCandidates').textContent = data.filter(c => c.status === 'Новая заявка').length;
-            document.getElementById('shiftCandidates').textContent = data.filter(c => c.type === 'вахта').length;
-            document.getElementById('retailCandidates').textContent = data.filter(c => c.type === 'ритейл').length;
-        }
-
-        function submitForm(e) {
-            e.preventDefault();
-            alert('✅ Заявка отправлена!');
-        }
-
-        // Init
-        window.onload = renderView;
-    </script>
-</body>
-</html>
+                        <thead
+                        <thead
