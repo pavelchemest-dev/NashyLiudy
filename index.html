@@ -3,360 +3,678 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Наши Люди | CRM + Вакансии</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Наши Люди | Кадровое агентство полного цикла</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #1E3A5F;
-            --primary-light: #2E5A8F;
+            --primary-dark: #0F172A;
             --secondary: #FF6B35;
-            --secondary-dark: #E55A2B;
-            --white: #FFFFFF;
-            --light-bg: #F8FAFC;
-            --medium-bg: #E2E8F0;
-            --dark-bg: #0F172A;
+            --accent: #3B82F6;
             --text-dark: #1E293B;
             --text-light: #64748B;
-            --border: #CBD5E1;
-            --success: #10B981;
-            --danger: #EF4444;
-/* --- Стили для Вакансий --- */
-.vacancies-section {
-    background-color: #f8fafc;
-    padding: 60px 0;
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: 40px;
-}
-
-.section-title {
-    font-size: 36px;
-    font-weight: 800;
-    color: var(--text-dark);
-    margin-bottom: 10px;
-}
-
-.section-subtitle {
-    font-size: 18px;
-    color: var(--text-light);
-}
-
-.category-title {
-    font-size: 24px;
-    font-weight: 700;
-    margin: 40px 0 20px 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid #e2e8f0;
-}
-
-.category-title--shift {
-    color: var(--primary);
-    border-color: var(--primary);
-}
-
-.category-title--retail {
-    color: #10B981; /* Зеленый цвет для ритейла */
-    border-color: #10B981;
-}
-
-.vacancies-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 20px;
-}
-
-.vacancy-card {
-    background: white;
-    border-radius: 12px;
-    padding: 25px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-    transition: transform 0.2s, box-shadow 0.2s;
-    border-top: 4px solid transparent;
-    display: flex;
-    flex-direction: column;
-}
-
-.vacancy-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px rgba(0,0,0,0.1);
-}
-
-/* Типы карточек */
-.vacancy-card.type-shift { border-top-color: var(--primary); }
-.vacancy-card.type-retail { border-top-color: #10B981; }
-
-.vacancy-name {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--text-dark);
-    margin-bottom: 8px;
-}
-
-.vacancy-salary {
-    font-size: 24px;
-    font-weight: 800;
-    color: var(--secondary);
-    margin-bottom: 15px;
-}
-
-.vacancy-features {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin-bottom: 20px;
-    flex-grow: 1;
-}
-
-.feature {
-    font-size: 13px;
-    color: var(--text-light);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.feature strong {
-    color: var(--text-dark);
-}
-
-.vacancy-footer {
-    margin-top: auto;
-    padding-top: 15px;
-    border-top: 1px solid #f1f5f9;
-    font-size: 13px;
-    color: #64748B;
-    font-weight: 600;
-    text-align: center;
-}
-
-.btn-apply {
-    display: block;
-    width: 100%;
-    text-align: center;
-    background: var(--primary);
-    color: white;
-    padding: 10px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    margin-top: 15px;
-    transition: background 0.3s;
-}
-
-.btn-apply:hover {
-    background: var(--primary-light);
-}
+            --bg-light: #F8FAFC;
+            --white: #FFFFFF;
+            --border: #E2E8F0;
+            --telegram: #0088cc;
+            --max: #00D9FF;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: var(--light-bg);
-            color: var(--text-dark);
+            font-family: 'Inter', sans-serif;
             line-height: 1.6;
+            color: var(--text-dark);
+            overflow-x: hidden;
         }
 
         /* Navigation */
         nav {
-            background: var(--primary);
-            padding: 20px 0;
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
-        .nav-content { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 28px; font-weight: 900; color: var(--white); }
-        .logo span { color: var(--secondary); }
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a { color: var(--white); text-decoration: none; font-weight: 600; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--secondary); }
 
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
-            padding: 80px 0;
-            text-align: center;
-            color: var(--white);
-        }
-        .hero h1 { font-size: 48px; font-weight: 900; margin-bottom: 20px; }
-        .hero h1 span { color: var(--secondary); }
-        .hero p { font-size: 20px; margin-bottom: 40px; opacity: 0.95; }
-
-        /* Sections */
-        section { padding: 60px 0; }
-        .section-title { text-align: center; font-size: 36px; font-weight: 800; margin-bottom: 30px; color: var(--primary); }
-
-        /* CRM Controls */
-        .view-switcher {
-            display: flex;
-            background: var(--white);
-            padding: 5px;
-            border-radius: 8px;
-            border: 2px solid var(--primary);
-            justify-content: center;
-            margin: 0 auto 20px auto;
-            width: fit-content;
-        }
-        .view-btn {
-            padding: 10px 25px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            font-weight: 700;
-            border-radius: 5px;
-            transition: all 0.3s;
-            font-size: 16px;
-        }
-        .view-btn.active { background: var(--primary); color: var(--white); }
-
-        /* Stats */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-        .stat-card {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            text-align: center;
-            border-left: 5px solid var(--secondary);
-        }
-        .stat-number-card {
-            font-size: 48px;
-            font-weight: 900;
-            color: var(--primary);
-            display: block;
-            margin-bottom: 10px;
-        }
-        .stat-label-card { font-size: 16px; color: var(--text-light); font-weight: 500; }
-
-        /* Search Panel */
-        .search-panel {
-            background: var(--white);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            align-items: flex-end;
-        }
-        .form-group { flex: 1; min-width: 200px; }
-        .form-group label { margin-bottom: 5px; font-weight: 600; color: var(--text-dark); font-size: 14px; display: block; }
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 14px;
-        }
-        .btn { padding: 12px 30px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; transition: all 0.3s; font-size: 16px; }
-        .btn-primary { background: var(--secondary); color: var(--white); }
-        .btn-primary:hover { background: var(--secondary-dark); transform: translateY(-2px); }
-
-        /* Table View */
-        .candidates-table {
-            background: var(--white);
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        }
-        table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 15px; text-align: left; border-bottom: 1px solid var(--medium-bg); }
-        th { background: var(--primary); color: var(--white); font-weight: 700; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
-        tr:hover { background: var(--light-bg); }
-
-        /* Badges */
-        .status-badge { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; color: white; display: inline-block; white-space: nowrap; }
-        .type-badge { padding: 5px 10px; border-radius: 6px; font-size: 11px; font-weight: 800; color: white; display: inline-block; margin-right: 5px; }
-        .type-shift { background: var(--primary); }
-        .type-retail { background: var(--success); }
-
-        /* Kanban View */
-        .kanban-board {
-            display: flex;
-            overflow-x: auto;
-            gap: 20px;
-            padding-bottom: 20px;
-            align-items: flex-start;
-            min-height: 600px;
-        }
-        .kanban-column {
-            min-width: 320px;
-            background: var(--white);
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            display: flex;
-            flex-direction: column;
-            max-height: 800px;
-        }
-        .column-header {
-            padding: 15px;
-            color: white;
-            border-radius: 12px 12px 0 0;
-            font-weight: 700;
+        .nav-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 10;
         }
-        .column-count { background: rgba(255,255,255,0.3); padding: 2px 8px; border-radius: 10px; font-size: 12px; }
-        .column-body { padding: 15px; overflow-y: auto; flex: 1; }
-        
-        .kanban-card {
-            background: var(--light-bg);
-            padding: 15px;
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 15px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary);
+        }
+
+        .btn {
+            padding: 12px 28px;
             border-radius: 8px;
-            margin-bottom: 10px;
-            border-left: 5px solid var(--secondary);
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
+            border: none;
+            font-size: 15px;
+            display: inline-block;
         }
-        .kanban-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .kanban-card.is-retail { border-left-color: var(--success); }
-        .kanban-card.is-shift { border-left-color: var(--primary); }
-        
-        .card-header { display: flex; justify-content: space-between; margin-bottom: 8px; align-items: start; }
-        .card-name { font-weight: 700; color: var(--primary); font-size: 14px; }
-        .card-info { font-size: 12px; color: var(--text-light); margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
-        
-        /* Vacancies */
-        .vacancies-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .vacancy-card { background: var(--white); border-radius: 12px; padding: 30px; box-shadow: 0 2px 12px rgba(0,0,0,0.1); border-top: 5px solid var(--secondary); transition: transform 0.3s; }
-        .vacancy-card:hover { transform: translateY(-5px); }
-        .vacancy-card.retail { border-top-color: var(--success); }
-        .vacancy-title { font-size: 22px; font-weight: 800; color: var(--primary); margin-bottom: 10px; }
-        .vacancy-salary { font-size: 24px; font-weight: 900; color: var(--secondary); margin-bottom: 15px; }
-        .vacancy-details p { margin-bottom: 8px; font-size: 14px; color: var(--text-dark); }
-        .vacancy-details strong { color: var(--primary); }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #E55A2B;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255,107,53,0.3);
+        }
+
+        .btn-telegram {
+            background: var(--telegram);
+            color: var(--white);
+        }
+
+        .btn-telegram:hover {
+            background: #0077b3;
+            transform: translateY(-2px);
+        }
+
+        .btn-max {
+            background: var(--max);
+            color: var(--primary-dark);
+        }
+
+        .btn-max:hover {
+            background: #00c0e0;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            padding: 100px 20px;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="80" cy="20" r="40" fill="rgba(255,255,255,0.05)"/><circle cx="90" cy="60" r="30" fill="rgba(255,255,255,0.03)"/></svg>');
+            background-size: cover;
+        }
+
+        .hero-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 52px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+
+        .hero-content h1 span {
+            color: var(--secondary);
+        }
+
+        .hero-content p {
+            font-size: 20px;
+            margin-bottom: 32px;
+            opacity: 0.95;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .bot-links {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+        }
+
+        .bot-links span {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--secondary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-top: 8px;
+        }
+
+        .hero-image {
+            background: rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 20px;
+            background: var(--bg-light);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 42px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            font-size: 18px;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            border: 1px solid var(--border);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--secondary), #E55A2B);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 28px;
+            margin-bottom: 24px;
+        }
+
+        .feature-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--primary);
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Bots Section */
+        .bots-section {
+            padding: 100px 20px;
+            background: var(--white);
+        }
+
+        .bots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .bot-card {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 20px;
+            padding: 50px;
+            color: var(--white);
+            text-align: center;
+            transition: transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .bot-card.telegram {
+            background: linear-gradient(135deg, var(--telegram), #0099dd);
+        }
+
+        .bot-card.max {
+            background: linear-gradient(135deg, var(--max), #00b8d4);
+        }
+
+        .bot-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .bot-icon {
+            font-size: 72px;
+            margin-bottom: 24px;
+        }
+
+        .bot-card h3 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .bot-card p {
+            font-size: 16px;
+            opacity: 0.95;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .bot-features {
+            list-style: none;
+            text-align: left;
+            margin: 30px 0;
+        }
+
+        .bot-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .bot-features li:last-child {
+            border-bottom: none;
+        }
+
+        .bot-features i {
+            color: var(--secondary);
+        }
+
+        /* AI Agents Section */
+        .ai-section {
+            padding: 80px 20px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            color: var(--white);
+        }
+
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .ai-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 40px;
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s;
+        }
+
+        .ai-card:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-5px);
+        }
+
+        .ai-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .ai-card p {
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 100px 20px;
+            background: var(--bg-light);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 15px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+
+        .contact-info h3 {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .contact-info > p {
+            font-size: 18px;
+            color: var(--text-light);
+            margin-bottom: 40px;
+            line-height: 1.7;
+        }
+
+        .contact-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px;
+            background: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .contact-method i {
+            font-size: 32px;
+            color: var(--secondary);
+        }
+
+        .contact-method div strong {
+            display: block;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .contact-method div span {
+            color: var(--text-light);
+            font-size: 14px;
+        }
 
         /* Footer */
-        footer { background: var(--dark-bg); padding: 40px 0; text-align: center; color: var(--white); }
-        footer a { color: var(--secondary); text-decoration: none; }
+        footer {
+            background: var(--primary-dark);
+            color: var(--white);
+            padding: 60px 20px 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--secondary);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-section a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.6);
+            font-size: 14px;
+        }
+
+        .footer-bots {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-top: 20px;
+        }
 
         /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hero h1 { font-size: 32px; }
-            .search-panel { flex-direction: column; }
-            .stats-grid { grid-template-columns: 1fr 1fr; }
-            table { font-size: 12px; }
-            th, td { padding: 10px 8px; }
+        @media (max-width: 968px) {
+            .hero-container,
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .bots-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .features-grid,
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card,
+        .service-card,
+        .bot-card,
+        .ai-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .modal-content h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: var(--primary);
+        }
+
+        .modal-content p {
+            color: var(--text-light);
+            margin-bottom: 24px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
         }
     </style>
 </head>
@@ -364,421 +682,320 @@
 
     <!-- Navigation -->
     <nav>
-        <div class="container">
-            <div class="nav-content">
-                <div class="logo">НАШИ <span>ЛЮДИ</span></div>
-                <div class="nav-links">
-                    <a href="#crm">CRM</a>
-                    <a href="#vacancies">Вакансии</a>
-                    <a href="#contact">Контакты</a>
-                </div>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-users"></i>
+                НАШИ <span>ЛЮДИ</span>
+            </a>
+            <div class="nav-links">
+                <a href="#features">Возможности</a>
+                <a href="#bots">Боты</a>
+                <a href="#services">Услуги</a>
+                <a href="#vacancies">Вакансии</a>
+                <a href="#contact" class="btn btn-primary">Оставить заявку</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="container">
-            <h1>Вахта. <span>Жильё.</span> Стабильность.</h1>
-            <p>Подбираем персонал для складов, производств и ритейла по всей России</p>
-            <a href="#contact" class="btn btn-primary" style="font-size: 18px; padding: 18px 50px;">Оставить заявку</a>
-        </div>
-    </section>
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Подбор персонала <span>нового поколения</span></h1>
+                <p>Комплексные решения в области подбора вахтового персонала и сотрудников для ритейла. AI-агенты и чат-боты для быстрого поиска кандидатов.</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn btn-primary">Подобрать персонал</a>
+                    <a href="#bots" class="btn btn-outline" style="border-color: white; color: white;">Наши боты</a>
+                </div>
+                
+                <div class="bot-links">
+                    <span>Или напишите нам:</span>
+                    <a href="https://t.me/NashiLyudiBot" target="_blank" class="btn btn-telegram">
+                        <i class="fab fa-telegram"></i> Telegram
+                    </a>
+                    <a href="#" class="btn btn-max" onclick="showMaxBotModal()">
+                        <i class="fas fa-robot"></i> MAX
+                    </a>
+                </div>
 
-    <!-- CRM Dashboard -->
-<!-- Секция Вакансий -->
-<section class="vacancies-section" id="vacancies">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="section-title">Актуальные вакансии</h2>
-            <p class="section-subtitle">Подбор персонала для складов, производств и магазинов</p>
-        </div>
-
-        <!-- ГРУППА: ВАХТА -->
-        <h3 class="category-title category-title--shift">🚜 Вахта (Склады и производства)</h3>
-        <div class="vacancies-grid">
-            
-            <!-- АБИ -->
-            <div class="vacancy-card type-shift">
-                <div class="vacancy-name">АБИ (г. Владимир)</div>
-                <div class="vacancy-salary">310 ₽/час</div>
-                <div class="vacancy-features">
-                    <div class="feature">📍 г. Владимир</div>
-                    <div class="feature">👫 М/Ж</div>
-                    <div class="feature">🌡️ +4 до +12°C</div>
-                    <div class="feature">🍽️ Питание есть</div>
-                    <div class="feature">🛏️ Общежитие 6-8 чел</div>
-                    <div class="feature">🚌 Трансфер</div>
-                </div>
-                <a href="#contact" class="btn-apply">Откликнуться</a>
-            </div>
-
-            <!-- МПЗ Протвино -->
-            <div class="vacancy-card type-shift">
-                <div class="vacancy-name">МПЗ Протвино</div>
-                <div class="vacancy-salary">290 ₽/час</div>
-                <div class="vacancy-features">
-                    <div class="feature">📍 г. Протвино</div>
-                    <div class="feature">👫 М/Ж (23-50 лет)</div>
-                    <div class="feature">🌡️ +7 до +8°C</div>
-                    <div class="feature">🍽️ 2-разовое питание</div>
-                    <div class="feature">🛏️ Общежитие 10-14 чел</div>
-                    <div class="feature">🚌 Корпоративный</div>
-                </div>
-                <a href="#contact" class="btn-apply">Откликнуться</a>
-            </div>
-
-            <!-- ЛЕНТА Склад -->
-            <div class="vacancy-card type-shift">
-                <div class="vacancy-name">ЛЕНТА (Склад, г. Чехов)</div>
-                <div class="vacancy-salary">до 5500 ₽/смена</div>
-                <div class="vacancy-features">
-                    <div class="feature">📍 г. Чехов</div>
-                    <div class="feature">👤 Комплектовщики/Грузчики</div>
-                    <div class="feature">🌡️ Теплый склад</div>
-                    <div class="feature">🍽️ Комплексный обед</div>
-                    <div class="feature">🛏️ Общежитие</div>
-                    <div class="feature">🚌 Корпоративный</div>
-                </div>
-                <a href="#contact" class="btn-apply">Откликнуться</a>
-            </div>
-
-            <!-- АШАН Склад -->
-            <div class="vacancy-card type-shift">
-                <div class="vacancy-name">АШАН (Склад, Домодедово)</div>
-                <div class="vacancy-salary">от 3400 ₽/смена</div>
-                <div class="vacancy-features">
-                    <div class="feature">📍 г. Домодедово</div>
-                    <div class="feature">👤 Комплектовщики/Грузчики</div>
-                    <div class="feature">🌡️ Теплый склад</div>
-                    <div class="feature"> Питание нет</div>
-                    <div class="feature">🛏️ Общежитие</div>
-                    <div class="feature">🚌 Корпоративный</div>
-                </div>
-                <a href="#contact" class="btn-apply">Откликнуться</a>
-            </div>
-
-            <!-- Яндекс Софьино -->
-            <div class="vacancy-card type-shift">
-                <div class="vacancy-name">Яндекс (Софьино)</div>
-                <div class="vacancy-salary">до 5632 ₽/смена</div>
-                <div class="vacancy-features">
-                    <div class="feature">📍 Раменский р-н</div>
-                    <div class="feature">👤 Операторы ТСД (до 45 лет)</div>
-                    <div class="feature">🌡️ Теплый склад</div>
-                    <div class="feature">🍽️ Питание есть</div>
-                    <div class="feature">🛏️ Общежитие</div>
-                    <div class="feature">🚶 Пешком 20 мин</div>
-                </div>
-                <a href="#contact" class="btn-apply">Откликнуться</a>
-            </div>
-
-            <!-- Ла Мода -->
-            <div class="vacancy-card type-shift">
-                <div class="vacancy-name">Ла Мода (Софьино)</div>
-                <div class="vacancy-salary">до 4330 ₽/смена</div>
-                <div class="vacancy-features">
-                    <div class="feature">📍 Раменский р-н</div>
-                    <div class="feature">👤 Комплектовщики (до 40 лет)</div>
-                    <div class="feature">🌡️ Категория А</div>
-                    <div class="feature">🍽️ Обед за 1 руб</div>
-                    <div class="feature">🛏️ Общежитие 8 чел</div>
-                    <div class="feature">🚶 Пешком</div>
-                </div>
-                <a href="#contact" class="btn-apply">Откликнуться</a>
-            </div>
-
-            <!-- Фрикейк -->
-            <div class="vacancy-card type-shift">
-                <div class="vacancy-name">Фрикейк (Москва)</div>
-                <div class="vacancy-salary">300 ₽/час</div>
-                <div class="vacancy-features">
-                    <div class="feature">📍 ул. Рябиновая, 53</div>
-                    <div class="feature">👤 Только мужчины (до 45 лет)</div>
-                    <div class="feature">🌡️ +6 до +18°C</div>
-                    <div class="feature">🍽️ Питание есть</div>
-                    <div class="feature">🛏️ Общежитие</div>
-                    <div class="feature">🚶 Пешком 2.7 км</div>
-                </div>
-                <a href="#contact" class="btn-apply">Откликнуться</a>
-            </div>
-
-             <!-- Спортмастер -->
-             <div class="vacancy-card type-shift">
-                <div class="vacancy-name">Спортмастер (Балашиха)</div>
-                <div class="vacancy-salary">до 4290 ₽/смена</div>
-                <div class="vacancy-features">
-                    <div class="feature">📍 г. Балашиха</div>
-                    <div class="feature">👤 Операторы/Грузчики</div>
-                    <div class="feature">🌡️ Категория А</div>
-                    <div class="feature">🍽️ Питание есть</div>
-                    <div class="feature">🛏️ Общежитие</div>
-                    <div class="feature">🚌 Корпоративный</div>
-                </div>
-                <a href="#contact" class="btn-apply">Откликнуться</a>
-            </div>
-
-             <!-- ФМ Чехов -->
-             <div class="vacancy-card type-shift">
-                <div class="vacancy-name">ФМ Чехов</div>
-                <div class="vacancy-salary">300 ₽/час</div>
-                <div class="vacancy-features">
-                    <div class="feature">📍 г. Чехов</div>
-                    <div class="feature">👤 Комплектовщики ТСД</div>
-                    <div class="feature">🌡️ Категория А</div>
-                    <div class="feature">🍽️ Питание есть</div>
-                    <div class="feature">🛏️ Общежитие</div>
-                    <div class="feature">🚌 Корпоративный</div>
-                </div>
-                <a href="#contact" class="btn-apply">Откликнуться</a>
-            </div>
-
-            <!-- МПЗ Рублевский -->
-            <div class="vacancy-card type-shift">
-                <div class="vacancy-name">МПЗ Рублевский</div>
-                <div class="vacancy-salary">290 ₽/час</div>
-                <div class="vacancy-features">
-                    <div class="feature">📍 Москва (Молодежная)</div>
-                    <div class="feature">👤 Разнорабочие (до 55 лет)</div>
-                    <div class="feature">🌡️ +5°C</div>
-                    <div class="feature">🍽️ Питание есть</div>
-                    <div class="feature">🛏️ Общежитие</div>
-                    <div class="feature">🚌 Трансфер</div>
-                </div>
-                <a href="#contact" class="btn-apply">Откликнуться</a>
-            </div>
-
-             <!-- Норд Палп -->
-             <div class="vacancy-card type-shift">
-                <div class="vacancy-name">Норд Палп (Форносово)</div>
-                <div class="vacancy-salary">310 ₽/час</div>
-                <div class="vacancy-features">
-                    <div class="feature">📍 п. Форносово</div>
-                    <div class="feature">👤 Грузчики/Фасовщики</div>
-                    <div class="feature">🌡️ Обычный</div>
-                    <div class="feature">🚫 Питание нет</div>
-                    <div class="feature">🛏️ Общежитие 4 чел</div>
-                    <div class="feature">🚶 Шаговая доступность</div>
-                </div>
-                <a href="#contact" class="btn-apply">Откликнуться</a>
-            </div>
-
-             <!-- Парфюм Стиль -->
-             <div class="vacancy-card type-shift">
-                <div class="vacancy-name">Парфюм Стиль (Электрогорск)</div>
-                <div class="vacancy-salary">290 ₽/час</div>
-                <div class="vacancy-features">
-                    <div class="feature">📍 г. Электрогорск</div>
-                    <div class="feature">👤 Грузчики/Упаковщики</div>
-                    <div class="feature">🌡️ Обычный</div>
-                    <div class="feature">🚫 Питание нет</div>
-                    <div class="feature">🛏️ Общежитие</div>
-                    <div class="feature">🚶 Пешком 15 мин</div>
-                </div>
-                <a href="#contact" class="btn-apply">Откликнуться</a>
-            </div>
-
-        </div>
-
-        <!-- ГРУППА: РИТЕЙЛ -->
-        <h3 class="category-title category-title--retail">🛍️ Ритейл (Местная работа)</h3>
-        <div class="vacancies-grid">
-            
-            <!-- ЛЕНТА Ритейл -->
-            <div class="vacancy-card type-retail">
-                <div class="vacancy-name">ЛЕНТА (Магазин)</div>
-                <div class="vacancy-salary">до 65 000 ₽/мес</div>
-                <div class="vacancy-features">
-                    <div class="feature">📍 По месту жительства</div>
-                    <div class="feature">👤 Кассиры/Грузчики</div>
-                    <div class="feature">⏰ График 2/2</div>
-                    <div class="feature">👔 Оформление ТК РФ</div>
-                    <div class="feature">🏠 Без общежития</div>
-                    <div class="feature">💼 Медкнижка (оформим)</div>
-                </div>
-                <a href="#contact" class="btn-apply">Откликнуться</a>
-            </div>
-
-            <!-- АШАН Ритейл -->
-            <div class="vacancy-card type-retail">
-                <div class="vacancy-name">АШАН (Магазин)</div>
-                <div class="vacancy-salary">до 60 000 ₽/мес</div>
-                <div class="vacancy-features">
-                    <div class="feature">📍 По месту жительства</div>
-                    <div class="feature">👤 Продавцы/Кассиры</div>
-                    <div class="feature">⏰ Гибкий график</div>
-                    <div class="feature">👔 Официальная работа</div>
-                    <div class="feature">🏠 Без общежития</div>
-                    <div class="feature">📦 Стабильность</div>
-                </div>
-                <a href="#contact" class="btn-apply">Откликнуться</a>
-            </div>
-
-        </div>
-    </div>
-</section>
-    <section class="crm-dashboard" id="crm">
-        <div class="container">
-            <h2 class="section-title">📊 CRM Система</h2>
-            
-            <!-- View Switcher -->
-            <div class="view-switcher">
-                <button class="view-btn active" onclick="switchView('list')" id="btnList">
-                    <i class="fas fa-list"></i> Список
-                </button>
-                <button class="view-btn" onclick="switchView('kanban')" id="btnKanban">
-                    <i class="fas fa-columns"></i> Канбан
-                </button>
-            </div>
-            
-            <!-- Stats -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <span class="stat-number-card" id="totalCandidates">0</span>
-                    <div class="stat-label-card">Всего кандидатов</div>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number-card" id="newCandidates">0</span>
-                    <div class="stat-label-card">Новых сегодня</div>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number-card" id="shiftCandidates">0</span>
-                    <div class="stat-label-card">Вахта</div>
-                </div>
-                <div class="stat-card">
-                    <span class="stat-number-card" id="retailCandidates">0</span>
-                    <div class="stat-label-card">Ритейл</div>
-                </div>
-            </div>
-
-            <!-- Search Panel -->
-            <div class="search-panel">
-                <div class="form-group">
-                    <label>Поиск по имени</label>
-                    <input type="text" id="searchName" placeholder="ФИО кандидата...">
-                </div>
-                <div class="form-group">
-                    <label>Тип вакансии</label>
-                    <select id="searchType">
-                        <option value="">Все типы</option>
-                        <option value="вахта">Вахта</option>
-                        <option value="ритейл">Ритейл (местные)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Статус</label>
-                    <select id="searchStatus">
-                        <option value="">Все статусы</option>
-                        <option value="новый">Новый</option>
-                        <option value="лид">Лид</option>
-                        <option value="резерв">Резерв</option>
-                        <option value="перезвонить">Перезвонить</option>
-                        <option value="нет паспорта">Нет паспорта</option>
-                        <option value="паспорт проверен">Паспорт проверен</option>
-                        <option value="заселился">Заселился</option>
-                    </select>
-                </div>
-                <div class="form-group" style="flex: 0;">
-                    <button class="btn btn-primary" onclick="renderView()">🔍 Найти</button>
-                </div>
-            </div>
-
-            <!-- Views Container -->
-            <div id="listView">
-                <div class="candidates-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Тип</th>
-                                <th>ФИО</th>
-                                <th>Телефон</th>
-                                <th>Город</th>
-                                <th>Должность</th>
-                                <th>Проект</th>
-                                <th>Статус</th>
-                            </tr>
-                        </thead>
-                        <tbody id="candidatesTableBody"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div id="kanbanView" style="display: none;">
-                <div class="kanban-board" id="kanbanBoard"></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Vacancies -->
-    <section id="vacancies">
-        <div class="container">
-            <h2 class="section-title">💼 Актуальные вакансии</h2>
-            <div class="vacancies-grid">
-                <div class="vacancy-card">
-                    <div class="vacancy-title">Разнорабочий (Аби)</div>
-                    <div class="vacancy-salary">310 ₽/час</div>
-                    <div class="vacancy-details">
-                        <p><strong>📍</strong> г. Владимир</p>
-                        <p><strong>🏭</strong> Производство колбасных изделий</p>
-                        <p><strong>🌡️</strong> +4 до +12°C</p>
-                        <p><strong>🍽️</strong> Питание включено</p>
-                        <p><strong>🛏️</strong> Общежитие 6-8 человек</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">400+</span>
+                        <div class="stat-label">Кандидатов в базе</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <div class="stat-label">Партнеров</div>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">98%</span>
+                        <div class="stat-label">Успешных закрытий</div>
                     </div>
                 </div>
-                <div class="vacancy-card">
-                    <div class="vacancy-title">Комплектовщик (ЛЕНТА)</div>
-                    <div class="vacancy-salary">до 5500 ₽/смена</div>
-                    <div class="vacancy-details">
-                        <p><strong>📍</strong> МО, г. Чехов</p>
-                        <p><strong>📦</strong> Складской комплекс</p>
-                        <p><strong>🌡️</strong> Теплый склад</p>
-                        <p><strong>🍽️</strong> Комплексный обед</p>
-                        <p><strong>🛏️</strong> Общежитие</p>
-                    </div>
+            </div>
+            <div class="hero-image">
+                <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 30px; margin-bottom: 20px;">
+                    <i class="fas fa-robot" style="color: #10B981; font-size: 48px; margin-bottom: 16px;"></i>
+                    <h3 style="font-size: 24px; margin-bottom: 12px;">AI-агенты</h3>
+                    <p style="opacity: 0.9;">Автоматизированный подбор и проверка кандидатов 24/7</p>
                 </div>
-                <div class="vacancy-card">
-                    <div class="vacancy-title">Грузчик (АШАН)</div>
-                    <div class="vacancy-salary">3400 ₽/смена</div>
-                    <div class="vacancy-details">
-                        <p><strong>📍</strong> МО, г. Домодедово</p>
-                        <p><strong>📦</strong> Складской комплекс</p>
-                        <p><strong>⏰</strong> Вахта от 35 смен</p>
-                        <p><strong>🛏️</strong> Общежитие 6-8 чел</p>
-                        <p><strong>🚌</strong> Корпоративный транспорт</p>
-                    </div>
-                </div>
-                <div class="vacancy-card retail">
-                    <div class="vacancy-title">Кассир (ЛЕНТА)</div>
-                    <div class="vacancy-salary">до 65 000 ₽/мес</div>
-                    <div class="vacancy-details">
-                        <p><strong>📍</strong> По месту жительства</p>
-                        <p><strong>🏪</strong> Гипермаркеты ЛЕНТА</p>
-                        <p><strong>⏰</strong> График 2/2 или 3/3</p>
-                        <p><strong>👔</strong> Оформление по ТК РФ</p>
-                        <p><strong>🎓</strong> Медкнижка (оформим)</p>
-                    </div>
+                <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 30px;">
+                    <i class="fas fa-comments" style="color: var(--secondary); font-size: 48px; margin-bottom: 16px;"></i>
+                    <h3 style="font-size: 24px; margin-bottom: 12px;">Чат-боты</h3>
+                    <p style="opacity: 0.9;">Telegram и MAX для быстрой связи с кандидатами</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact Form -->
-    <section id="contact">
+    <!-- Bots Section -->
+    <section class="bots-section" id="bots">
         <div class="container">
-            <h2 class="section-title">📞 Оставить заявку</h2>
-            <form class="contact-form" onsubmit="submitForm(event)" style="max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                <div class="form-row" style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Ваше имя *</label>
-                    <input type="text" required placeholder="Иванов Иван Иванович" style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px;">
+            <div class="section-header">
+                <h2>Наши AI-боты</h2>
+                <p>Свяжитесь с нами через удобные мессенджеры. Боты работают круглосуточно!</p>
+            </div>
+            
+            <div class="bots-grid">
+                <!-- Telegram Bot -->
+                <div class="bot-card telegram">
+                    <div class="bot-icon">
+                        <i class="fab fa-telegram-plane"></i>
+                    </div>
+                    <h3>Telegram Бот</h3>
+                    <p>Быстрая связь с HR-менеджером через Telegram. Получите консультацию и подберите вакансию за несколько минут.</p>
+                    
+                    <ul class="bot-features">
+                        <li><i class="fas fa-check-circle"></i> Мгновенный ответ</li>
+                        <li><i class="fas fa-check-circle"></i> Подбор вакансий</li>
+                        <li><i class="fas fa-check-circle"></i> Информация о проектах</li>
+                        <li><i class="fas fa-check-circle"></i> Запись на собеседование</li>
+                        <li><i class="fas fa-check-circle"></i> Проверка документов</li>
+                    </ul>
+                    
+                    <a href="https://t.me/NashiLyudiBot" target="_blank" class="btn" style="background: white; color: var(--telegram); font-size: 18px; padding: 16px 40px;">
+                        <i class="fab fa-telegram"></i> Запустить бота
+                    </a>
                 </div>
-                <div class="form-row" style="margin-bottom: 20px;">
-                    <label style="display: block; margin-bottom: 8px; font-weight: 600;">Телефон *</label>
-                    <input type="tel" required placeholder="+7 (___) ___-__-__" style="width: 100%; padding: 12px; border: 2px solid var(--border); border-radius: 8px;">
+
+                <!-- MAX Bot -->
+                <div class="bot-card max">
+                    <div class="bot-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>MAX Мессенджер</h3>
+                    <p>Современный AI-помощник в MAX мессенджере. Автоматический подбор проектов и ответы на вопросы.</p>
+                    
+                    <ul class="bot-features">
+                        <li><i class="fas fa-check-circle"></i> AI-подбор проектов</li>
+                        <li><i class="fas fa-check-circle"></i> Информация о вакансиях</li>
+                        <li><i class="fas fa-check-circle"></i> Проверка требований</li>
+                        <li><i class="fas fa-check-circle"></i> Запись на заселение</li>
+                        <li><i class="fas fa-check-circle"></i> Поддержка 24/7</li>
+                    </ul>
+                    
+                    <button onclick="showMaxBotModal()" class="btn" style="background: white; color: var(--primary-dark); font-size: 18px; padding: 16px 40px;">
+                        <i class="fas fa-robot"></i> Написать в MAX
+                    </button>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Отправить заявку</button>
-            </form>
-            <div style="text-align: center; margin-top: 20px;">
-                📞 <strong>HR-менеджер:</strong> <a href="tel:+79023086595" style="color: var(--secondary); text-decoration: none; font-weight: 700;">+7 (902) 308-65-95</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Agents Section -->
+    <section class="ai-section">
+        <div class="container">
+            <div class="section-header" style="color: white;">
+                <h2 style="color: white;">AI-агенты системы</h2>
+                <p>Интеллектуальная автоматизация всех процессов подбора</p>
+            </div>
+            
+            <div class="ai-grid">
+                <div class="ai-card">
+                    <h3><i class="fas fa-search"></i> Matcher</h3>
+                    <p>Агент подбора вакансий. Анализирует запрос кандидата и автоматически подбирает подходящие проекты по критериям: зарплата, локация, условия проживания.</p>
+                </div>
+                
+                <div class="ai-card">
+                    <h3><i class="fas fa-home"></i> Settler</h3>
+                    <p>Агент заселения. Предоставляет полную информацию о проектах: адрес, условия проживания, питание, трансфер, температурный режим и требования к кандидатам.</p>
+                </div>
+                
+                <div class="ai-card">
+                    <h3><i class="fas fa-shield-alt"></i> Checker</h3>
+                    <p>Агент проверки документов. Автоматически проверяет наличие паспорта, медкнижки, регистрацию. Консультирует по требованиям к документам для каждого проекта.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Почему выбирают нас</h2>
+                <p>Современные технологии и индивидуальный подход к каждому клиенту</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI-агенты</h3>
+                    <p>Автоматизированная система подбора кандидатов с интеллектуальным анализом резюме и автоматической проверкой документов.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Быстрый старт</h3>
+                    <p>Выход кандидатов на объект в течение 3-5 дней. Собственная база проверенных сотрудников.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Проверка СБ</h3>
+                    <p>Многоступенчатая проверка кандидатов: документы, медосмотр, служба безопасности.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Комфортное жилье</h3>
+                    <p>Собственные общежития и партнерские хостелы рядом с объектами. Все условия для проживания.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>CRM-система</h3>
+                    <p>Прозрачное отслеживание всех этапов подбора. Личный кабинет для клиентов.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>Поддержка 24/7</h3>
+                    <p>Персональный менеджер и круглосуточная поддержка кандидатов на объектах.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Наши услуги</h2>
+                <p>Полный спектр услуг по подбору и сопровождению персонала</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card" style="background: var(--bg-light);">
+                    <h3><i class="fas fa-truck-loading" style="margin-right: 10px;"></i>Вахтовый персонал</h3>
+                    <p>Подбор и сопровождение сотрудников на вахту: склады, производства, логистические центры. Организация проживания и трансфера.</p>
+                </div>
+                <div class="service-card" style="background: var(--bg-light);">
+                    <h3><i class="fas fa-store" style="margin-right: 10px;"></i>Ритейл</h3>
+                    <p>Кассиры, продавцы, грузчики для торговых сетей. Местный персонал без вахты. Оформление по ТК РФ.</p>
+                </div>
+                <div class="service-card" style="background: var(--bg-light);">
+                    <h3><i class="fas fa-clipboard-check" style="margin-right: 10px;"></i>Массовый подбор</h3>
+                    <p>Быстрое закрытие массовых вакансий. Одновременный вывод групп до 100 человек.</p>
+                </div>
+                <div class="service-card" style="background: var(--bg-light);">
+                    <h3><i class="fas fa-user-tie" style="margin-right: 10px;"></i>Точечный подбор</h3>
+                    <p>Поиск узкопрофильных специалистов и руководителей. Индивидуальный подход к каждой вакансии.</p>
+                </div>
+                <div class="service-card" style="background: var(--bg-light);">
+                    <h3><i class="fas fa-file-medical" style="margin-right: 10px;"></i>Оформление документов</h3>
+                    <p>Помощь в оформлении медкнижек, регистрации, патентов. Полное юридическое сопровождение.</p>
+                </div>
+                <div class="service-card" style="background: var(--bg-light);">
+                    <h3><i class="fas fa-bed" style="margin-right: 10px;"></i>Организация проживания</h3>
+                    <p>Подбор и аренда общежитий, хостелов. Контроль условий проживания сотрудников.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="contact-grid">
+            <div class="contact-form">
+                <h3 style="font-size: 28px; margin-bottom: 24px; color: var(--primary);">Оставить заявку</h3>
+                <form id="contactForm" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label>Ваше имя *</label>
+                        <input type="text" required placeholder="Иванов Иван Иванович">
+                    </div>
+                    <div class="form-group">
+                        <label>Телефон *</label>
+                        <input type="tel" required placeholder="+7 (___) ___-__-__">
+                    </div>
+                    <div class="form-group">
+                        <label>Тип занятости</label>
+                        <select>
+                            <option>Вахта</option>
+                            <option>Ритейл (местная работа)</option>
+                            <option>Не важно</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Сообщение</label>
+                        <textarea rows="4" placeholder="Расскажите о ваших требованиях..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 16px;">
+                        <i class="fas fa-paper-plane"></i> Отправить заявку
+                    </button>
+                </form>
+            </div>
+            
+            <div class="contact-info">
+                <h3>Свяжитесь с нами</h3>
+                <p>Готовы закрыть ваши вакансии? Оставьте заявку или напишите нашим ботам — мы подберем лучших кандидатов уже завтра!</p>
+                
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <strong>Телефон</strong>
+                            <span><a href="tel:+79023086595" style="color: inherit; text-decoration: none;">+7 (902) 308-65-95</a></span>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <i class="fab fa-telegram"></i>
+                        <div>
+                            <strong>Telegram бот</strong>
+                            <span><a href="https://t.me/NashiLyudiBot" target="_blank" style="color: inherit; text-decoration: none;">@NashiLyudiBot</a></span>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <i class="fas fa-robot"></i>
+                        <div>
+                            <strong>MAX мессенджер</strong>
+                            <span>Наши Люди Bot</span>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <strong>Email</strong>
+                            <span>info@nashilyudi.ru</span>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <strong>Адрес</strong>
+                            <span>Москва, работаем по всей России</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -786,179 +1003,135 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2026 Кадровое агентство «Наши Люди». Все права защищены.</p>
-            <p>📞 <a href="tel:+79023086595">+7 (902) 308-65-95</a></p>
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>О компании</h4>
+                    <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
+                        Кадровое агентство «Наши Люди» — профессиональный подбор вахтового персонала и сотрудников для ритейла с использованием AI-технологий.
+                    </p>
+                </div>
+                <div class="footer-section">
+                    <h4>Услуги</h4>
+                    <ul>
+                        <li><a href="#">Вахтовый персонал</a></li>
+                        <li><a href="#">Ритейл</a></li>
+                        <li><a href="#">Массовый подбор</a></li>
+                        <li><a href="#">Точечный подбор</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Проекты</h4>
+                    <ul>
+                        <li><a href="#">Аби (Владимир)</a></li>
+                        <li><a href="#">ЛЕНТА (склад)</a></li>
+                        <li><a href="#">АШАН (склад)</a></li>
+                        <li><a href="#">Яндекс Софьино</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Наши боты</h4>
+                    <ul>
+                        <li><a href="https://t.me/NashiLyudiBot" target="_blank"><i class="fab fa-telegram"></i> Telegram Bot</a></li>
+                        <li><a href="#" onclick="showMaxBotModal()"><i class="fas fa-robot"></i> MAX Bot</a></li>
+                    </ul>
+                    <div class="footer-bots">
+                        <a href="https://t.me/NashiLyudiBot" target="_blank" class="btn btn-telegram">
+                            <i class="fab fa-telegram"></i>
+                        </a>
+                        <button onclick="showMaxBotModal()" class="btn btn-max">
+                            <i class="fas fa-robot"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Кадровое агентство «Наши Люди». Все права защищены.</p>
+            </div>
         </div>
     </footer>
 
+    <!-- MAX Bot Modal -->
+    <div class="modal" id="maxModal">
+        <div class="modal-content">
+            <h3><i class="fas fa-robot" style="color: var(--max); font-size: 48px; margin-bottom: 16px;"></i></h3>
+            <h3>MAX Бот</h3>
+            <p>Для связи с нашим AI-помощником в MAX мессенджере:</p>
+            <ol style="text-align: left; margin: 20px 0; padding-left: 20px; color: var(--text-light);">
+                <li>Скачайте MAX мессенджер</li>
+                <li>Найдите бота <strong>@NashiLyudiBot</strong></li>
+                <li>Нажмите "Начать"</li>
+                <li>Получите консультацию!</li>
+            </ol>
+            <div class="modal-buttons">
+                <button onclick="closeMaxModal()" class="btn btn-outline">Закрыть</button>
+                <a href="#" class="btn btn-max">Открыть MAX</a>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Статусы с цветами
-        const statuses = {
-            "новый": {color: "#3498DB", group: "new"},
-            "лид": {color: "#F39C12", group: "lead"},
-            "резерв": {color: "#95A5A6", group: "reserve"},
-            "перезвонить": {color: "#E67E22", group: "callback"},
-            "нет паспорта": {color: "#E74C3C", group: "no_passport"},
-            "паспорт проверен": {color: "#2ECC71", group: "passport_ok"},
-            "заселился": {color: "#27AE60", group: "settled"}
-        };
+        // Modal functions
+        function showMaxBotModal() {
+            document.getElementById('maxModal').classList.add('active');
+        }
 
-        let candidatesData = [];
-        let currentView = 'list';
+        function closeMaxModal() {
+            document.getElementById('maxModal').classList.remove('active');
+        }
 
-        // Загрузка данных из CSV
-        async function loadData() {
-            try {
-                const response = await fetch('applicants_database.csv');
-                if (!response.ok) throw new Error('Failed to load CSV');
-                
-                const text = await response.text();
-                const lines = text.trim().split('\n');
-                
-                candidatesData = lines.slice(1).map(line => {
-                    const regex = /,(?=(?:(?:[^"]*"){2})*[^"]*$)/;
-                    const parts = line.split(regex);
-                    const clean = (str) => str ? str.replace(/^"|"$/g, '').trim() : "";
-                    
-                    return {
-                        fio: clean(parts[0]),
-                        phone: clean(parts[1]),
-                        city: clean(parts[2]),
-                        position: clean(parts[3]),
-                        status: clean(parts[4]),
-                        project: clean(parts[5]),
-                        type: clean(parts[6]) || (parts[5] && (parts[5].toLowerCase().includes('аби') || parts[5].toLowerCase().includes('мпз') || parts[5].toLowerCase().includes('ашан') || parts[5].toLowerCase().includes('лен')) ? 'вахта' : 'ритейл')
-                    };
-                }).filter(c => c.fio);
-
-                renderView();
-            } catch (error) {
-                console.error('Error loading CSV:', error);
+        // Close modal on outside click
+        document.getElementById('maxModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeMaxBotModal();
             }
-        }
+        });
 
-        function switchView(view) {
-            currentView = view;
-            document.getElementById('listView').style.display = view === 'list' ? 'block' : 'none';
-            document.getElementById('kanbanView').style.display = view === 'kanban' ? 'block' : 'none';
-            document.getElementById('btnList').classList.toggle('active', view === 'list');
-            document.getElementById('btnKanban').classList.toggle('active', view === 'kanban');
-            renderView();
-        }
-
-        function renderView() {
-            if (currentView === 'list') renderList();
-            else renderKanban();
-            updateStats();
-        }
-
-        function getFilteredData() {
-            const nameFilter = document.getElementById('searchName').value.toLowerCase();
-            const typeFilter = document.getElementById('searchType').value;
-            const statusFilter = document.getElementById('searchStatus').value;
-            
-            return candidatesData.filter(c => {
-                return (!nameFilter || c.fio.toLowerCase().includes(nameFilter)) &&
-                       (!typeFilter || c.type === typeFilter) &&
-                       (!statusFilter || c.status === statusFilter);
-            });
-        }
-
-        function renderList() {
-            const tbody = document.getElementById('candidatesTableBody');
-            tbody.innerHTML = '';
-            const data = getFilteredData();
-            
-            data.forEach(c => {
-                const statusObj = statuses[c.status] || {color: "#95A5A6"};
-                const typeBadge = c.type === 'ритейл' 
-                    ? '<span class="type-badge type-retail">РИТЕЙЛ</span>' 
-                    : '<span class="type-badge type-shift">ВАХТА</span>';
-                
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td>${typeBadge}</td>
-                    <td>${c.fio}</td>
-                    <td>${c.phone}</td>
-                    <td>${c.city}</td>
-                    <td>${c.position}</td>
-                    <td>${c.project}</td>
-                    <td><span class="status-badge" style="background: ${statusObj.color}">${c.status}</span></td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-
-        function renderKanban() {
-            const board = document.getElementById('kanbanBoard');
-            board.innerHTML = '';
-            const data = getFilteredData();
-            
-            const groups = {
-                "new": "📋 Новые",
-                "lead": "🎯 Лиды",
-                "reserve": "💾 Резерв",
-                "callback": "📞 Перезвонить",
-                "no_passport": "❌ Нет паспорта",
-                "passport_ok": "✅ Паспорт проверен",
-                "settled": "🏠 Заселились"
-            };
-
-            Object.keys(groups).forEach(groupKey => {
-                const groupData = data.filter(c => {
-                    const statusInfo = statuses[c.status];
-                    return statusInfo && statusInfo.group === groupKey;
-                });
-                
-                if (groupData.length === 0) return;
-                
-                const col = document.createElement('div');
-                col.className = 'kanban-column';
-                col.innerHTML = `
-                    <div class="column-header" style="background: ${groupData[0] ? statuses[groupData[0].status].color : '#95A5A6'}">
-                        <span>${groups[groupKey]}</span>
-                        <span class="column-count">${groupData.length}</span>
-                    </div>
-                    <div class="column-body"></div>
-                `;
-                
-                const body = col.querySelector('.column-body');
-                groupData.forEach(c => {
-                    const card = document.createElement('div');
-                    const isRetail = c.type === 'ритейл';
-                    card.className = `kanban-card ${isRetail ? 'is-retail' : 'is-shift'}`;
-                    card.innerHTML = `
-                        <div class="card-header">
-                            <span class="card-name">${c.fio}</span>
-                            <span class="type-badge ${isRetail ? 'type-retail' : 'type-shift'}">${c.type.toUpperCase()}</span>
-                        </div>
-                        <div class="card-info">📞 ${c.phone}</div>
-                        <div class="card-info">📍 ${c.city}</div>
-                        <div class="card-info">💼 ${c.position}</div>
-                        ${c.project ? `<div class="card-info">🏢 ${c.project}</div>` : ''}
-                    `;
-                    body.appendChild(card);
-                });
-                
-                board.appendChild(col);
-            });
-        }
-
-        function updateStats() {
-            document.getElementById('totalCandidates').textContent = candidatesData.length;
-            document.getElementById('newCandidates').textContent = candidatesData.filter(c => c.status === 'новый').length;
-            document.getElementById('shiftCandidates').textContent = candidatesData.filter(c => c.type === 'вахта').length;
-            document.getElementById('retailCandidates').textContent = candidatesData.filter(c => c.type === 'ритейл').length;
-        }
-
-        function submitForm(e) {
+        // Form submission
+        function handleSubmit(e) {
             e.preventDefault();
-            alert('✅ Заявка отправлена! Мы свяжемся с вами в ближайшее время.');
+            
+            // Here you can add integration with your backend
+            alert('✅ Спасибо! Ваша заявка отправлена. Мы свяжемся с вами в ближайшее время.\n\nТакже вы можете написать нашим ботам:\n• Telegram: @NashiLyudiBot\n• MAX: @NashiLyudiBot');
+            
             e.target.reset();
         }
 
-        // Init
-        window.onload = loadData;
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .service-card, .bot-card, .ai-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(el);
+        });
     </script>
+
 </body>
 </html>
