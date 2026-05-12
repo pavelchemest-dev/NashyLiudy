@@ -3,1570 +3,874 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Наши Люди | Кадровое агентство полного цикла</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <title>Наши Люди | HR-платформа с AI и CRM</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #1E3A5F;
-            --primary-dark: #0F172A;
-            --secondary: #FF6B35;
-            --accent: #3B82F6;
+            --primary: #0F172A;
+            --primary-light: #1E293B;
+            --accent: #FF6B35;
+            --accent-hover: #E55A2B;
             --success: #10B981;
-            --text-dark: #1E293B;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+            --info: #3B82F6;
+            --purple: #8B5CF6;
+            --bg: #F8FAFC;
+            --surface: #FFFFFF;
+            --text: #0F172A;
             --text-light: #64748B;
-            --bg-light: #F8FAFC;
-            --white: #FFFFFF;
             --border: #E2E8F0;
+            --radius: 12px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.06);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--text-dark);
-            overflow-x: hidden;
-        }
+        /* Layout */
+        .app { display:flex; min-height:100vh; }
+        .sidebar { width:260px; background:var(--primary); color:#fff; padding:0; position:fixed; height:100vh; overflow-y:auto; z-index:100; }
+        .sidebar-header { padding:24px 20px; border-bottom:1px solid rgba(255,255,255,0.1); }
+        .logo { font-size:22px; font-weight:800; display:flex; align-items:center; gap:12px; }
+        .logo i { color:var(--accent); font-size:28px; }
+        .nav-section { padding:20px 0; }
+        .nav-title { padding:0 20px 10px; font-size:11px; text-transform:uppercase; letter-spacing:0.5px; opacity:0.6; font-weight:600; }
+        .nav-item { padding:12px 20px; cursor:pointer; display:flex; align-items:center; gap:12px; transition:all 0.2s; font-weight:500; font-size:14px; }
+        .nav-item:hover, .nav-item.active { background:rgba(255,255,255,0.08); border-left:3px solid var(--accent); }
+        .nav-item i { width:20px; text-align:center; opacity:0.9; }
+        .nav-badge { margin-left:auto; background:var(--accent); padding:2px 8px; border-radius:10px; font-size:11px; font-weight:700; }
 
-        /* Navigation */
-        nav {
-            background: var(--white);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
+        .main { margin-left:260px; flex:1; padding:30px; background:var(--bg); }
+        .header { display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; }
+        .page-title { font-size:28px; font-weight:800; color:var(--primary); }
+        .page-subtitle { color:var(--text-light); font-size:14px; margin-top:4px; }
+        .actions { display:flex; gap:12px; }
 
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+        /* Components */
+        .card { background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); padding:20px; margin-bottom:20px; }
+        .grid-2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px; }
+        .grid-3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
+        .grid-4 { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:15px; }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 28px;
-            font-weight: 900;
-            color: var(--primary);
-            text-decoration: none;
-        }
+        .stat-card { text-align:left; padding:24px; position:relative; overflow:hidden; }
+        .stat-card::before { content:''; position:absolute; top:0; right:0; width:100px; height:100px; background:linear-gradient(135deg,rgba(255,255,255,0.1),transparent); border-radius:50%; transform:translate(30px,-30px); }
+        .stat-value { font-size:36px; font-weight:900; color:var(--primary); margin-bottom:4px; }
+        .stat-label { color:var(--text-light); font-size:13px; font-weight:500; }
+        .stat-icon { position:absolute; top:20px; right:20px; font-size:32px; opacity:0.2; }
+        .stat-change { font-size:12px; margin-top:8px; font-weight:600; }
+        .stat-change.positive { color:var(--success); }
+        .stat-change.negative { color:var(--danger); }
 
-        .logo-icon {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(135deg, var(--secondary), #E55A2B);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 24px;
-        }
+        .btn { padding:10px 18px; border-radius:8px; border:none; cursor:pointer; font-weight:600; transition:all 0.2s; display:inline-flex; align-items:center; gap:8px; font-size:14px; }
+        .btn-primary { background:var(--accent); color:#fff; }
+        .btn-primary:hover { background:var(--accent-hover); transform:translateY(-1px); box-shadow:0 4px 12px rgba(255,107,53,0.3); }
+        .btn-outline { background:transparent; border:1px solid var(--border); color:var(--text); }
+        .btn-outline:hover { border-color:var(--primary); color:var(--primary); }
+        .btn-sm { padding:6px 12px; font-size:12px; }
+        .btn-success { background:var(--success); color:#fff; }
+        .btn-danger { background:var(--danger); color:#fff; }
+        .btn-purple { background:var(--purple); color:#fff; }
 
-        .logo span {
-            color: var(--secondary);
-        }
+        /* Kanban Board (Potok-style) */
+        .kanban-container { overflow-x:auto; padding-bottom:20px; }
+        .kanban-board { display:flex; gap:20px; min-width:max-content; }
+        .kanban-column { width:320px; background:#F1F5F9; border-radius:var(--radius); padding:16px; }
+        .kanban-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding-bottom:12px; border-bottom:2px solid var(--border); }
+        .kanban-title { font-weight:700; font-size:14px; display:flex; align-items:center; gap:8px; }
+        .kanban-count { background:var(--primary); color:#fff; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:700; }
+        .kanban-card { background:#fff; padding:16px; border-radius:8px; margin-bottom:12px; box-shadow:0 1px 3px rgba(0,0,0,0.08); cursor:pointer; transition:all 0.2s; border-left:3px solid var(--info); position:relative; }
+        .kanban-card:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,0.12); }
+        .kanban-card-header { display:flex; justify-content:space-between; align-items:start; margin-bottom:8px; }
+        .kanban-card-title { font-weight:700; font-size:14px; color:var(--primary); }
+        .kanban-card-type { font-size:10px; padding:2px 6px; border-radius:6px; font-weight:700; text-transform:uppercase; }
+        .kanban-card-type.shift { background:#DBEAFE; color:#1E40AF; }
+        .kanban-card-type.retail { background:#D1FAE5; color:#065F46; }
+        .kanban-card-meta { font-size:12px; color:var(--text-light); margin-bottom:6px; display:flex; align-items:center; gap:6px; }
+        .kanban-card-meta i { width:14px; opacity:0.7; }
+        .kanban-card-project { font-size:11px; color:var(--accent); font-weight:600; margin-top:8px; }
+        .kanban-actions { display:flex; gap:6px; margin-top:12px; padding-top:12px; border-top:1px solid var(--border); }
 
-        .nav-links {
-            display: flex;
-            gap: 30px;
-            align-items: center;
-        }
+        /* Table View */
+        .table-container { overflow-x:auto; }
+        table { width:100%; border-collapse:collapse; font-size:13px; }
+        th, td { padding:12px; text-align:left; border-bottom:1px solid var(--border); }
+        th { background:#F8FAFC; font-weight:700; color:var(--primary); text-transform:uppercase; font-size:11px; letter-spacing:0.5px; }
+        tr:hover { background:#F8FAFC; }
+        .status-badge { padding:4px 10px; border-radius:12px; font-size:11px; font-weight:700; display:inline-block; }
+        .status-new { background:#DBEAFE; color:#1E40AF; }
+        .status-contact { background:#FEF3C7; color:#92400E; }
+        .status-interview { background:#E0E7FF; color:#3730A3; }
+        .status-offer { background:#D1FAE5; color:#065F46; }
+        .status-hired { background:var(--success); color:#fff; }
+        .status-reject { background:#FEE2E2; color:#991B1B; }
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 600;
-            font-size: 15px;
-            transition: color 0.3s;
-        }
+        /* Filters */
+        .filters-bar { display:flex; gap:12px; margin-bottom:24px; flex-wrap:wrap; align-items:center; }
+        .search-input { flex:1; min-width:250px; padding:10px 16px; border:1px solid var(--border); border-radius:8px; font-size:14px; }
+        .filter-select { padding:10px 16px; border:1px solid var(--border); border-radius:8px; font-size:14px; background:#fff; }
 
-        .nav-links a:hover {
-            color: var(--secondary);
-        }
-
-        .btn {
-            padding: 12px 28px;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: none;
-            font-size: 15px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .btn-primary {
-            background: var(--secondary);
-            color: var(--white);
-        }
-
-        .btn-primary:hover {
-            background: #E55A2B;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(255,107,53,0.3);
-        }
-
-        .btn-telegram {
-            background: #0088cc;
-            color: white;
-        }
-
-        .btn-telegram:hover {
-            background: #0077b5;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
-            padding: 100px 20px;
-            color: var(--white);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 50%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="80" cy="20" r="40" fill="rgba(255,255,255,0.05)"/><circle cx="90" cy="60" r="30" fill="rgba(255,255,255,0.03)"/></svg>');
-            background-size: cover;
-        }
-
-        .hero-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-content h1 {
-            font-size: 52px;
-            font-weight: 900;
-            line-height: 1.2;
-            margin-bottom: 24px;
-        }
-
-        .hero-content h1 span {
-            color: var(--secondary);
-        }
-
-        .hero-content p {
-            font-size: 20px;
-            margin-bottom: 32px;
-            opacity: 0.95;
-            line-height: 1.6;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-            margin-top: 60px;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 42px;
-            font-weight: 900;
-            color: var(--secondary);
-            display: block;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            opacity: 0.9;
-            margin-top: 8px;
-        }
-
-        /* Sections */
-        section {
-            padding: 80px 20px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .section-header h2 {
-            font-size: 42px;
-            font-weight: 900;
-            color: var(--primary);
-            margin-bottom: 16px;
-        }
-
-        .section-header p {
-            font-size: 18px;
-            color: var(--text-light);
-            max-width: 600px;
-            margin: 0 auto;
-        }
+        /* Integration Panel */
+        .integration-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(350px,1fr)); gap:20px; }
+        .integration-card { background:#fff; padding:24px; border-radius:var(--radius); border:1px solid var(--border); position:relative; overflow:hidden; }
+        .integration-card::before { content:''; position:absolute; top:0; left:0; width:4px; height:100%; }
+        .integration-card.tg::before { background:#0088CC; }
+        .integration-card.max::before { background:#00D9FF; }
+        .integration-card.ai::before { background:linear-gradient(135deg,#667eea,#764ba2); }
+        .integration-header { display:flex; align-items:center; gap:16px; margin-bottom:20px; }
+        .integration-icon { width:50px; height:50px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:24px; color:#fff; }
+        .tg-icon { background:#0088CC; }
+        .max-icon { background:#00D9FF; color:var(--primary); }
+        .ai-icon { background:linear-gradient(135deg,#667eea,#764ba2); }
+        .integration-title { font-size:18px; font-weight:700; }
+        .integration-status { font-size:12px; color:var(--text-light); display:flex; align-items:center; gap:6px; margin-top:4px; }
+        .status-dot { width:8px; height:8px; border-radius:50%; }
+        .status-dot.active { background:var(--success); }
+        .status-dot.inactive { background:var(--danger); }
+        .log-box { background:#F8FAFC; padding:12px; border-radius:8px; font-family:'Courier New',monospace; font-size:11px; max-height:150px; overflow-y:auto; border:1px solid var(--border); margin-top:16px; }
+        .log-entry { margin-bottom:6px; padding-bottom:6px; border-bottom:1px solid var(--border); }
+        .log-time { color:var(--text-light); margin-right:8px; }
 
         /* Projects Grid */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 30px;
-        }
-
-        .project-card {
-            background: var(--white);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: all 0.3s;
-            border: 2px solid var(--border);
-            cursor: pointer;
-        }
-
-        .project-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            border-color: var(--secondary);
-        }
-
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 20px;
-        }
-
-        .project-name {
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 5px;
-        }
-
-        .project-location {
-            font-size: 14px;
-            color: var(--text-light);
-        }
-
-        .project-salary {
-            font-size: 28px;
-            font-weight: 900;
-            color: var(--secondary);
-        }
-
-        .project-info {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .project-detail {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            color: var(--text-light);
-        }
-
-        .project-detail i {
-            color: var(--secondary);
-            width: 20px;
-        }
-
-        .project-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .tag {
-            background: var(--bg-light);
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        .tag.shift {
-            background: #DBEAFE;
-            color: #1E40AF;
-        }
-
-        .tag.food {
-            background: #D1FAE5;
-            color: #065F46;
-        }
-
-        /* CRM Section */
-        .crm-section {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-            color: var(--white);
-            padding: 100px 20px;
-        }
-
-        .crm-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .crm-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            margin-top: 50px;
-        }
-
-        .crm-info h3 {
-            font-size: 36px;
-            font-weight: 900;
-            margin-bottom: 20px;
-        }
-
-        .crm-info > p {
-            font-size: 18px;
-            opacity: 0.9;
-            margin-bottom: 30px;
-            line-height: 1.7;
-        }
-
-        .crm-features {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .crm-feature {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 20px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-        }
-
-        .crm-feature i {
-            font-size: 32px;
-            color: var(--secondary);
-        }
-
-        .crm-demo {
-            background: var(--white);
-            border-radius: 20px;
-            padding: 40px;
-            color: var(--text-dark);
-        }
-
-        .crm-demo-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .crm-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-
-        .crm-stat-card {
-            background: var(--bg-light);
-            padding: 25px;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .crm-stat-number {
-            font-size: 36px;
-            font-weight: 900;
-            color: var(--secondary);
-            display: block;
-        }
-
-        .crm-stat-label {
-            font-size: 14px;
-            color: var(--text-light);
-            margin-top: 8px;
-        }
-
-        /* CRM Controls */
-        .crm-controls {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .crm-search {
-            flex: 1;
-            padding: 12px;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            font-size: 14px;
-            min-width: 250px;
-        }
-
-        .crm-view-btn {
-            padding: 10px 20px;
-            background: var(--white);
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .crm-view-btn.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .btn-add {
-            background: var(--success);
-            color: white;
-            border: none;
-        }
-
-        .btn-add:hover {
-            background: #059669;
-        }
-
-        /* Kanban Board */
-        .kanban-board {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            padding-bottom: 20px;
-        }
-
-        .kanban-column {
-            min-width: 300px;
-            background: var(--bg-light);
-            border-radius: 12px;
-            padding: 15px;
-        }
-
-        .col-header {
-            font-weight: 700;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .col-count {
-            background: var(--secondary);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 12px;
-        }
-
-        .kanban-card {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            border-left: 3px solid var(--primary);
-        }
-
-        .kanban-card h4 {
-            font-size: 15px;
-            margin-bottom: 5px;
-        }
-
-        .kanban-card p {
-            font-size: 12px;
-            color: var(--text-light);
-            margin-bottom: 10px;
-        }
-
-        .card-actions {
-            display: flex;
-            gap: 5px;
-            flex-wrap: wrap;
-        }
-
-        .action-btn {
-            font-size: 10px;
-            padding: 5px 8px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            color: white;
-            transition: all 0.2s;
-        }
-
-        .action-btn.settle {
-            background: var(--success);
-        }
-
-        .action-btn.settle:hover {
-            background: #059669;
-        }
-
-        .action-btn.reject {
-            background: #ef4444;
-        }
-
-        .action-btn.reject:hover {
-            background: #dc2626;
-        }
-
-        /* List View */
-        .candidates-table {
-            width: 100%;
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-
-        th {
-            background: var(--primary);
-            color: white;
-            font-weight: 700;
-            font-size: 13px;
-            text-transform: uppercase;
-        }
-
-        tr:hover {
-            background: var(--bg-light);
-        }
-
-        .status-badge {
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            display: inline-block;
-        }
-
-        .status-new { background: #DBEAFE; color: #1E40AF; }
-        .status-interview { background: #FEF3C7; color: #92400E; }
-        .status-docs { background: #E0E7FF; color: #3730A3; }
-        .status-settled { background: #D1FAE5; color: #065F46; }
-        .status-reject { background: #FEE2E2; color: #991B1B; }
-
-        /* Contact Section */
-        .contact-section {
-            background: var(--bg-light);
-            padding: 100px 20px;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .contact-form {
-            background: white;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-
-        .form-group {
-            margin-bottom: 24px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 15px;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--secondary);
-        }
-
-        .contact-info h3 {
-            font-size: 32px;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .contact-methods {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .contact-method {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 20px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-        }
-
-        .contact-method i {
-            font-size: 32px;
-            color: var(--secondary);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--primary-dark);
-            color: white;
-            padding: 60px 20px 30px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-            max-width: 1400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .footer-section h4 {
-            font-size: 18px;
-            font-weight: 700;
-            margin-bottom: 20px;
-            color: var(--secondary);
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 12px;
-        }
-
-        .footer-section a {
-            color: rgba(255,255,255,0.8);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-section a:hover {
-            color: var(--secondary);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            color: rgba(255,255,255,0.6);
-            font-size: 14px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* Responsive */
-        @media (max-width: 968px) {
-            .hero-container,
-            .crm-grid,
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-content h1 {
-                font-size: 36px;
-            }
-
-            .hero-stats {
-                grid-template-columns: 1fr;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .projects-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .project-card,
-        .crm-feature {
-            animation: fadeInUp 0.6s ease-out;
-        }
+        .projects-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:20px; }
+        .project-card { background:#fff; padding:24px; border-radius:var(--radius); border:1px solid var(--border); transition:all 0.2s; cursor:pointer; }
+        .project-card:hover { border-color:var(--accent); box-shadow:var(--shadow-lg); transform:translateY(-2px); }
+        .project-header { display:flex; justify-content:space-between; align-items:start; margin-bottom:16px; }
+        .project-title { font-size:18px; font-weight:700; color:var(--primary); margin-bottom:4px; }
+        .project-location { font-size:12px; color:var(--text-light); }
+        .project-salary { font-size:22px; font-weight:800; color:var(--accent); }
+        .project-details { display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
+        .project-detail { font-size:13px; color:var(--text-light); display:flex; align-items:center; gap:8px; }
+        .project-detail i { width:16px; color:var(--info); }
+        .project-tags { display:flex; gap:6px; flex-wrap:wrap; }
+        .project-tag { font-size:11px; padding:4px 8px; background:#F1F5F9; border-radius:6px; font-weight:600; }
 
         /* Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
+        .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center; backdrop-filter:blur(4px); }
+        .modal.active { display:flex; }
+        .modal-content { background:#fff; padding:32px; border-radius:var(--radius); max-width:650px; width:90%; max-height:90vh; overflow-y:auto; box-shadow:var(--shadow-lg); }
+        .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid var(--border); }
+        .modal-title { font-size:22px; font-weight:800; }
+        .close-modal { background:none; border:none; font-size:28px; cursor:pointer; color:var(--text-light); width:36px; height:36px; display:flex; align-items:center; justify-content:center; border-radius:8px; transition:all 0.2s; }
+        .close-modal:hover { background:#F1F5F9; color:var(--text); }
+        .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+        .form-group { margin-bottom:16px; }
+        .form-group.full { grid-column:1/-1; }
+        .form-label { display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:var(--text); }
+        .form-input, .form-select, .form-textarea { width:100%; padding:10px 14px; border:1px solid var(--border); border-radius:8px; font-size:14px; font-family:inherit; transition:border-color 0.2s; }
+        .form-input:focus, .form-select:focus, .form-textarea:focus { outline:none; border-color:var(--accent); }
+        .form-textarea { resize:vertical; min-height:80px; }
+
+        /* Responsive */
+        @media(max-width:1024px){
+            .sidebar { width:100%; position:relative; height:auto; }
+            .main { margin-left:0; }
+            .app { flex-direction:column; }
+            .kanban-column { width:300px; }
+        }
+        @media(max-width:768px){
+            .grid-2, .grid-3, .grid-4 { grid-template-columns:1fr; }
+            .form-grid { grid-template-columns:1fr; }
+            .integration-grid { grid-template-columns:1fr; }
+            .projects-grid { grid-template-columns:1fr; }
         }
 
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: white;
-            padding: 40px;
-            border-radius: 16px;
-            max-width: 600px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .modal-header h3 {
-            font-size: 24px;
-            color: var(--primary);
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 28px;
-            cursor: pointer;
-            color: var(--text-light);
-        }
-
-        .close-modal:hover {
-            color: var(--text-dark);
-        }
+        .hidden { display:none !important; }
+        .mt-20 { margin-top:20px; }
+        .mb-20 { margin-bottom:20px; }
+        .flex-between { display:flex; justify-content:space-between; align-items:center; }
+        .text-center { text-align:center; }
     </style>
 </head>
 <body>
-
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="logo">
-                <div class="logo-icon">
-                    <i class="fas fa-users"></i>
-                </div>
-                НАШИ <span>ЛЮДИ</span>
-            </a>
-            <div class="nav-links">
-                <a href="#projects">Проекты</a>
-                <a href="#crm">CRM</a>
-                <a href="#contact">Контакты</a>
-                <a href="https://t.me/NashiLyudiJob1_bot" target="_blank" class="btn btn-telegram">
-                    <i class="fab fa-telegram"></i> Telegram
-                </a>
+    <div class="app">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo"><i class="fas fa-users"></i> НАШИ ЛЮДИ</div>
+                <div style="font-size:11px; opacity:0.7; margin-top:4px;">HR-платформа v3.0</div>
             </div>
-        </div>
-    </nav>
+            <div class="nav-section">
+                <div class="nav-title">Основное</div>
+                <div class="nav-item active" data-page="dashboard"><i class="fas fa-chart-line"></i> Дашборд</div>
+                <div class="nav-item" data-page="pipeline"><i class="fas fa-stream"></i> Pipeline <span class="nav-badge" id="pipeline-count">0</span></div>
+                <div class="nav-item" data-page="candidates"><i class="fas fa-users"></i> Кандидаты</div>
+                <div class="nav-item" data-page="projects"><i class="fas fa-briefcase"></i> Проекты</div>
+            </div>
+            <div class="nav-section">
+                <div class="nav-title">Интеграции</div>
+                <div class="nav-item" data-page="bots"><i class="fas fa-robot"></i> Боты (TG/MAX)</div>
+                <div class="nav-item" data-page="ai"><i class="fas fa-brain"></i> AI-агенты</div>
+            </div>
+            <div class="nav-section">
+                <div class="nav-title">Система</div>
+                <div class="nav-item" data-page="settings"><i class="fas fa-cog"></i> Настройки</div>
+                <div class="nav-item" data-page="contacts"><i class="fas fa-address-book"></i> Контакты</div>
+            </div>
+        </aside>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <h1>Подбор персонала <span>нового поколения</span></h1>
-                <p>Комплексные решения в области подбора вахтового персонала и сотрудников для ритейла. AI-агенты и чат-боты для быстрого поиска кандидатов.</p>
-                <div class="hero-buttons">
-                    <a href="#projects" class="btn btn-primary">
-                        <i class="fas fa-briefcase"></i> Все вакансии
-                    </a>
-                    <a href="#crm" class="btn" style="border: 2px solid white; color: white;">
-                        <i class="fas fa-tachometer-alt"></i> CRM система
-                    </a>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <span class="stat-number">400+</span>
-                        <div class="stat-label">Кандидатов в базе</div>
+        <!-- Main Content -->
+        <main class="main">
+            <!-- Dashboard -->
+            <section id="dashboard" class="page active">
+                <div class="header">
+                    <div>
+                        <h1 class="page-title">Дашборд</h1>
+                        <div class="page-subtitle">Обзор активности и ключевых метрик</div>
                     </div>
-                    <div class="stat-item">
-                        <span class="stat-number">50+</span>
-                        <div class="stat-label">Партнеров</div>
-                    </div>
-                    <div class="stat-item">
-                        <span class="stat-number">98%</span>
-                        <div class="stat-label">Успешных закрытий</div>
-                    </div>
-                </div>
-            </div>
-            <div style="background: rgba(255,255,255,0.1); border-radius: 20px; padding: 40px; backdrop-filter: blur(10px);">
-                <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 30px; margin-bottom: 20px;">
-                    <i class="fas fa-robot" style="color: var(--secondary); font-size: 48px; margin-bottom: 16px;"></i>
-                    <h3 style="font-size: 24px; margin-bottom: 12px;">AI-агенты</h3>
-                    <p style="opacity: 0.9;">Автоматизированный подбор и проверка кандидатов 24/7</p>
-                </div>
-                <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 30px;">
-                    <i class="fas fa-comments" style="color: #10B981; font-size: 48px; margin-bottom: 16px;"></i>
-                    <h3 style="font-size: 24px; margin-bottom: 12px;">Чат-боты</h3>
-                    <p style="opacity: 0.9;">Telegram и MAX для быстрой связи с кандидатами</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects">
-        <div class="section-header">
-            <h2>Актуальные проекты</h2>
-            <p>Выберите подходящий проект из нашей базы</p>
-        </div>
-        
-        <div class="projects-grid" id="projectsGrid">
-            <!-- Projects will be inserted here by JavaScript -->
-        </div>
-    </section>
-
-    <!-- CRM Section -->
-    <section class="crm-section" id="crm">
-        <div class="crm-container">
-            <div class="section-header" style="color: white;">
-                <h2 style="color: white;">CRM Система</h2>
-                <p>Управление кандидатами в реальном времени</p>
-            </div>
-            
-            <div class="crm-grid">
-                <div class="crm-info">
-                    <h3>Полный контроль над процессом подбора</h3>
-                    <p>От первой заявки до заселения кандидата. Автоматизация всех этапов работы.</p>
-                    
-                    <div class="crm-features">
-                        <div class="crm-feature">
-                            <i class="fas fa-users-cog"></i>
-                            <div>
-                                <strong>Управление кандидатами</strong>
-                                <span>База из 400+ проверенных специалистов</span>
-                            </div>
-                        </div>
-                        <div class="crm-feature">
-                            <i class="fas fa-tasks"></i>
-                            <div>
-                                <strong>Отслеживание статусов</strong>
-                                <span>7 этапов: от заявки до заселения</span>
-                            </div>
-                        </div>
-                        <div class="crm-feature">
-                            <i class="fas fa-chart-bar"></i>
-                            <div>
-                                <strong>Аналитика</strong>
-                                <span>Отчёты по закрытию вакансий</span>
-                            </div>
-                        </div>
-                        <div class="crm-feature">
-                            <i class="fas fa-bell"></i>
-                            <div>
-                                <strong>Уведомления</strong>
-                                <span>Автоматические напоминания</span>
-                            </div>
-                        </div>
+                    <div class="actions">
+                        <button class="btn btn-outline" onclick="exportData()"><i class="fas fa-download"></i> Экспорт</button>
+                        <button class="btn btn-primary" onclick="openModal('addCandidate')"><i class="fas fa-plus"></i> Добавить кандидата</button>
                     </div>
                 </div>
                 
-                <div class="crm-demo">
-                    <div class="crm-demo-header">
-                        <h3 style="font-size: 24px; color: var(--primary);">
-                            <i class="fas fa-chart-line" style="color: var(--secondary); margin-right: 10px;"></i>
-                            Статистика CRM
-                        </h3>
-                        <div class="crm-controls" style="margin: 0;">
-                            <button class="crm-view-btn active" onclick="switchView('kanban')">Канбан</button>
-                            <button class="crm-view-btn" onclick="switchView('list')">Список</button>
-                            <button class="btn btn-add" onclick="addRandomCandidate()">
-                                <i class="fas fa-plus"></i> Добавить
-                            </button>
+                <div class="grid-4">
+                    <div class="card stat-card">
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div class="stat-value" id="stat-total">0</div>
+                        <div class="stat-label">Всего кандидатов</div>
+                        <div class="stat-change positive"><i class="fas fa-arrow-up"></i> 12% за неделю</div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="stat-icon"><i class="fas fa-truck-loading"></i></div>
+                        <div class="stat-value" id="stat-shift">0</div>
+                        <div class="stat-label">Вахта</div>
+                        <div class="stat-change positive"><i class="fas fa-arrow-up"></i> 8% за неделю</div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="stat-icon"><i class="fas fa-store"></i></div>
+                        <div class="stat-value" id="stat-retail">0</div>
+                        <div class="stat-label">Ритейл</div>
+                        <div class="stat-change positive"><i class="fas fa-arrow-up"></i> 5% за неделю</div>
+                    </div>
+                    <div class="card stat-card">
+                        <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="stat-value" id="stat-hired">0</div>
+                        <div class="stat-label">Трудоустроено</div>
+                        <div class="stat-change positive"><i class="fas fa-arrow-up"></i> 15% за неделю</div>
+                    </div>
+                </div>
+
+                <div class="grid-2 mt-20">
+                    <div class="card">
+                        <h3 style="margin-bottom:20px; font-size:16px; font-weight:700;">📊 Воронка подбора</h3>
+                        <div id="funnel-chart" style="height:200px;"></div>
+                    </div>
+                    <div class="card">
+                        <h3 style="margin-bottom:20px; font-size:16px; font-weight:700;">🤖 Активность AI-агентов</h3>
+                        <div id="ai-activity" style="font-size:13px;"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pipeline (Kanban) -->
+            <section id="pipeline" class="page hidden">
+                <div class="header">
+                    <div>
+                        <h1 class="page-title">Pipeline кандидатов</h1>
+                        <div class="page-subtitle">Управление кандидатами по этапам</div>
+                    </div>
+                    <div class="actions">
+                        <input type="text" class="search-input" id="pipeline-search" placeholder="🔍 Поиск..." style="width:300px;">
+                        <button class="btn btn-primary" onclick="openModal('addCandidate')"><i class="fas fa-plus"></i> Добавить</button>
+                    </div>
+                </div>
+                <div class="kanban-container">
+                    <div class="kanban-board" id="kanban-board"></div>
+                </div>
+            </section>
+
+            <!-- Candidates (Table) -->
+            <section id="candidates" class="page hidden">
+                <div class="header">
+                    <div>
+                        <h1 class="page-title">База кандидатов</h1>
+                        <div class="page-subtitle">Полный список всех соискателей</div>
+                    </div>
+                    <div class="actions">
+                        <input type="text" class="search-input" id="candidates-search" placeholder="🔍 Поиск..." style="width:300px;">
+                        <button class="btn btn-outline" onclick="exportCandidates()"><i class="fas fa-download"></i> CSV</button>
+                        <button class="btn btn-primary" onclick="openModal('addCandidate')"><i class="fas fa-plus"></i> Добавить</button>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ФИО</th>
+                                    <th>Телефон</th>
+                                    <th>Город</th>
+                                    <th>Тип</th>
+                                    <th>Проект</th>
+                                    <th>Статус</th>
+                                    <th>Дата</th>
+                                    <th>Действия</th>
+                                </tr>
+                            </thead>
+                            <tbody id="candidates-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects -->
+            <section id="projects" class="page hidden">
+                <div class="header">
+                    <div>
+                        <h1 class="page-title">Проекты и вакансии</h1>
+                        <div class="page-subtitle">Все доступные позиции для подбора</div>
+                    </div>
+                    <div class="filters-bar" style="margin:0;">
+                        <select class="filter-select" id="project-filter">
+                            <option value="all">Все проекты</option>
+                            <option value="shift">🚜 Вахта</option>
+                            <option value="retail">🛍️ Ритейл</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="projects-grid" id="projects-grid"></div>
+            </section>
+
+            <!-- Bots Integration -->
+            <section id="bots" class="page hidden">
+                <div class="header">
+                    <div>
+                        <h1 class="page-title">Интеграция ботов</h1>
+                        <div class="page-subtitle">Telegram и MAX боты</div>
+                    </div>
+                </div>
+                <div class="integration-grid">
+                    <div class="integration-card tg">
+                        <div class="integration-header">
+                            <div class="integration-icon tg-icon"><i class="fab fa-telegram-plane"></i></div>
+                            <div>
+                                <div class="integration-title">Telegram Bot</div>
+                                <div class="integration-status">
+                                    <span class="status-dot active"></span>
+                                    <span>@NashiLyudiJob1_bot • Подключен</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom:16px;">
+                            <label style="font-size:12px; font-weight:600; display:block; margin-bottom:6px;">Webhook URL</label>
+                            <input type="text" class="form-input" id="tg-webhook" value="https://api.nashilyudi.ru/webhook/telegram" readonly>
+                        </div>
+                        <div style="display:flex; gap:8px;">
+                            <button class="btn btn-sm btn-primary" onclick="syncBot('tg')"><i class="fas fa-sync"></i> Синхронизировать</button>
+                            <button class="btn btn-sm btn-outline" onclick="testBot('tg')"><i class="fas fa-play"></i> Тест</button>
+                        </div>
+                        <div class="log-box" id="tg-log">
+                            <div class="log-entry"><span class="log-time">10:02:50</span>✅ Бот запущен и готов к работе</div>
+                            <div class="log-entry"><span class="log-time">10:02:51</span>📥 Ожидание входящих сообщений...</div>
                         </div>
                     </div>
-                    
-                    <input type="text" id="searchInput" class="crm-search" placeholder="🔍 Поиск по имени или телефону..." style="margin-bottom: 20px; width: 100%;" oninput="renderCRM()">
-                    
-                    <div id="crmContainer"></div>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- Contact Section -->
-    <section class="contact-section" id="contact">
-        <div class="contact-grid">
-            <div class="contact-form">
-                <h3 style="font-size: 28px; margin-bottom: 24px; color: var(--primary);">Оставить заявку</h3>
-                <form id="contactForm" onsubmit="handleSubmit(event)">
+                    <div class="integration-card max">
+                        <div class="integration-header">
+                            <div class="integration-icon max-icon"><i class="fas fa-robot"></i></div>
+                            <div>
+                                <div class="integration-title">MAX Bot</div>
+                                <div class="integration-status">
+                                    <span class="status-dot active"></span>
+                                    <span>@NashiLyudiJob1_bot • Активен (ID: 270843501)</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-bottom:16px;">
+                            <label style="font-size:12px; font-weight:600; display:block; margin-bottom:6px;">API Endpoint</label>
+                            <input type="text" class="form-input" id="max-endpoint" value="https://api.max.ru/v1/bots/nashilyudi" readonly>
+                        </div>
+                        <div style="display:flex; gap:8px;">
+                            <button class="btn btn-sm btn-primary" onclick="syncBot('max')"><i class="fas fa-sync"></i> Синхронизировать</button>
+                            <button class="btn btn-sm btn-outline" onclick="testBot('max')"><i class="fas fa-play"></i> Тест</button>
+                        </div>
+                        <div class="log-box" id="max-log">
+                            <div class="log-entry"><span class="log-time">10:02:50</span>✅ MAX подключен как Наши люди</div>
+                            <div class="log-entry"><span class="log-time">10:02:51</span>🤖 Зарегистрировано 2 обработчика событий</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI Agents -->
+            <section id="ai" class="page hidden">
+                <div class="header">
+                    <div>
+                        <h1 class="page-title">AI-агенты</h1>
+                        <div class="page-subtitle">7 интеллектуальных агентов для автоматизации</div>
+                    </div>
+                    <button class="btn btn-purple" onclick="runAllAgents()"><i class="fas fa-play"></i> Запустить всех</button>
+                </div>
+                <div class="integration-grid" id="ai-agents-grid"></div>
+            </section>
+
+            <!-- Contacts -->
+            <section id="contacts" class="page hidden">
+                <div class="header">
+                    <div>
+                        <h1 class="page-title">Контакты</h1>
+                        <div class="page-subtitle">Свяжитесь с нами</div>
+                    </div>
+                </div>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3 style="margin-bottom:20px; font-size:18px; font-weight:700;">📞 Основная информация</h3>
+                        <div style="display:flex; flex-direction:column; gap:16px;">
+                            <div style="display:flex; align-items:center; gap:16px;">
+                                <div style="width:50px; height:50px; background:var(--accent); border-radius:12px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:20px;"><i class="fas fa-phone"></i></div>
+                                <div>
+                                    <div style="font-size:12px; color:var(--text-light); font-weight:600;">Телефон</div>
+                                    <div style="font-size:16px; font-weight:700;"><a href="tel:+79023086595" style="color:var(--text); text-decoration:none;">+7 (902) 308-65-95</a></div>
+                                </div>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:16px;">
+                                <div style="width:50px; height:50px; background:#0088CC; border-radius:12px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:20px;"><i class="fab fa-telegram"></i></div>
+                                <div>
+                                    <div style="font-size:12px; color:var(--text-light); font-weight:600;">Telegram бот</div>
+                                    <div style="font-size:16px; font-weight:700;"><a href="https://t.me/NashiLyudiJob1_bot" target="_blank" style="color:var(--text); text-decoration:none;">@NashiLyudiJob1_bot</a></div>
+                                </div>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:16px;">
+                                <div style="width:50px; height:50px; background:var(--info); border-radius:12px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:20px;"><i class="fas fa-envelope"></i></div>
+                                <div>
+                                    <div style="font-size:12px; color:var(--text-light); font-weight:600;">Email</div>
+                                    <div style="font-size:16px; font-weight:700;">info@nashilyudi.ru</div>
+                                </div>
+                            </div>
+                            <div style="display:flex; align-items:center; gap:16px;">
+                                <div style="width:50px; height:50px; background:var(--success); border-radius:12px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:20px;"><i class="fas fa-map-marker-alt"></i></div>
+                                <div>
+                                    <div style="font-size:12px; color:var(--text-light); font-weight:600;">Адрес</div>
+                                    <div style="font-size:16px; font-weight:700;">Москва, работаем по всей России</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h3 style="margin-bottom:20px; font-size:18px; font-weight:700;">📍 Наши проекты</h3>
+                        <div style="display:flex; flex-direction:column; gap:12px; font-size:14px;">
+                            <div><strong style="color:var(--primary);">Вахта:</strong> Аби, Ла Мода, Яндекс, Фрикейк, Спортмастер, ФМ Чехов, МПЗ (3 локации), Норд Палп, Парфюм</div>
+                            <div><strong style="color:var(--primary);">Ритейл:</strong> ЛЕНТА, АШАН</div>
+                            <div style="margin-top:16px; padding:16px; background:#F8FAFC; border-radius:8px;">
+                                <div style="font-weight:700; margin-bottom:8px;">🤖 Боты работают 24/7</div>
+                                <div style="color:var(--text-light);">Telegram и MAX боты автоматически принимают заявки и консультируют кандидатов</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Add Candidate Modal -->
+    <div class="modal" id="addCandidate">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">Добавить кандидата</div>
+                <button class="close-modal" onclick="closeModal('addCandidate')">&times;</button>
+            </div>
+            <form id="candidate-form">
+                <div class="form-grid">
                     <div class="form-group">
-                        <label>Ваше имя *</label>
-                        <input type="text" required placeholder="Иванов Иван Иванович">
+                        <label class="form-label">ФИО *</label>
+                        <input type="text" name="name" required class="form-input" placeholder="Иванов Иван Иванович">
                     </div>
                     <div class="form-group">
-                        <label>Телефон *</label>
-                        <input type="tel" required placeholder="+7 (___) ___-__-__">
+                        <label class="form-label">Телефон *</label>
+                        <input type="tel" name="phone" required class="form-input" placeholder="+7 (___) ___-__-__">
                     </div>
                     <div class="form-group">
-                        <label>Тип занятости</label>
-                        <select>
-                            <option>Вахта</option>
-                            <option>Ритейл (местная работа)</option>
-                            <option>Не важно</option>
+                        <label class="form-label">Город</label>
+                        <input type="text" name="city" class="form-input" placeholder="Москва">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Гражданство</label>
+                        <select name="citizenship" class="form-select">
+                            <option>РФ</option>
+                            <option>РБ</option>
+                            <option>Другое</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Сообщение</label>
-                        <textarea rows="4" placeholder="Расскажите о ваших требованиях..."></textarea>
+                        <label class="form-label">Тип занятости *</label>
+                        <select name="type" required class="form-select" onchange="updateProjectOptions()">
+                            <option value="shift">🚜 Вахта</option>
+                            <option value="retail">🛍️ Ритейл</option>
+                        </select>
                     </div>
-                    <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 16px;">
-                        <i class="fas fa-paper-plane"></i> Отправить заявку
-                    </button>
-                </form>
-            </div>
-            
-            <div class="contact-info">
-                <h3>Свяжитесь с нами</h3>
-                <p>Готовы закрыть ваши вакансии? Оставьте заявку или напишите нашим ботам — мы подберем лучших кандидатов уже завтра!</p>
-                
-                <div class="contact-methods">
-                    <div class="contact-method">
-                        <i class="fas fa-phone-alt"></i>
-                        <div>
-                            <strong>Телефон</strong>
-                            <span><a href="tel:+79023086595" style="color: inherit; text-decoration: none;">+7 (902) 308-65-95</a></span>
-                        </div>
+                    <div class="form-group">
+                        <label class="form-label">Проект</label>
+                        <select name="project" class="form-select" id="modal-project-select">
+                            <option value="">Не выбран</option>
+                        </select>
                     </div>
-                    
-                    <div class="contact-method">
-                        <i class="fab fa-telegram"></i>
-                        <div>
-                            <strong>Telegram бот</strong>
-                            <span><a href="https://t.me/NashiLyudiJob1_bot" target="_blank" style="color: inherit; text-decoration: none;">@NashiLyudiJob1_bot</a></span>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-method">
-                        <i class="fas fa-envelope"></i>
-                        <div>
-                            <strong>Email</strong>
-                            <span>info@nashilyudi.ru</span>
-                        </div>
-                    </div>
-                    
-                    <div class="contact-method">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <div>
-                            <strong>Адрес</strong>
-                            <span>Москва, работаем по всей России</span>
-                        </div>
+                    <div class="form-group full">
+                        <label class="form-label">Комментарий</label>
+                        <textarea name="comment" class="form-textarea" placeholder="Дополнительная информация о кандидате..."></textarea>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-section">
-                <h4>О компании</h4>
-                <p style="color: rgba(255,255,255,0.8); line-height: 1.7;">
-                    Кадровое агентство «Наши Люди» — профессиональный подбор вахтового персонала и сотрудников для ритейла с использованием AI-технологий.
-                </p>
-            </div>
-            <div class="footer-section">
-                <h4>Проекты</h4>
-                <ul>
-                    <li><a href="#" onclick="showProject('Аби')">Аби (Владимир)</a></li>
-                    <li><a href="#" onclick="showProject('Ла Мода')">Ла Мода</a></li>
-                    <li><a href="#" onclick="showProject('Яндекс Софьино')">Яндекс Софьино</a></li>
-                    <li><a href="#" onclick="showProject('Фрикейк')">Фрикейк</a></li>
-                    <li><a href="#" onclick="showProject('Спортмастер')">Спортмастер</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Контакты</h4>
-                <ul>
-                    <li><i class="fas fa-phone" style="margin-right: 10px;"></i> +7 (902) 308-65-95</li>
-                    <li><i class="fas fa-envelope" style="margin-right: 10px;"></i> info@nashilyudi.ru</li>
-                    <li><i class="fab fa-telegram" style="margin-right: 10px;"></i> <a href="https://t.me/NashiLyudiJob1_bot" target="_blank" style="color: inherit;">@NashiLyudiJob1_bot</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h4>Мы в соцсетях</h4>
-                <div style="display: flex; gap: 15px; margin-top: 20px;">
-                    <a href="https://t.me/NashiLyudiJob1_bot" target="_blank" style="font-size: 32px; color: white;">
-                        <i class="fab fa-telegram"></i>
-                    </a>
+                <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:24px;">
+                    <button type="button" class="btn btn-outline" onclick="closeModal('addCandidate')">Отмена</button>
+                    <button type="submit" class="btn btn-primary">Сохранить кандидата</button>
                 </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Кадровое агентство «Наши Люди». Все права защищены.</p>
-        </div>
-    </footer>
-
-    <!-- Project Modal -->
-    <div class="modal" id="projectModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modalTitle">Название проекта</h3>
-                <button class="close-modal" onclick="closeModal()">&times;</button>
-            </div>
-            <div id="modalBody"></div>
+            </form>
         </div>
     </div>
 
     <script>
-        // Projects Data
+        // === DATA ===
+        const DB_KEY = 'nashi_lyudi_hr_v3';
+        
         const projects = [
-            {
-                name: "Аби",
-                location: "г. Владимир",
-                salary: "310 ₽/час",
-                temp: "+4 до +12°C",
-                age: "М до 50, Ж до 45",
-                food: "Питание включено",
-                tags: ["Общежитие 6-8 чел", "Трансфер", "День/ночь"],
-                details: {
-                    object: "Производство колбасных изделий",
-                    duties: "Упаковка продукции, уборка",
-                    schedule: "День/ночь, 8:00–20:00 / 20:00–8:00",
-                    medbook: "3500-5200 ₽ (в зависимости от наличия)",
-                    uniform: "3000-4000 ₽",
-                    registration: "РФ — не делают (без регистрации не принимаем)",
-                    address: "г.Владимир, ул.Полины Осипенко 41"
-                }
-            },
-            {
-                name: "Ла Мода",
-                location: "Раменский р-н, Софьино",
-                salary: "412.50 ₽/час",
-                temp: "Категория А",
-                age: "До 40 лет",
-                food: "Обед за 1₽",
-                tags: ["Пешком", "От 33 смен", "ТСД"],
-                details: {
-                    object: "Склады брендовой одежды",
-                    duties: "Сборка, размещение, обработка возвратов с ТСД",
-                    schedule: "С 8:00 до 20:00 и с 20:00 до 8:00",
-                    medbook: "Не требуется",
-                    uniform: "3600 ₽ (полный комплект)",
-                    registration: "РФ — не делают, РБ — делают бесплатно",
-                    address: "Московская область, Раменский район, квартал 4/218, стр 5/1"
-                }
-            },
-            {
-                name: "Яндекс Софьино",
-                location: "Раменский р-н, Софьино",
-                salary: "до 5 632 ₽/смена",
-                temp: "Категория А",
-                age: "До 45 лет",
-                food: "Комплексный обед",
-                tags: ["Пешком 20-25 мин", "От 20 смен", "5 этажей"],
-                details: {
-                    object: "Склады интернет-магазина Яндекс (5 этажей)",
-                    duties: "Участок размещения - работа с ТСД",
-                    schedule: "С 9:00 до 21:00",
-                    medbook: "Не требуется",
-                    uniform: "3400 ₽ (жилет 650₽, кеды 1550₽, штаны 1200₽)",
-                    registration: "РФ — не делают, РБ — 1000₽",
-                    address: "Московская область, Раменский район, Логистический технопарк Софьино"
-                }
-            },
-            {
-                name: "Фрикейк",
-                location: "Москва, ул. Рябиновая",
-                salary: "300 ₽/час",
-                temp: "+6 до +18°C",
-                age: "Строго до 45 лет, М",
-                food: "Комплексный обед",
-                tags: ["Пешком 2.7 км", "7/0 по 11 часов", "Кондитерская"],
-                details: {
-                    object: "Кондитерская",
-                    duties: "Подготовка ингредиентов, формирование и выпечка, финишная отделка тортов",
-                    schedule: "7/0 по 11 часов, С 20:00 по 8:00, с 8:00 до 20:00",
-                    medbook: "3500 ₽",
-                    uniform: "3200 ₽ (костюм пекаря, закрытая обувь)",
-                    registration: "РФ, РБ — делаем бесплатно",
-                    address: "Москва, ул. Рябиновая, д. 53"
-                }
-            },
-            {
-                name: "Спортмастер",
-                location: "Балашиха",
-                salary: "до 4 290 ₽/смена",
-                temp: "Категория А",
-                age: "До 45 лет",
-                food: "Комплексный обед",
-                tags: ["Трансфер 20 мин", "Операторы ТСД", "Грузчики"],
-                details: {
-                    object: "Склад спортивных товаров",
-                    duties: "Операторы - отборка товара, приемка, размещение. Грузчики - работа с коробами",
-                    schedule: "День/ночь, 8:20–20:20 / 20:20–8:20",
-                    medbook: "2000 ₽",
-                    uniform: "1950 ₽ (комплект)",
-                    registration: "РФ — не делают",
-                    address: "Московская область, Балашиха, Новомилетское шоссе, вл2"
-                }
-            },
-            {
-                name: "ФМ Чехов",
-                location: "г. Чехов",
-                salary: "300 ₽/час",
-                temp: "Категория А",
-                age: "До 45 лет",
-                food: "Комплексный обед",
-                tags: ["Трансфер 25-30 мин", "Комплектовщики ТСД"],
-                details: {
-                    object: "Косметика, бытовая техника и парфюмерия",
-                    duties: "Сборка товаров с ТСД на мезанине",
-                    schedule: "День/ночь, 8:00–20:00 / 20:00–8:00",
-                    medbook: "3500 ₽",
-                    uniform: "5000 ₽ (жилет, штаны, обувь)",
-                    registration: "РФ — 1500₽, РБ — 2500₽",
-                    address: "Московская область, Чехов, Производственная, вл 3"
-                }
-            },
-            {
-                name: "МПЗ Протвино",
-                location: "г. Протвино",
-                salary: "290 ₽/час",
-                temp: "+7-8°C",
-                age: "23-50 лет",
-                food: "Двухразовое питание",
-                tags: ["Трансфер 20-25 мин", "Термобелье", "День/ночь"],
-                details: {
-                    object: "Мясоперерабатывающий завод",
-                    duties: "Упаковка на линии колбасных изделий, погрузка, разгрузка, фасовка",
-                    schedule: "День/ночь, 8:00–20:00 / 20:00–8:00",
-                    medbook: "2650-3600 ₽",
-                    uniform: "Выдают бесплатно (одноразовые костюмы)",
-                    registration: "Не делается",
-                    address: "г. Протвино, ул. Железнодорожная д. 8"
-                }
-            },
-            {
-                name: "МПЗ Рублевский",
-                location: "м. Молодёжная",
-                salary: "290 ₽/час",
-                temp: "+5°C",
-                age: "До 55 лет",
-                food: "Комплексный обед",
-                tags: ["Трансфер", "День/ночь"],
-                details: {
-                    object: "Мясоперерабатывающий завод",
-                    duties: "Упаковка, погрузка, разгрузка",
-                    schedule: "День/ночь, 7:00–19:00 / 19:00–7:00",
-                    medbook: "3500 ₽",
-                    uniform: "Выдают (может быть Б/У)",
-                    registration: "РФ — без регистрации, РБ — 2000₽",
-                    address: "м. Молодёжная, ул. Горбунова 4 к 1"
-                }
-            },
-            {
-                name: "МПЗ Москворецкий",
-                location: "Москва",
-                salary: "270-290 ₽/час",
-                temp: "+11-13°C / -18°C",
-                age: "23-45 лет, М",
-                food: "Трехразовое питание",
-                tags: ["Трансфер 10 мин", "День/ночь"],
-                details: {
-                    object: "Мясоперерабатывающий завод",
-                    duties: "Оператор - упаковка в вакуум. Реализация - работа на лифтах, опалечивание",
-                    schedule: "День/ночь, 8:00–20:00 / 20:00–8:00",
-                    medbook: "3500 ₽",
-                    uniform: "4000 ₽ (если Б/У - бесплатно)",
-                    registration: "Не делают",
-                    address: "Москва, ул. Котляковская, д. 3, стр. 26"
-                }
-            },
-            {
-                name: "Норд Палп",
-                location: "п. Форносово",
-                salary: "310 ₽/час",
-                temp: "Обычный",
-                age: "До 45 лет",
-                food: "Нет",
-                tags: ["Пешком", "5/2", "Фасовка"],
-                details: {
-                    object: "Производство: Товары для сада и огорода",
-                    duties: "Фасовка (Ж), Грузчик (М) - погрузочно-разгрузочные работы",
-                    schedule: "День/ночь, 8:00–20:00 / 20:00–8:00, 5/2",
-                    medbook: "Не требуется",
-                    uniform: "2250-3850 ₽ (костюм, обувь)",
-                    registration: "Не делают",
-                    address: "п. Форносово, ул. Промышленная 1"
-                }
-            },
-            {
-                name: "Парфюм Стиль",
-                location: "г. Электрогорск",
-                salary: "290 ₽/час",
-                temp: "Обычный",
-                age: "До 55 лет",
-                food: "Нет",
-                tags: ["Пешком 15 мин", "День", "Грузчики/Упаковщики"],
-                details: {
-                    object: "Склад косметики и парфюмерии",
-                    duties: "Упаковка + сортировка брака, маркировка товаров",
-                    schedule: "День, 8:00–20:00",
-                    medbook: "Не требуется",
-                    uniform: "2800 ₽ (костюм 1400, обувь 750, футболка 650)",
-                    registration: "РФ — не делают, РБ — 2000₽",
-                    address: "Московская область, г.Электрогорск, ул. Буденного, д.5"
-                }
-            }
+            {id:1, name:'Аби', type:'shift', salary:'310 ₽/час', location:'г. Владимир', temp:'+4..+12°C', food:'✅ Питание', transport:'🚌 Корпоративный', age:'М до 50, Ж до 45', duties:'Упаковка, уборка', conditions:'Общежитие 6-8 чел', medbook:'3500-5200₽', form:'3000-4000₽'},
+            {id:2, name:'Ла Мода', type:'shift', salary:'до 4330 ₽/смена', location:'Софьино', temp:'Кат. А', food:'✅ Обед 1₽', transport:'🚶 Пешком', age:'До 40 лет', duties:'Сборка с ТСД', conditions:'От 33 смен', medbook:'Бесплатно', form:'3600₽'},
+            {id:3, name:'Яндекс Софьино', type:'shift', salary:'до 5632 ₽/смена', location:'Софьино', temp:'Кат. А', food:'✅ Комплексный', transport:'🚶 20-25 мин', age:'До 45 лет', duties:'Размещение с ТСД', conditions:'От 20 смен', medbook:'Не требуется', form:'3400₽'},
+            {id:4, name:'Фрикейк', type:'shift', salary:'300 ₽/час', location:'Москва', temp:'+6..+18°C', food:'✅ Комплексный', transport:'🚶 2.7 км', age:'М до 45', duties:'Выпечка тортов', conditions:'7/0 по 11ч', medbook:'3500₽', form:'3200₽'},
+            {id:5, name:'Спортмастер', type:'shift', salary:'до 4290 ₽/смена', location:'Балашиха', temp:'Кат. А', food:'✅ Комплексный', transport:'🚌 20 мин', age:'М до 45', duties:'Отборка с ТСД', conditions:'Только РФ', medbook:'2000₽', form:'1950₽'},
+            {id:6, name:'ФМ Чехов', type:'shift', salary:'300 ₽/час', location:'Чехов', temp:'Кат. А', food:'✅ Комплексный', transport:'🚌 25-30 мин', age:'До 45 лет', duties:'Сборка с ТСД', conditions:'Семейные комнаты', medbook:'3500₽', form:'5000₽'},
+            {id:7, name:'МПЗ Протвино', type:'shift', salary:'290 ₽/час', location:'Протвино', temp:'+7-8°C', food:'✅ Двухразовое', transport:'🚌 20-25 мин', age:'23-50 лет', duties:'Упаковка', conditions:'Термобельё', medbook:'2650-3600₽', form:'Бесплатно'},
+            {id:8, name:'МПЗ Рублевский', type:'shift', salary:'290 ₽/час', location:'м. Молодёжная', temp:'+5°C', food:'✅ Комплексный', transport:'🚌 Трансфер', age:'До 55 лет', duties:'Упаковка', conditions:'Без регистрации', medbook:'3500₽', form:'Выдают'},
+            {id:9, name:'МПЗ Москворецкий', type:'shift', salary:'270-290 ₽/час', location:'Котляковская', temp:'+11-13 / -18°C', food:'✅ Трёхразовое', transport:'🚌 10 мин', age:'23-45 лет, М', duties:'Вакуумная упаковка', conditions:'Термобельё', medbook:'3500₽', form:'2200-1800₽'},
+            {id:10, name:'Норд Палп', type:'shift', salary:'310 ₽/час', location:'Форносово', temp:'Обычный', food:'❌ Нет', transport:'🚶 Шаг. дост.', age:'До 45 лет', duties:'Фасовка', conditions:'5/2', medbook:'Не требуется', form:'2250-900₽'},
+            {id:11, name:'Парфюм', type:'shift', salary:'290 ₽/час', location:'Электрогорск', temp:'Обычный', food:'❌ Нет', transport:'🚶 15 мин', age:'До 55 лет', duties:'Упаковка', conditions:'День 8-20', medbook:'Не требуется', form:'1400-650₽'},
+            {id:12, name:'ЛЕНТА', type:'retail', salary:'до 65 000 ₽/мес', location:'По месту', temp:'Магазин', food:'❌', transport:'❌', age:'18+', duties:'Кассир, продавец', conditions:'График 2/2', medbook:'Оформляем', form:'Выдаём'},
+            {id:13, name:'АШАН', type:'retail', salary:'до 60 000 ₽/мес', location:'По месту', temp:'Магазин', food:'❌', transport:'❌', age:'18+', duties:'Продавец', conditions:'Гибкий график', medbook:'Оформляем', form:'Выдаём'}
         ];
 
-        // CRM Data
-        let candidates = [
-            { id: 1, name: "Иванов Иван", phone: "+79991112233", city: "Москва", status: "new", role: "Вахта", project: "Аби" },
-            { id: 2, name: "Петров Петр", phone: "+79994445566", city: "Владимир", status: "new", role: "Ритейл", project: "ЛЕНТА" },
-            { id: 3, name: "Сидоров Сидор", phone: "+79997778899", city: "Чехов", status: "interview", role: "Вахта", project: "ФМ Чехов" },
-            { id: 4, name: "Козлова Анна", phone: "+79990001122", city: "Софьино", status: "settled", role: "Ритейл", project: "Ла Мода" },
-            { id: 5, name: "Смирнов Алексей", phone: "+79993334455", city: "Протвино", status: "new", role: "Вахта", project: "МПЗ Протвино" }
+        const aiAgents = [
+            {id:'profiler', name:'👤 Профайлер', status:'ready', desc:'Анализирует вакансию и создаёт портрет идеального кандидата', lastRun:'Сегодня в 09:15'},
+            {id:'copywriter', name:'📝 Копирайтер', status:'ready', desc:'Пишет продающие объявления для HH.ru / Avito', lastRun:'Сегодня в 09:20'},
+            {id:'screener', name:'📞 Скриптер', status:'ready', desc:'Генерирует сценарии телефонных разговоров', lastRun:'Вчера в 16:45'},
+            {id:'matcher', name:'🎯 Матчер', status:'ready', desc:'Подбирает кандидатов под требования проекта', lastRun:'Сегодня в 10:00'},
+            {id:'checker', name:'🛡️ Чекер', status:'ready', desc:'Проверяет документы и СБ', lastRun:'Сегодня в 08:30'},
+            {id:'onboarding', name:'📋 Онбординг', status:'ready', desc:'Планирует адаптацию сотрудника', lastRun:'Вчера в 14:20'},
+            {id:'analyst', name:'📊 Аналитик', status:'ready', desc:'Формирует отчёты и прогнозы', lastRun:'Сегодня в 10:05'}
         ];
 
-        let currentView = 'kanban';
+        let candidates = JSON.parse(localStorage.getItem(DB_KEY)) || [];
+        let currentView = 'pipeline';
 
-        // Render Projects
+        // === INIT ===
+        document.addEventListener('DOMContentLoaded', () => {
+            if(candidates.length === 0) seedData();
+            renderAll();
+            setupNav();
+            setupForms();
+            setupSearch();
+        });
+
+        function seedData() {
+            candidates = [
+                {id:1, name:'Иванов Иван Петрович', phone:'+79991112233', city:'Москва', citizenship:'РФ', type:'shift', project:'Аби', status:'new', comment:'Опыт на складах', date:new Date().toLocaleDateString()},
+                {id:2, name:'Петрова Анна Сергеевна', phone:'+79994445566', city:'Владимир', citizenship:'РФ', type:'retail', project:'ЛЕНТА', status:'contact', comment:'Ищет работу рядом', date:new Date().toLocaleDateString()},
+                {id:3, name:'Сидоров Алексей', phone:'+79997778899', city:'Чехов', citizenship:'РФ', type:'shift', project:'ФМ Чехов', status:'interview', comment:'Готов к вахте', date:new Date().toLocaleDateString()},
+                {id:4, name:'Козлов Дмитрий', phone:'+79990001122', city:'Софьино', citizenship:'РБ', type:'shift', project:'Яндекс Софьино', status:'offer', comment:'Нужна регистрация', date:new Date().toLocaleDateString()},
+                {id:5, name:'Морозова Елена', phone:'+79993334455', city:'Балашиха', citizenship:'РФ', type:'retail', project:'АШАН', status:'hired', comment:'Вышла 01.05', date:new Date().toLocaleDateString()}
+            ];
+            saveDB();
+        }
+
+        function saveDB() { localStorage.setItem(DB_KEY, JSON.stringify(candidates)); }
+
+        function renderAll() {
+            renderStats();
+            renderPipeline();
+            renderCandidates();
+            renderProjects();
+            renderAIAgents();
+            updateProjectOptions();
+        }
+
+        // === NAVIGATION ===
+        function setupNav() {
+            document.querySelectorAll('.nav-item').forEach(el => {
+                el.addEventListener('click', () => {
+                    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+                    el.classList.add('active');
+                    document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+                    document.getElementById(el.dataset.page).classList.remove('hidden');
+                });
+            });
+        }
+
+        // === STATS ===
+        function renderStats() {
+            document.getElementById('stat-total').textContent = candidates.length;
+            document.getElementById('stat-shift').textContent = candidates.filter(c=>c.type==='shift').length;
+            document.getElementById('stat-retail').textContent = candidates.filter(c=>c.type==='retail').length;
+            document.getElementById('stat-hired').textContent = candidates.filter(c=>c.status==='hired').length;
+            document.getElementById('pipeline-count').textContent = candidates.filter(c=>c.status!=='hired' && c.status!=='reject').length;
+
+            // Funnel chart
+            const stages = [
+                {id:'new', label:'Новая', count:candidates.filter(c=>c.status==='new').length, color:'#3B82F6'},
+                {id:'contact', label:'Контакт', count:candidates.filter(c=>c.status==='contact').length, color:'#F59E0B'},
+                {id:'interview', label:'Собеседование', count:candidates.filter(c=>c.status==='interview').length, color:'#8B5CF6'},
+                {id:'offer', label:'Оффер', count:candidates.filter(c=>c.status==='offer').length, color:'#10B981'},
+                {id:'hired', label:'Трудоустроено', count:candidates.filter(c=>c.status==='hired').length, color:'#059669'}
+            ];
+            
+            const max = Math.max(...stages.map(s=>s.count), 1);
+            document.getElementById('funnel-chart').innerHTML = stages.map(s => `
+                <div style="margin-bottom:12px;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:4px; font-size:13px;">
+                        <span style="font-weight:600;">${s.label}</span>
+                        <span style="font-weight:700; color:${s.color};">${s.count}</span>
+                    </div>
+                    <div style="height:24px; background:#F1F5F9; border-radius:6px; overflow:hidden;">
+                        <div style="height:100%; background:${s.color}; width:${(s.count/max)*100}%; transition:width 0.5s; display:flex; align-items:center; justify-content:flex-end; padding-right:8px; color:#fff; font-size:11px; font-weight:700;">${s.count}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // AI Activity
+            document.getElementById('ai-activity').innerHTML = aiAgents.map(a => `
+                <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--border);">
+                    <span style="font-weight:600;">${a.name}</span>
+                    <span style="color:var(--success); font-size:12px;">● ${a.lastRun}</span>
+                </div>
+            `).join('');
+        }
+
+        // === PIPELINE (KANBAN) ===
+        function renderPipeline() {
+            const search = document.getElementById('pipeline-search')?.value.toLowerCase() || '';
+            const filtered = candidates.filter(c=> c.name.toLowerCase().includes(search) || c.phone.includes(search) || (c.project && c.project.toLowerCase().includes(search)));
+            
+            const stages = [
+                {id:'new', label:'🆕 Новая заявка', color:'#3B82F6'},
+                {id:'contact', label:'📞 Первый контакт', color:'#F59E0B'},
+                {id:'interview', label:'👔 Собеседование', color:'#8B5CF6'},
+                {id:'offer', label:'📄 Оффер', color:'#10B981'},
+                {id:'hired', label:'✅ Трудоустроено', color:'#059669'},
+                {id:'reject', label:'❌ Отказ', color:'#EF4444'}
+            ];
+
+            document.getElementById('kanban-board').innerHTML = stages.map(s => {
+                const items = filtered.filter(c=>c.status===s.id);
+                return `
+                    <div class="kanban-column">
+                        <div class="kanban-header">
+                            <div class="kanban-title">${s.label}</div>
+                            <div class="kanban-count">${items.length}</div>
+                        </div>
+                        ${items.map(c => `
+                            <div class="kanban-card" style="border-left-color:${s.color}">
+                                <div class="kanban-card-header">
+                                    <div class="kanban-card-title">${c.name}</div>
+                                    <div class="kanban-card-type ${c.type==='shift'?'shift':'retail'}">${c.type==='shift'?'Вахта':'Ритейл'}</div>
+                                </div>
+                                <div class="kanban-card-meta"><i class="fas fa-phone"></i> ${c.phone}</div>
+                                <div class="kanban-card-meta"><i class="fas fa-map-marker-alt"></i> ${c.city}</div>
+                                ${c.project ? `<div class="kanban-card-project"><i class="fas fa-briefcase"></i> ${c.project}</div>` : ''}
+                                <div class="kanban-actions">
+                                    ${s.id!=='hired' && s.id!=='reject' ? `
+                                        <button class="btn btn-sm btn-success" onclick="changeStatus(${c.id}, 'hired')" title="Трудоустроить">✅</button>
+                                        <button class="btn btn-sm btn-danger" onclick="changeStatus(${c.id}, 'reject')" title="Отказать">❌</button>
+                                    ` : ''}
+                                    <button class="btn btn-sm btn-outline" onclick="editCandidate(${c.id})" title="Редактировать">✏️</button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // === CANDIDATES TABLE ===
+        function renderCandidates() {
+            const search = document.getElementById('candidates-search')?.value.toLowerCase() || '';
+            const filtered = candidates.filter(c=> c.name.toLowerCase().includes(search) || c.phone.includes(search) || (c.project && c.project.toLowerCase().includes(search)));
+            
+            const statusLabels = {new:'Новая', contact:'Контакт', interview:'Собеседование', offer:'Оффер', hired:'Трудоустроено', reject:'Отказ'};
+            
+            document.getElementById('candidates-tbody').innerHTML = filtered.map(c => `
+                <tr>
+                    <td><b>${c.name}</b></td>
+                    <td>${c.phone}</td>
+                    <td>${c.city}</td>
+                    <td><span class="status-badge ${c.type==='shift'?'status-new':'status-offer'}">${c.type==='shift'?'Вахта':'Ритейл'}</span></td>
+                    <td>${c.project || '-'}</td>
+                    <td><span class="status-badge status-${c.status}">${statusLabels[c.status]}</span></td>
+                    <td>${c.date}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline" onclick="editCandidate(${c.id})">✏️</button>
+                        <button class="btn btn-sm btn-danger" onclick="deleteCandidate(${c.id})">🗑️</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // === PROJECTS ===
         function renderProjects() {
-            const grid = document.getElementById('projectsGrid');
-            grid.innerHTML = projects.map(project => `
-                <div class="project-card" onclick="showProject('${project.name}')">
+            const filter = document.getElementById('project-filter')?.value || 'all';
+            const filtered = filter==='all' ? projects : projects.filter(p=>p.type===filter);
+            
+            document.getElementById('projects-grid').innerHTML = filtered.map(p => `
+                <div class="project-card" onclick="openModal('addCandidate'); document.querySelector('[name=project]').value='${p.name}';">
                     <div class="project-header">
                         <div>
-                            <div class="project-name">${project.name}</div>
-                            <div class="project-location"><i class="fas fa-map-marker-alt"></i> ${project.location}</div>
+                            <div class="project-title">${p.name}</div>
+                            <div class="project-location"><i class="fas fa-map-marker-alt"></i> ${p.location}</div>
                         </div>
-                        <div class="project-salary">${project.salary}</div>
+                        <div class="project-salary">${p.salary}</div>
                     </div>
-                    <div class="project-info">
-                        <div class="project-detail">
-                            <i class="fas fa-thermometer-half"></i>
-                            <span>${project.temp}</span>
-                        </div>
-                        <div class="project-detail">
-                            <i class="fas fa-users"></i>
-                            <span>${project.age}</span>
-                        </div>
-                        <div class="project-detail">
-                            <i class="fas fa-utensils"></i>
-                            <span>${project.food}</span>
-                        </div>
+                    <div class="project-details">
+                        <div class="project-detail"><i class="fas fa-thermometer-half"></i> ${p.temp}</div>
+                        <div class="project-detail"><i class="fas fa-utensils"></i> ${p.food}</div>
+                        <div class="project-detail"><i class="fas fa-bus"></i> ${p.transport}</div>
+                        <div class="project-detail"><i class="fas fa-user-clock"></i> ${p.age}</div>
                     </div>
                     <div class="project-tags">
-                        ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                        <span class="project-tag">${p.duties}</span>
+                        <span class="project-tag">${p.conditions}</span>
                     </div>
                 </div>
             `).join('');
         }
 
-        // Show Project Modal
-        function showProject(projectName) {
-            const project = projects.find(p => p.name === projectName);
-            if (!project) return;
-
-            document.getElementById('modalTitle').textContent = project.name;
-            document.getElementById('modalBody').innerHTML = `
-                <div style="margin-bottom: 20px;">
-                    <h4 style="color: var(--primary); margin-bottom: 10px;"><i class="fas fa-industry"></i> ${project.details.object}</h4>
-                    <p style="color: var(--text-light);"><i class="fas fa-map-marker-alt"></i> ${project.details.address}</p>
-                </div>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
-                    <div>
-                        <h4 style="color: var(--primary); margin-bottom: 10px;">Условия</h4>
-                        <ul style="list-style: none; color: var(--text-light);">
-                            <li style="margin-bottom: 8px;"><i class="fas fa-money-bill-wave" style="color: var(--secondary); margin-right: 8px;"></i> ${project.salary}</li>
-                            <li style="margin-bottom: 8px;"><i class="fas fa-clock" style="color: var(--secondary); margin-right: 8px;"></i> ${project.details.schedule}</li>
-                            <li style="margin-bottom: 8px;"><i class="fas fa-utensils" style="color: var(--secondary); margin-right: 8px;"></i> ${project.food}</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h4 style="color: var(--primary); margin-bottom: 10px;">Требования</h4>
-                        <ul style="list-style: none; color: var(--text-light);">
-                            <li style="margin-bottom: 8px;"><i class="fas fa-user" style="color: var(--secondary); margin-right: 8px;"></i> ${project.details.age}</li>
-                            <li style="margin-bottom: 8px;"><i class="fas fa-passport" style="color: var(--secondary); margin-right: 8px;"></i> ${project.details.registration}</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div style="background: var(--bg-light); padding: 20px; border-radius: 12px; margin-bottom: 20px;">
-                    <h4 style="color: var(--primary); margin-bottom: 10px;">Расходы</h4>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; color: var(--text-light);">
-                        <div><i class="fas fa-file-medical"></i> Медкнижка: ${project.details.medbook}</div>
-                        <div><i class="fas fa-tshirt"></i> Форма: ${project.details.uniform}</div>
-                    </div>
-                </div>
-
-                <div style="margin-bottom: 20px;">
-                    <h4 style="color: var(--primary); margin-bottom: 10px;">Обязанности</h4>
-                    <p style="color: var(--text-light);">${project.details.duties}</p>
-                </div>
-
-                <a href="https://t.me/NashiLyudiJob1_bot" target="_blank" class="btn btn-telegram" style="width: 100%; justify-content: center;">
-                    <i class="fab fa-telegram"></i> Откликнуться через Telegram
-                </a>
-            `;
-            document.getElementById('projectModal').classList.add('active');
-        }
-
-        function closeModal() {
-            document.getElementById('projectModal').classList.remove('active');
-        }
-
-        // CRM Functions
-        function renderCRM() {
-            const container = document.getElementById('crmContainer');
-            const search = document.getElementById('searchInput').value.toLowerCase();
-            
-            const filtered = candidates.filter(c => 
-                c.name.toLowerCase().includes(search) || 
-                c.phone.includes(search) ||
-                (c.project && c.project.toLowerCase().includes(search))
-            );
-
-            if (currentView === 'list') {
-                renderListView(filtered, container);
-            } else {
-                renderKanbanView(filtered, container);
-            }
-        }
-
-        function renderListView(data, container) {
-            container.innerHTML = `
-                <div class="candidates-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Имя</th>
-                                <th>Телефон</th>
-                                <th>Город</th>
-                                <th>Проект</th>
-                                <th>Тип</th>
-                                <th>Статус</th>
-                                <th>Действия</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${data.map(c => `
-                                <tr>
-                                    <td><b>${c.name}</b></td>
-                                    <td>${c.phone}</td>
-                                    <td>${c.city}</td>
-                                    <td>${c.project || '-'}</td>
-                                    <td><span style="color:${c.role==='Вахта'?'var(--primary)':'var(--success)'}"><b>${c.role}</b></span></td>
-                                    <td>
-                                        <select onchange="changeStatus(${c.id}, this.value)" style="padding: 5px; border-radius: 4px;">
-                                            <option value="new" ${c.status=='new'?'selected':''}>🆕 Новая</option>
-                                            <option value="interview" ${c.status=='interview'?'selected':''}>📞 Собеседование</option>
-                                            <option value="docs" ${c.status=='docs'?'selected':''}>📄 Документы</option>
-                                            <option value="settled" ${c.status=='settled'?'selected':''}>✅ Заселился</option>
-                                            <option value="reject" ${c.status=='reject'?'selected':''}>❌ Отказ</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        ${c.status !== 'settled' && c.status !== 'reject' ? `
-                                            <button class="action-btn settle" onclick="changeStatus(${c.id}, 'settled')" style="margin-right: 5px;">✅</button>
-                                            <button class="action-btn reject" onclick="changeStatus(${c.id}, 'reject')">❌</button>
-                                        ` : '-'}
-                                    </td>
-                                </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
-                </div>
-            `;
-        }
-
-        function renderKanbanView(data, container) {
-            const statuses = {
-                'new': { label: '🆕 Новые заявки', color: '#3B82F6' },
-                'interview': { label: '📞 Собеседование', color: '#F59E0B' },
-                'docs': { label: '📄 Документы / Билет', color: '#8B5CF6' },
-                'settled': { label: '✅ Заселились', color: '#10B981' },
-                'reject': { label: '❌ Отказ', color: '#EF4444' }
-            };
-
-            let html = '<div class="kanban-board">';
-            
-            for (const [key, info] of Object.entries(statuses)) {
-                const columnData = data.filter(c => c.status === key);
-                html += `
-                    <div class="kanban-column">
-                        <div class="col-header">
-                            <span>${info.label}</span>
-                            <span class="col-count">${columnData.length}</span>
-                        </div>
-                        ${columnData.map(c => `
-                            <div class="kanban-card" style="border-left-color: ${info.color}">
-                                <h4>${c.name}</h4>
-                                <p>${c.phone} • ${c.city}</p>
-                                <div style="margin-bottom: 8px;">
-                                    <span class="tag">${c.role}</span>
-                                    ${c.project ? `<span class="tag" style="background: #E0E7FF; color: #3730A3;">${c.project}</span>` : ''}
-                                </div>
-                                ${c.status !== 'settled' && c.status !== 'reject' ? `
-                                    <div class="card-actions">
-                                        <button class="action-btn settle" onclick="changeStatus(${c.id}, 'settled')">✅ Заселить</button>
-                                        <button class="action-btn reject" onclick="changeStatus(${c.id}, 'reject')">❌</button>
-                                    </div>
-                                ` : ''}
+        // === AI AGENTS ===
+        function renderAIAgents() {
+            document.getElementById('ai-agents-grid').innerHTML = aiAgents.map(a => `
+                <div class="integration-card ai">
+                    <div class="integration-header">
+                        <div class="integration-icon ai-icon"><i class="fas fa-robot"></i></div>
+                        <div>
+                            <div class="integration-title">${a.name}</div>
+                            <div class="integration-status">
+                                <span class="status-dot active"></span>
+                                <span>Готов к работе</span>
                             </div>
-                        `).join('')}
+                        </div>
                     </div>
-                `;
+                    <div style="font-size:13px; color:var(--text-light); margin-bottom:16px;">${a.desc}</div>
+                    <div style="display:flex; gap:8px;">
+                        <button class="btn btn-sm btn-purple" onclick="runAgent('${a.id}')"><i class="fas fa-play"></i> Запустить</button>
+                        <button class="btn btn-sm btn-outline" onclick="viewAgentLog('${a.id}')"><i class="fas fa-list"></i> Лог</button>
+                    </div>
+                    <div class="log-box" id="log-${a.id}">
+                        <div class="log-entry"><span class="log-time">${a.lastRun}</span>✅ Агент готов к работе</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // === ACTIONS ===
+        function changeStatus(id, status) {
+            const c = candidates.find(x=>x.id===id);
+            if(c) { c.status = status; saveDB(); renderAll(); }
+        }
+
+        function editCandidate(id) {
+            const c = candidates.find(x=>x.id===id);
+            if(!c) return;
+            const f = document.getElementById('candidate-form');
+            f.name.value=c.name; f.phone.value=c.phone; f.city.value=c.city;
+            f.citizenship.value=c.citizenship; f.type.value=c.type;
+            f.project.value=c.project||''; f.comment.value=c.comment||'';
+            openModal('addCandidate');
+            candidates = candidates.filter(x=>x.id!==id);
+            saveDB();
+        }
+
+        function deleteCandidate(id) {
+            if(confirm('Удалить кандидата?')) {
+                candidates = candidates.filter(c=>c.id!==id);
+                saveDB(); renderAll();
             }
-            html += '</div>';
-            container.innerHTML = html;
         }
 
-        function switchView(view) {
-            currentView = view;
-            document.querySelectorAll('.crm-view-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            renderCRM();
+        function updateProjectOptions() {
+            const type = document.querySelector('[name=type]')?.value || 'shift';
+            const select = document.getElementById('modal-project-select');
+            const filtered = type==='shift' ? projects.filter(p=>p.type==='shift') : projects.filter(p=>p.type==='retail');
+            select.innerHTML = '<option value="">Не выбран</option>' + filtered.map(p=>`<option value="${p.name}">${p.name}</option>`).join('');
         }
 
-        function changeStatus(id, newStatus) {
-            const c = candidates.find(x => x.id === id);
-            if (c) {
-                c.status = newStatus;
-                renderCRM();
-            }
-        }
-
-        function addRandomCandidate() {
-            const names = ["Василий", "Дмитрий", "Елена", "Ольга", "Михаил", "Анна", "Сергей"];
-            const cities = ["Уфа", "Ижевск", "Москва", "Тула", "Казань", "Владимир", "Чехов"];
-            const projectsList = ["Аби", "Ла Мода", "Яндекс", "Фрикейк", "МПЗ", "ЛЕНТА"];
-            
-            const randomName = names[Math.floor(Math.random() * names.length)];
-            const randomCity = cities[Math.floor(Math.random() * cities.length)];
-            const randomProject = projectsList[Math.floor(Math.random() * projectsList.length)];
-            
-            candidates.push({
-                id: Date.now(),
-                name: randomName + " " + "Фамилия",
-                phone: "+79" + Math.floor(Math.random() * 900000000 + 100000000),
-                city: randomCity,
-                status: "new",
-                role: Math.random() > 0.5 ? "Вахта" : "Ритейл",
-                project: randomProject
-            });
-            renderCRM();
-        }
-
-        // Form Handler
-        function handleSubmit(e) {
-            e.preventDefault();
-            alert('✅ Спасибо! Ваша заявка отправлена.\n\nНаш менеджер свяжется с вами в ближайшее время.\n\nТакже вы можете написать нам:\n• Telegram: @NashiLyudiJob1_bot');
-            e.target.reset();
-        }
-
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+        function setupForms() {
+            document.getElementById('candidate-form').addEventListener('submit', e => {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+                const f = e.target;
+                const newC = {
+                    id: Date.now(),
+                    name: f.name.value, phone: f.phone.value, city: f.city.value,
+                    citizenship: f.citizenship.value, type: f.type.value,
+                    project: f.project.value, status: 'new',
+                    comment: f.comment.value, date: new Date().toLocaleDateString()
+                };
+                candidates.push(newC);
+                saveDB();
+                closeModal('addCandidate');
+                f.reset();
+                renderAll();
             });
-        });
 
-        // Close modal on outside click
-        document.getElementById('projectModal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
+            document.getElementById('project-filter')?.addEventListener('change', renderProjects);
+        }
+
+        function setupSearch() {
+            document.getElementById('pipeline-search')?.addEventListener('input', renderPipeline);
+            document.getElementById('candidates-search')?.addEventListener('input', renderCandidates);
+        }
+
+        // === MODALS ===
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+        // === INTEGRATIONS ===
+        async function syncBot(type) {
+            const logEl = document.getElementById(`${type}-log`);
+            logEl.innerHTML += `<div class="log-entry"><span class="log-time">${new Date().toLocaleTimeString()}</span>🔄 Синхронизация...</div>`;
+            await new Promise(r=>setTimeout(r,1000));
+            logEl.innerHTML += `<div class="log-entry"><span class="log-time">${new Date().toLocaleTimeString()}</span>✅ Синхронизировано</div>`;
+        }
+
+        async function testBot(type) {
+            const logEl = document.getElementById(`${type}-log`);
+            logEl.innerHTML += `<div class="log-entry"><span class="log-time">${new Date().toLocaleTimeString()}</span>🧪 Тестовое сообщение...</div>`;
+            await new Promise(r=>setTimeout(r,800));
+            logEl.innerHTML += `<div class="log-entry"><span class="log-time">${new Date().toLocaleTimeString()}</span>✅ Бот ответил</div>`;
+        }
+
+        async function runAgent(id) {
+            const agent = aiAgents.find(a=>a.id===id);
+            const logEl = document.getElementById(`log-${id}`);
+            logEl.innerHTML += `<div class="log-entry"><span class="log-time">${new Date().toLocaleTimeString()}</span>🚀 Запуск...</div>`;
+            await new Promise(r=>setTimeout(r,1500));
+            agent.lastRun = `Сегодня в ${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}`;
+            logEl.innerHTML += `<div class="log-entry"><span class="log-time">${new Date().toLocaleTimeString()}</span>✅ Задача выполнена</div>`;
+            renderAIAgents();
+        }
+
+        async function runAllAgents() {
+            for(const agent of aiAgents) {
+                await runAgent(agent.id);
+                await new Promise(r=>setTimeout(r,500));
             }
-        });
+        }
 
-        // Init
-        renderProjects();
-        renderCRM();
+        function viewAgentLog(id) {
+            alert(`Лог агента ${id}:\n${document.getElementById(`log-${id}`).innerText}`);
+        }
+
+        function exportData() {
+            alert('Экспорт данных в CSV...');
+        }
+
+        function exportCandidates() {
+            let csv = 'ID,ФИО,Телефон,Город,Гражданство,Тип,Проект,Статус,Дата\n';
+            candidates.forEach(c => {
+                csv += `${c.id},"${c.name}","${c.phone}","${c.city}","${c.citizenship}","${c.type}","${c.project}","${c.status}","${c.date}"\n`;
+            });
+            const blob = new Blob([csv], {type:'text/csv'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href=url; a.download='candidates.csv'; a.click();
+        }
+
+        window.onclick = e => { if(e.target.classList.contains('modal')) e.target.classList.remove('active'); }
     </script>
 </body>
 </html>
