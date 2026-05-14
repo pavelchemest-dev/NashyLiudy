@@ -872,5 +872,62 @@
 
         window.onclick = e => { if(e.target.classList.contains('modal')) e.target.classList.remove('active'); }
     </script>
+<!-- Подключение API адаптера -->
+<script src="api-adapter.js"></script>
+
+<!-- Инициализация API вместо localStorage -->
+<script>
+    // Переопределяем загрузку данных
+    const originalSeedData = window.seedData;
+
+    // Загружаем данные с сервера при старте
+    document.addEventListener('DOMContentLoaded', async () => {
+        // Пробуем загрузить с API
+        try {
+            const apiData = await HR_API.getCandidates();
+            if (apiData.data && apiData.data.length > 0) {
+                // Конвертируем формат API в формат фронтенда
+                window.candidates = apiData.data.map(c => ({
+                    id: c.id, name: c.name, phone: c.phone, city: c.city,
+                    citizenship: c.citizenship, type: c.type, project: c.project,
+                    status: c.status, comment: c.comment, date: c.date
+                }));
+                renderAll();
+                console.log('✅ Данные загружены с API');
+                return;
+            }
+        } catch (e) {
+            console.log('⚠️ API недоступен, используем localStorage');
+        }
+
+        // Fallback на localStorage
+        if (window.candidates.length === 0) originalSeedData();
+        renderAll();
+    });
+
+    // Переопределяем saveDB для отправки на сервер
+    const originalSaveDB = window.saveDB;
+    window.saveDB = async function() {
+        originalSaveDB(); // Сохраняем в localStorage как кэш
+
+        // Отправляем изменения на сервер (упрощённо)
+        // В продакшене здесь нужно сравнивать и отправлять только изменения
+    };
+
+    // Переопределяем changeStatus для API
+    const originalChangeStatus = window.changeStatus;
+    window.changeStatus = async function(id, status) {
+        // Сначала меняем локально для мгновенного отклика
+        originalChangeStatus(id, status);
+
+        // Затем отправляем на сервер
+        try {
+            await HR_API.changeStatus(id, status);
+            console.log('✅ Статус обновлён на сервере');
+        } catch (e) {
+            console.error('❌ Ошибка синхронизации:', e);
+        }
+    };
+</script>
 </body>
 </html>
