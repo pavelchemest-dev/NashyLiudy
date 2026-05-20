@@ -2,932 +2,130 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Наши Люди | HR-платформа с AI и CRM</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #0F172A;
-            --primary-light: #1E293B;
-            --accent: #FF6B35;
-            --accent-hover: #E55A2B;
-            --success: #10B981;
-            --warning: #F59E0B;
-            --danger: #EF4444;
-            --info: #3B82F6;
-            --purple: #8B5CF6;
-            --bg: #F8FAFC;
-            --surface: #FFFFFF;
-            --text: #0F172A;
-            --text-light: #64748B;
-            --border: #E2E8F0;
-            --radius: 12px;
-            --shadow: 0 4px 12px rgba(0,0,0,0.06);
-            --shadow-lg: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); line-height:1.5; }
-
-        /* Layout */
-        .app { display:flex; min-height:100vh; }
-        .sidebar { width:260px; background:var(--primary); color:#fff; padding:0; position:fixed; height:100vh; overflow-y:auto; z-index:100; }
-        .sidebar-header { padding:24px 20px; border-bottom:1px solid rgba(255,255,255,0.1); }
-        .logo { font-size:22px; font-weight:800; display:flex; align-items:center; gap:12px; }
-        .logo i { color:var(--accent); font-size:28px; }
-        .nav-section { padding:20px 0; }
-        .nav-title { padding:0 20px 10px; font-size:11px; text-transform:uppercase; letter-spacing:0.5px; opacity:0.6; font-weight:600; }
-        .nav-item { padding:12px 20px; cursor:pointer; display:flex; align-items:center; gap:12px; transition:all 0.2s; font-weight:500; font-size:14px; }
-        .nav-item:hover, .nav-item.active { background:rgba(255,255,255,0.08); border-left:3px solid var(--accent); }
-        .nav-item i { width:20px; text-align:center; opacity:0.9; }
-        .nav-badge { margin-left:auto; background:var(--accent); padding:2px 8px; border-radius:10px; font-size:11px; font-weight:700; }
-
-        .main { margin-left:260px; flex:1; padding:30px; background:var(--bg); }
-        .header { display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; }
-        .page-title { font-size:28px; font-weight:800; color:var(--primary); }
-        .page-subtitle { color:var(--text-light); font-size:14px; margin-top:4px; }
-        .actions { display:flex; gap:12px; }
-
-        /* Components */
-        .card { background:var(--surface); border-radius:var(--radius); box-shadow:var(--shadow); padding:20px; margin-bottom:20px; }
-        .grid-2 { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:20px; }
-        .grid-3 { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
-        .grid-4 { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:15px; }
-
-        .stat-card { text-align:left; padding:24px; position:relative; overflow:hidden; }
-        .stat-card::before { content:''; position:absolute; top:0; right:0; width:100px; height:100px; background:linear-gradient(135deg,rgba(255,255,255,0.1),transparent); border-radius:50%; transform:translate(30px,-30px); }
-        .stat-value { font-size:36px; font-weight:900; color:var(--primary); margin-bottom:4px; }
-        .stat-label { color:var(--text-light); font-size:13px; font-weight:500; }
-        .stat-icon { position:absolute; top:20px; right:20px; font-size:32px; opacity:0.2; }
-        .stat-change { font-size:12px; margin-top:8px; font-weight:600; }
-        .stat-change.positive { color:var(--success); }
-        .stat-change.negative { color:var(--danger); }
-
-        .btn { padding:10px 18px; border-radius:8px; border:none; cursor:pointer; font-weight:600; transition:all 0.2s; display:inline-flex; align-items:center; gap:8px; font-size:14px; }
-        .btn-primary { background:var(--accent); color:#fff; }
-        .btn-primary:hover { background:var(--accent-hover); transform:translateY(-1px); box-shadow:0 4px 12px rgba(255,107,53,0.3); }
-        .btn-outline { background:transparent; border:1px solid var(--border); color:var(--text); }
-        .btn-outline:hover { border-color:var(--primary); color:var(--primary); }
-        .btn-sm { padding:6px 12px; font-size:12px; }
-        .btn-success { background:var(--success); color:#fff; }
-        .btn-danger { background:var(--danger); color:#fff; }
-        .btn-purple { background:var(--purple); color:#fff; }
-
-        /* Kanban Board (Potok-style) */
-        .kanban-container { overflow-x:auto; padding-bottom:20px; }
-        .kanban-board { display:flex; gap:20px; min-width:max-content; }
-        .kanban-column { width:320px; background:#F1F5F9; border-radius:var(--radius); padding:16px; }
-        .kanban-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; padding-bottom:12px; border-bottom:2px solid var(--border); }
-        .kanban-title { font-weight:700; font-size:14px; display:flex; align-items:center; gap:8px; }
-        .kanban-count { background:var(--primary); color:#fff; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:700; }
-        .kanban-card { background:#fff; padding:16px; border-radius:8px; margin-bottom:12px; box-shadow:0 1px 3px rgba(0,0,0,0.08); cursor:pointer; transition:all 0.2s; border-left:3px solid var(--info); position:relative; }
-        .kanban-card:hover { transform:translateY(-2px); box-shadow:0 6px 16px rgba(0,0,0,0.12); }
-        .kanban-card-header { display:flex; justify-content:space-between; align-items:start; margin-bottom:8px; }
-        .kanban-card-title { font-weight:700; font-size:14px; color:var(--primary); }
-        .kanban-card-type { font-size:10px; padding:2px 6px; border-radius:6px; font-weight:700; text-transform:uppercase; }
-        .kanban-card-type.shift { background:#DBEAFE; color:#1E40AF; }
-        .kanban-card-type.retail { background:#D1FAE5; color:#065F46; }
-        .kanban-card-meta { font-size:12px; color:var(--text-light); margin-bottom:6px; display:flex; align-items:center; gap:6px; }
-        .kanban-card-meta i { width:14px; opacity:0.7; }
-        .kanban-card-project { font-size:11px; color:var(--accent); font-weight:600; margin-top:8px; }
-        .kanban-actions { display:flex; gap:6px; margin-top:12px; padding-top:12px; border-top:1px solid var(--border); }
-
-        /* Table View */
-        .table-container { overflow-x:auto; }
-        table { width:100%; border-collapse:collapse; font-size:13px; }
-        th, td { padding:12px; text-align:left; border-bottom:1px solid var(--border); }
-        th { background:#F8FAFC; font-weight:700; color:var(--primary); text-transform:uppercase; font-size:11px; letter-spacing:0.5px; }
-        tr:hover { background:#F8FAFC; }
-        .status-badge { padding:4px 10px; border-radius:12px; font-size:11px; font-weight:700; display:inline-block; }
-        .status-new { background:#DBEAFE; color:#1E40AF; }
-        .status-contact { background:#FEF3C7; color:#92400E; }
-        .status-interview { background:#E0E7FF; color:#3730A3; }
-        .status-offer { background:#D1FAE5; color:#065F46; }
-        .status-hired { background:var(--success); color:#fff; }
-        .status-reject { background:#FEE2E2; color:#991B1B; }
-
-        /* Filters */
-        .filters-bar { display:flex; gap:12px; margin-bottom:24px; flex-wrap:wrap; align-items:center; }
-        .search-input { flex:1; min-width:250px; padding:10px 16px; border:1px solid var(--border); border-radius:8px; font-size:14px; }
-        .filter-select { padding:10px 16px; border:1px solid var(--border); border-radius:8px; font-size:14px; background:#fff; }
-
-        /* Integration Panel */
-        .integration-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(350px,1fr)); gap:20px; }
-        .integration-card { background:#fff; padding:24px; border-radius:var(--radius); border:1px solid var(--border); position:relative; overflow:hidden; }
-        .integration-card::before { content:''; position:absolute; top:0; left:0; width:4px; height:100%; }
-        .integration-card.tg::before { background:#0088CC; }
-        .integration-card.max::before { background:#00D9FF; }
-        .integration-card.ai::before { background:linear-gradient(135deg,#667eea,#764ba2); }
-        .integration-header { display:flex; align-items:center; gap:16px; margin-bottom:20px; }
-        .integration-icon { width:50px; height:50px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-size:24px; color:#fff; }
-        .tg-icon { background:#0088CC; }
-        .max-icon { background:#00D9FF; color:var(--primary); }
-        .ai-icon { background:linear-gradient(135deg,#667eea,#764ba2); }
-        .integration-title { font-size:18px; font-weight:700; }
-        .integration-status { font-size:12px; color:var(--text-light); display:flex; align-items:center; gap:6px; margin-top:4px; }
-        .status-dot { width:8px; height:8px; border-radius:50%; }
-        .status-dot.active { background:var(--success); }
-        .status-dot.inactive { background:var(--danger); }
-        .log-box { background:#F8FAFC; padding:12px; border-radius:8px; font-family:'Courier New',monospace; font-size:11px; max-height:150px; overflow-y:auto; border:1px solid var(--border); margin-top:16px; }
-        .log-entry { margin-bottom:6px; padding-bottom:6px; border-bottom:1px solid var(--border); }
-        .log-time { color:var(--text-light); margin-right:8px; }
-
-        /* Projects Grid */
-        .projects-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:20px; }
-        .project-card { background:#fff; padding:24px; border-radius:var(--radius); border:1px solid var(--border); transition:all 0.2s; cursor:pointer; }
-        .project-card:hover { border-color:var(--accent); box-shadow:var(--shadow-lg); transform:translateY(-2px); }
-        .project-header { display:flex; justify-content:space-between; align-items:start; margin-bottom:16px; }
-        .project-title { font-size:18px; font-weight:700; color:var(--primary); margin-bottom:4px; }
-        .project-location { font-size:12px; color:var(--text-light); }
-        .project-salary { font-size:22px; font-weight:800; color:var(--accent); }
-        .project-details { display:flex; flex-direction:column; gap:8px; margin-bottom:16px; }
-        .project-detail { font-size:13px; color:var(--text-light); display:flex; align-items:center; gap:8px; }
-        .project-detail i { width:16px; color:var(--info); }
-        .project-tags { display:flex; gap:6px; flex-wrap:wrap; }
-        .project-tag { font-size:11px; padding:4px 8px; background:#F1F5F9; border-radius:6px; font-weight:600; }
-
-        /* Modal */
-        .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000; align-items:center; justify-content:center; backdrop-filter:blur(4px); }
-        .modal.active { display:flex; }
-        .modal-content { background:#fff; padding:32px; border-radius:var(--radius); max-width:650px; width:90%; max-height:90vh; overflow-y:auto; box-shadow:var(--shadow-lg); }
-        .modal-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid var(--border); }
-        .modal-title { font-size:22px; font-weight:800; }
-        .close-modal { background:none; border:none; font-size:28px; cursor:pointer; color:var(--text-light); width:36px; height:36px; display:flex; align-items:center; justify-content:center; border-radius:8px; transition:all 0.2s; }
-        .close-modal:hover { background:#F1F5F9; color:var(--text); }
-        .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-        .form-group { margin-bottom:16px; }
-        .form-group.full { grid-column:1/-1; }
-        .form-label { display:block; font-size:13px; font-weight:600; margin-bottom:6px; color:var(--text); }
-        .form-input, .form-select, .form-textarea { width:100%; padding:10px 14px; border:1px solid var(--border); border-radius:8px; font-size:14px; font-family:inherit; transition:border-color 0.2s; }
-        .form-input:focus, .form-select:focus, .form-textarea:focus { outline:none; border-color:var(--accent); }
-        .form-textarea { resize:vertical; min-height:80px; }
-
-        /* Responsive */
-        @media(max-width:1024px){
-            .sidebar { width:100%; position:relative; height:auto; }
-            .main { margin-left:0; }
-            .app { flex-direction:column; }
-            .kanban-column { width:300px; }
-        }
-        @media(max-width:768px){
-            .grid-2, .grid-3, .grid-4 { grid-template-columns:1fr; }
-            .form-grid { grid-template-columns:1fr; }
-            .integration-grid { grid-template-columns:1fr; }
-            .projects-grid { grid-template-columns:1fr; }
-        }
-
-        .hidden { display:none !important; }
-        .mt-20 { margin-top:20px; }
-        .mb-20 { margin-bottom:20px; }
-        .flex-between { display:flex; justify-content:space-between; align-items:center; }
-        .text-center { text-align:center; }
-    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PeopleHere</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Шрифт Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Telegram WebApp Script -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
 </head>
 <body>
-    <div class="app">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <div class="logo"><i class="fas fa-users"></i> НАШИ ЛЮДИ</div>
-                <div style="font-size:11px; opacity:0.7; margin-top:4px;">HR-платформа v3.0</div>
-            </div>
-            <div class="nav-section">
-                <div class="nav-title">Основное</div>
-                <div class="nav-item active" data-page="dashboard"><i class="fas fa-chart-line"></i> Дашборд</div>
-                <div class="nav-item" data-page="pipeline"><i class="fas fa-stream"></i> Pipeline <span class="nav-badge" id="pipeline-count">0</span></div>
-                <div class="nav-item" data-page="candidates"><i class="fas fa-users"></i> Кандидаты</div>
-                <div class="nav-item" data-page="projects"><i class="fas fa-briefcase"></i> Проекты</div>
-            </div>
-            <div class="nav-section">
-                <div class="nav-title">Интеграции</div>
-                <div class="nav-item" data-page="bots"><i class="fas fa-robot"></i> Боты (TG/MAX)</div>
-                <div class="nav-item" data-page="ai"><i class="fas fa-brain"></i> AI-агенты</div>
-            </div>
-            <div class="nav-section">
-                <div class="nav-title">Система</div>
-                <div class="nav-item" data-page="settings"><i class="fas fa-cog"></i> Настройки</div>
-                <div class="nav-item" data-page="contacts"><i class="fas fa-address-book"></i> Контакты</div>
-            </div>
-        </aside>
 
-        <!-- Main Content -->
-        <main class="main">
-            <!-- Dashboard -->
-            <section id="dashboard" class="page active">
-                <div class="header">
-                    <div>
-                        <h1 class="page-title">Дашборд</h1>
-                        <div class="page-subtitle">Обзор активности и ключевых метрик</div>
-                    </div>
-                    <div class="actions">
-                        <button class="btn btn-outline" onclick="exportData()"><i class="fas fa-download"></i> Экспорт</button>
-                        <button class="btn btn-primary" onclick="openModal('addCandidate')"><i class="fas fa-plus"></i> Добавить кандидата</button>
-                    </div>
-                </div>
-                
-                <div class="grid-4">
-                    <div class="card stat-card">
-                        <div class="stat-icon"><i class="fas fa-users"></i></div>
-                        <div class="stat-value" id="stat-total">0</div>
-                        <div class="stat-label">Всего кандидатов</div>
-                        <div class="stat-change positive"><i class="fas fa-arrow-up"></i> 12% за неделю</div>
-                    </div>
-                    <div class="card stat-card">
-                        <div class="stat-icon"><i class="fas fa-truck-loading"></i></div>
-                        <div class="stat-value" id="stat-shift">0</div>
-                        <div class="stat-label">Вахта</div>
-                        <div class="stat-change positive"><i class="fas fa-arrow-up"></i> 8% за неделю</div>
-                    </div>
-                    <div class="card stat-card">
-                        <div class="stat-icon"><i class="fas fa-store"></i></div>
-                        <div class="stat-value" id="stat-retail">0</div>
-                        <div class="stat-label">Ритейл</div>
-                        <div class="stat-change positive"><i class="fas fa-arrow-up"></i> 5% за неделю</div>
-                    </div>
-                    <div class="card stat-card">
-                        <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
-                        <div class="stat-value" id="stat-hired">0</div>
-                        <div class="stat-label">Трудоустроено</div>
-                        <div class="stat-change positive"><i class="fas fa-arrow-up"></i> 15% за неделю</div>
-                    </div>
-                </div>
-
-                <div class="grid-2 mt-20">
-                    <div class="card">
-                        <h3 style="margin-bottom:20px; font-size:16px; font-weight:700;">📊 Воронка подбора</h3>
-                        <div id="funnel-chart" style="height:200px;"></div>
-                    </div>
-                    <div class="card">
-                        <h3 style="margin-bottom:20px; font-size:16px; font-weight:700;">🤖 Активность AI-агентов</h3>
-                        <div id="ai-activity" style="font-size:13px;"></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Pipeline (Kanban) -->
-            <section id="pipeline" class="page hidden">
-                <div class="header">
-                    <div>
-                        <h1 class="page-title">Pipeline кандидатов</h1>
-                        <div class="page-subtitle">Управление кандидатами по этапам</div>
-                    </div>
-                    <div class="actions">
-                        <input type="text" class="search-input" id="pipeline-search" placeholder="🔍 Поиск..." style="width:300px;">
-                        <button class="btn btn-primary" onclick="openModal('addCandidate')"><i class="fas fa-plus"></i> Добавить</button>
-                    </div>
-                </div>
-                <div class="kanban-container">
-                    <div class="kanban-board" id="kanban-board"></div>
-                </div>
-            </section>
-
-            <!-- Candidates (Table) -->
-            <section id="candidates" class="page hidden">
-                <div class="header">
-                    <div>
-                        <h1 class="page-title">База кандидатов</h1>
-                        <div class="page-subtitle">Полный список всех соискателей</div>
-                    </div>
-                    <div class="actions">
-                        <input type="text" class="search-input" id="candidates-search" placeholder="🔍 Поиск..." style="width:300px;">
-                        <button class="btn btn-outline" onclick="exportCandidates()"><i class="fas fa-download"></i> CSV</button>
-                        <button class="btn btn-primary" onclick="openModal('addCandidate')"><i class="fas fa-plus"></i> Добавить</button>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>ФИО</th>
-                                    <th>Телефон</th>
-                                    <th>Город</th>
-                                    <th>Тип</th>
-                                    <th>Проект</th>
-                                    <th>Статус</th>
-                                    <th>Дата</th>
-                                    <th>Действия</th>
-                                </tr>
-                            </thead>
-                            <tbody id="candidates-tbody"></tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Projects -->
-            <section id="projects" class="page hidden">
-                <div class="header">
-                    <div>
-                        <h1 class="page-title">Проекты и вакансии</h1>
-                        <div class="page-subtitle">Все доступные позиции для подбора</div>
-                    </div>
-                    <div class="filters-bar" style="margin:0;">
-                        <select class="filter-select" id="project-filter">
-                            <option value="all">Все проекты</option>
-                            <option value="shift">🚜 Вахта</option>
-                            <option value="retail">🛍️ Ритейл</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="projects-grid" id="projects-grid"></div>
-            </section>
-
-            <!-- Bots Integration -->
-            <section id="bots" class="page hidden">
-                <div class="header">
-                    <div>
-                        <h1 class="page-title">Интеграция ботов</h1>
-                        <div class="page-subtitle">Telegram и MAX боты</div>
-                    </div>
-                </div>
-                <div class="integration-grid">
-                    <div class="integration-card tg">
-                        <div class="integration-header">
-                            <div class="integration-icon tg-icon"><i class="fab fa-telegram-plane"></i></div>
-                            <div>
-                                <div class="integration-title">Telegram Bot</div>
-                                <div class="integration-status">
-                                    <span class="status-dot active"></span>
-                                    <span>@NashiLyudiJob1_bot • Подключен</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="margin-bottom:16px;">
-                            <label style="font-size:12px; font-weight:600; display:block; margin-bottom:6px;">Webhook URL</label>
-                            <input type="text" class="form-input" id="tg-webhook" value="https://api.nashilyudi.ru/webhook/telegram" readonly>
-                        </div>
-                        <div style="display:flex; gap:8px;">
-                            <button class="btn btn-sm btn-primary" onclick="syncBot('tg')"><i class="fas fa-sync"></i> Синхронизировать</button>
-                            <button class="btn btn-sm btn-outline" onclick="testBot('tg')"><i class="fas fa-play"></i> Тест</button>
-                        </div>
-                        <div class="log-box" id="tg-log">
-                            <div class="log-entry"><span class="log-time">10:02:50</span>✅ Бот запущен и готов к работе</div>
-                            <div class="log-entry"><span class="log-time">10:02:51</span>📥 Ожидание входящих сообщений...</div>
-                        </div>
-                    </div>
-
-                    <div class="integration-card max">
-                        <div class="integration-header">
-                            <div class="integration-icon max-icon"><i class="fas fa-robot"></i></div>
-                            <div>
-                                <div class="integration-title">MAX Bot</div>
-                                <div class="integration-status">
-                                    <span class="status-dot active"></span>
-                                    <span>@NashiLyudiJob1_bot • Активен (ID: 270843501)</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="margin-bottom:16px;">
-                            <label style="font-size:12px; font-weight:600; display:block; margin-bottom:6px;">API Endpoint</label>
-                            <input type="text" class="form-input" id="max-endpoint" value="https://api.max.ru/v1/bots/nashilyudi" readonly>
-                        </div>
-                        <div style="display:flex; gap:8px;">
-                            <button class="btn btn-sm btn-primary" onclick="syncBot('max')"><i class="fas fa-sync"></i> Синхронизировать</button>
-                            <button class="btn btn-sm btn-outline" onclick="testBot('max')"><i class="fas fa-play"></i> Тест</button>
-                        </div>
-                        <div class="log-box" id="max-log">
-                            <div class="log-entry"><span class="log-time">10:02:50</span>✅ MAX подключен как Наши люди</div>
-                            <div class="log-entry"><span class="log-time">10:02:51</span>🤖 Зарегистрировано 2 обработчика событий</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- AI Agents -->
-            <section id="ai" class="page hidden">
-                <div class="header">
-                    <div>
-                        <h1 class="page-title">AI-агенты</h1>
-                        <div class="page-subtitle">7 интеллектуальных агентов для автоматизации</div>
-                    </div>
-                    <button class="btn btn-purple" onclick="runAllAgents()"><i class="fas fa-play"></i> Запустить всех</button>
-                </div>
-                <div class="integration-grid" id="ai-agents-grid"></div>
-            </section>
-
-            <!-- Contacts -->
-            <section id="contacts" class="page hidden">
-                <div class="header">
-                    <div>
-                        <h1 class="page-title">Контакты</h1>
-                        <div class="page-subtitle">Свяжитесь с нами</div>
-                    </div>
-                </div>
-                <div class="grid-2">
-                    <div class="card">
-                        <h3 style="margin-bottom:20px; font-size:18px; font-weight:700;">📞 Основная информация</h3>
-                        <div style="display:flex; flex-direction:column; gap:16px;">
-                            <div style="display:flex; align-items:center; gap:16px;">
-                                <div style="width:50px; height:50px; background:var(--accent); border-radius:12px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:20px;"><i class="fas fa-phone"></i></div>
-                                <div>
-                                    <div style="font-size:12px; color:var(--text-light); font-weight:600;">Телефон</div>
-                                    <div style="font-size:16px; font-weight:700;"><a href="tel:+79023086595" style="color:var(--text); text-decoration:none;">+7 (902) 308-65-95</a></div>
-                                </div>
-                            </div>
-                            <div style="display:flex; align-items:center; gap:16px;">
-                                <div style="width:50px; height:50px; background:#0088CC; border-radius:12px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:20px;"><i class="fab fa-telegram"></i></div>
-                                <div>
-                                    <div style="font-size:12px; color:var(--text-light); font-weight:600;">Telegram бот</div>
-                                    <div style="font-size:16px; font-weight:700;"><a href="https://t.me/NashiLyudiJob1_bot" target="_blank" style="color:var(--text); text-decoration:none;">@NashiLyudiJob1_bot</a></div>
-                                </div>
-                            </div>
-                            <div style="display:flex; align-items:center; gap:16px;">
-                                <div style="width:50px; height:50px; background:var(--info); border-radius:12px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:20px;"><i class="fas fa-envelope"></i></div>
-                                <div>
-                                    <div style="font-size:12px; color:var(--text-light); font-weight:600;">Email</div>
-                                    <div style="font-size:16px; font-weight:700;">info@nashilyudi.ru</div>
-                                </div>
-                            </div>
-                            <div style="display:flex; align-items:center; gap:16px;">
-                                <div style="width:50px; height:50px; background:var(--success); border-radius:12px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:20px;"><i class="fas fa-map-marker-alt"></i></div>
-                                <div>
-                                    <div style="font-size:12px; color:var(--text-light); font-weight:600;">Адрес</div>
-                                    <div style="font-size:16px; font-weight:700;">Москва, работаем по всей России</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3 style="margin-bottom:20px; font-size:18px; font-weight:700;">📍 Наши проекты</h3>
-                        <div style="display:flex; flex-direction:column; gap:12px; font-size:14px;">
-                            <div><strong style="color:var(--primary);">Вахта:</strong> Аби, Ла Мода, Яндекс, Фрикейк, Спортмастер, ФМ Чехов, МПЗ (3 локации), Норд Палп, Парфюм</div>
-                            <div><strong style="color:var(--primary);">Ритейл:</strong> ЛЕНТА, АШАН</div>
-                            <div style="margin-top:16px; padding:16px; background:#F8FAFC; border-radius:8px;">
-                                <div style="font-weight:700; margin-bottom:8px;">🤖 Боты работают 24/7</div>
-                                <div style="color:var(--text-light);">Telegram и MAX боты автоматически принимают заявки и консультируют кандидатов</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </main>
+    <!-- Оверлей загрузки / Ошибки валидации -->
+    <div id="loading-screen" class="overlay active">
+        <div class="spinner"></div>
+        <p data-i18n="loading">Загрузка...</p>
     </div>
 
-    <!-- Add Candidate Modal -->
-    <div class="modal" id="addCandidate">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">Добавить кандидата</div>
-                <button class="close-modal" onclick="closeModal('addCandidate')">&times;</button>
+    <div id="app" class="hidden">
+
+        <!-- HEADER: Переключатели -->
+        <header class="app-header">
+            <div class="logo">PeopleHere</div>
+            <div class="controls">
+                <button id="lang-btn" class="icon-btn" title="Change Language">RU</button>
+                <button id="theme-btn" class="icon-btn" title="Toggle Theme">☀️</button>
             </div>
-            <form id="candidate-form">
-                <div class="form-grid">
-                    <div class="form-group">
-                        <label class="form-label">ФИО *</label>
-                        <input type="text" name="name" required class="form-input" placeholder="Иванов Иван Иванович">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Телефон *</label>
-                        <input type="tel" name="phone" required class="form-input" placeholder="+7 (___) ___-__-__">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Город</label>
-                        <input type="text" name="city" class="form-input" placeholder="Москва">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Гражданство</label>
-                        <select name="citizenship" class="form-select">
-                            <option>РФ</option>
-                            <option>РБ</option>
-                            <option>Другое</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Тип занятости *</label>
-                        <select name="type" required class="form-select" onchange="updateProjectOptions()">
-                            <option value="shift">🚜 Вахта</option>
-                            <option value="retail">🛍️ Ритейл</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Проект</label>
-                        <select name="project" class="form-select" id="modal-project-select">
-                            <option value="">Не выбран</option>
-                        </select>
-                    </div>
-                    <div class="form-group full">
-                        <label class="form-label">Комментарий</label>
-                        <textarea name="comment" class="form-textarea" placeholder="Дополнительная информация о кандидате..."></textarea>
-                    </div>
+        </header>
+
+        <!-- ЭКРАН 1: ЛОГИН (Имитация) -->
+        <section id="view-auth" class="view active">
+            <h2 data-i18n="welcome">Добро пожаловать</h2>
+            <p data-i18n="login_desc">Авторизация через Telegram...</p>
+            <button id="btn-login" class="btn btn-primary" style="display:none;">
+                <span data-i18n="login_btn">Войти</span>
+            </button>
+            <p id="error-msg" class="error-text hidden" data-i18n="error_auth">Ошибка авторизации Telegram</p>
+        </section>
+
+        <!-- ЭКРАН 2: ДАШБОРД СОИСКАТЕЛЯ -->
+        <section id="view-candidate" class="view hidden">
+            <div class="card profile-card">
+                <div class="avatar">👤</div>
+                <h3 id="user-name">User</h3>
+                <div class="progress-bar">
+                    <div class="fill" style="width: 65%"></div>
                 </div>
-                <div style="display:flex; justify-content:flex-end; gap:12px; margin-top:24px;">
-                    <button type="button" class="btn btn-outline" onclick="closeModal('addCandidate')">Отмена</button>
-                    <button type="submit" class="btn btn-primary">Сохранить кандидата</button>
+                <p data-i18n="profile_strength">Сила профиля: 65%</p>
+            </div>
+
+            <h3 data-i18n="rec_vacancies">Рекомендации</h3>
+            <div class="scroll-list">
+                <!-- Карточки вакансий -->
+                <div class="card job-card">
+                    <div class="job-info">
+                        <h4>Middle Python Dev</h4>
+                        <span class="tag">92% Match</span>
+                    </div>
+                    <p class="salary">$2500 - $3500</p>
                 </div>
-            </form>
-        </div>
+                <div class="card job-card">
+                    <div class="job-info">
+                        <h4>Data Analyst</h4>
+                        <span class="tag">85% Match</span>
+                    </div>
+                    <p class="salary">$2000 - $2800</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ЭКРАН 3: ДАШБОРД HR -->
+        <section id="view-hr" class="view hidden">
+            <div class="metrics-row">
+                <div class="metric-card">
+                    <span class="num">12</span>
+                    <span class="label" data-i18n="active_vacancies">Активных</span>
+                </div>
+                <div class="metric-card">
+                    <span class="num">45</span>
+                    <span class="label" data-i18n="new_responses">Откликов</span>
+                </div>
+            </div>
+
+            <h3 data-i18n="recent_candidates">Недавние кандидаты</h3>
+            <div class="scroll-list">
+                <div class="card candidate-card">
+                    <div class="cand-info">
+                        <h4>Ivan I.</h4>
+                        <p class="role">Python Developer</p>
+                    </div>
+                    <div class="status-badge">Match: 94%</div>
+                </div>
+                <div class="card candidate-card">
+                    <div class="cand-info">
+                        <h4>Anna K.</h4>
+                        <p class="role">UX Designer</p>
+                    </div>
+                    <div class="status-badge">Match: 78%</div>
+                </div>
+            </div>
+
+            <button class="btn btn-fab">+</button>
+        </section>
+
+        <!-- BOTTOM NAV -->
+        <nav class="bottom-nav hidden" id="main-nav">
+            <button class="nav-item active">
+                <span class="icon">🏠</span>
+                <span data-i18n="nav_home">Главная</span>
+            </button>
+            <button class="nav-item">
+                <span class="icon">🔍</span>
+                <span data-i18n="nav_search">Поиск</span>
+            </button>
+            <button class="nav-item">
+                <span class="icon">💬</span>
+                <span data-i18n="nav_chat">Чаты</span>
+            </button>
+            <button class="nav-item">
+                <span class="icon">👤</span>
+                <span data-i18n="nav_profile">Профиль</span>
+            </button>
+        </nav>
+
     </div>
 
-    <script>
-        // === DATA ===
-        const DB_KEY = 'nashi_lyudi_hr_v3';
-        
-        const projects = [
-            {id:1, name:'Аби', type:'shift', salary:'310 ₽/час', location:'г. Владимир', temp:'+4..+12°C', food:'✅ Питание', transport:'🚌 Корпоративный', age:'М до 50, Ж до 45', duties:'Упаковка, уборка', conditions:'Общежитие 6-8 чел', medbook:'3500-5200₽', form:'3000-4000₽'},
-            {id:2, name:'Ла Мода', type:'shift', salary:'до 4330 ₽/смена', location:'Софьино', temp:'Кат. А', food:'✅ Обед 1₽', transport:'🚶 Пешком', age:'До 40 лет', duties:'Сборка с ТСД', conditions:'От 33 смен', medbook:'Бесплатно', form:'3600₽'},
-            {id:3, name:'Яндекс Софьино', type:'shift', salary:'до 5632 ₽/смена', location:'Софьино', temp:'Кат. А', food:'✅ Комплексный', transport:'🚶 20-25 мин', age:'До 45 лет', duties:'Размещение с ТСД', conditions:'От 20 смен', medbook:'Не требуется', form:'3400₽'},
-            {id:4, name:'Фрикейк', type:'shift', salary:'300 ₽/час', location:'Москва', temp:'+6..+18°C', food:'✅ Комплексный', transport:'🚶 2.7 км', age:'М до 45', duties:'Выпечка тортов', conditions:'7/0 по 11ч', medbook:'3500₽', form:'3200₽'},
-            {id:5, name:'Спортмастер', type:'shift', salary:'до 4290 ₽/смена', location:'Балашиха', temp:'Кат. А', food:'✅ Комплексный', transport:'🚌 20 мин', age:'М до 45', duties:'Отборка с ТСД', conditions:'Только РФ', medbook:'2000₽', form:'1950₽'},
-            {id:6, name:'ФМ Чехов', type:'shift', salary:'300 ₽/час', location:'Чехов', temp:'Кат. А', food:'✅ Комплексный', transport:'🚌 25-30 мин', age:'До 45 лет', duties:'Сборка с ТСД', conditions:'Семейные комнаты', medbook:'3500₽', form:'5000₽'},
-            {id:7, name:'МПЗ Протвино', type:'shift', salary:'290 ₽/час', location:'Протвино', temp:'+7-8°C', food:'✅ Двухразовое', transport:'🚌 20-25 мин', age:'23-50 лет', duties:'Упаковка', conditions:'Термобельё', medbook:'2650-3600₽', form:'Бесплатно'},
-            {id:8, name:'МПЗ Рублевский', type:'shift', salary:'290 ₽/час', location:'м. Молодёжная', temp:'+5°C', food:'✅ Комплексный', transport:'🚌 Трансфер', age:'До 55 лет', duties:'Упаковка', conditions:'Без регистрации', medbook:'3500₽', form:'Выдают'},
-            {id:9, name:'МПЗ Москворецкий', type:'shift', salary:'270-290 ₽/час', location:'Котляковская', temp:'+11-13 / -18°C', food:'✅ Трёхразовое', transport:'🚌 10 мин', age:'23-45 лет, М', duties:'Вакуумная упаковка', conditions:'Термобельё', medbook:'3500₽', form:'2200-1800₽'},
-            {id:10, name:'Норд Палп', type:'shift', salary:'310 ₽/час', location:'Форносово', temp:'Обычный', food:'❌ Нет', transport:'🚶 Шаг. дост.', age:'До 45 лет', duties:'Фасовка', conditions:'5/2', medbook:'Не требуется', form:'2250-900₽'},
-            {id:11, name:'Парфюм', type:'shift', salary:'290 ₽/час', location:'Электрогорск', temp:'Обычный', food:'❌ Нет', transport:'🚶 15 мин', age:'До 55 лет', duties:'Упаковка', conditions:'День 8-20', medbook:'Не требуется', form:'1400-650₽'},
-            {id:12, name:'ЛЕНТА', type:'retail', salary:'до 65 000 ₽/мес', location:'По месту', temp:'Магазин', food:'❌', transport:'❌', age:'18+', duties:'Кассир, продавец', conditions:'График 2/2', medbook:'Оформляем', form:'Выдаём'},
-            {id:13, name:'АШАН', type:'retail', salary:'до 60 000 ₽/мес', location:'По месту', temp:'Магазин', food:'❌', transport:'❌', age:'18+', duties:'Продавец', conditions:'Гибкий график', medbook:'Оформляем', form:'Выдаём'}
-        ];
-
-        const aiAgents = [
-            {id:'profiler', name:'👤 Профайлер', status:'ready', desc:'Анализирует вакансию и создаёт портрет идеального кандидата', lastRun:'Сегодня в 09:15'},
-            {id:'copywriter', name:'📝 Копирайтер', status:'ready', desc:'Пишет продающие объявления для HH.ru / Avito', lastRun:'Сегодня в 09:20'},
-            {id:'screener', name:'📞 Скриптер', status:'ready', desc:'Генерирует сценарии телефонных разговоров', lastRun:'Вчера в 16:45'},
-            {id:'matcher', name:'🎯 Матчер', status:'ready', desc:'Подбирает кандидатов под требования проекта', lastRun:'Сегодня в 10:00'},
-            {id:'checker', name:'🛡️ Чекер', status:'ready', desc:'Проверяет документы и СБ', lastRun:'Сегодня в 08:30'},
-            {id:'onboarding', name:'📋 Онбординг', status:'ready', desc:'Планирует адаптацию сотрудника', lastRun:'Вчера в 14:20'},
-            {id:'analyst', name:'📊 Аналитик', status:'ready', desc:'Формирует отчёты и прогнозы', lastRun:'Сегодня в 10:05'}
-        ];
-
-        let candidates = JSON.parse(localStorage.getItem(DB_KEY)) || [];
-        let currentView = 'pipeline';
-
-        // === INIT ===
-        document.addEventListener('DOMContentLoaded', () => {
-            if(candidates.length === 0) seedData();
-            renderAll();
-            setupNav();
-            setupForms();
-            setupSearch();
-        });
-
-        function seedData() {
-            candidates = [
-                {id:1, name:'Иванов Иван Петрович', phone:'+79991112233', city:'Москва', citizenship:'РФ', type:'shift', project:'Аби', status:'new', comment:'Опыт на складах', date:new Date().toLocaleDateString()},
-                {id:2, name:'Петрова Анна Сергеевна', phone:'+79994445566', city:'Владимир', citizenship:'РФ', type:'retail', project:'ЛЕНТА', status:'contact', comment:'Ищет работу рядом', date:new Date().toLocaleDateString()},
-                {id:3, name:'Сидоров Алексей', phone:'+79997778899', city:'Чехов', citizenship:'РФ', type:'shift', project:'ФМ Чехов', status:'interview', comment:'Готов к вахте', date:new Date().toLocaleDateString()},
-                {id:4, name:'Козлов Дмитрий', phone:'+79990001122', city:'Софьино', citizenship:'РБ', type:'shift', project:'Яндекс Софьино', status:'offer', comment:'Нужна регистрация', date:new Date().toLocaleDateString()},
-                {id:5, name:'Морозова Елена', phone:'+79993334455', city:'Балашиха', citizenship:'РФ', type:'retail', project:'АШАН', status:'hired', comment:'Вышла 01.05', date:new Date().toLocaleDateString()}
-            ];
-            saveDB();
-        }
-
-        function saveDB() { localStorage.setItem(DB_KEY, JSON.stringify(candidates)); }
-
-        function renderAll() {
-            renderStats();
-            renderPipeline();
-            renderCandidates();
-            renderProjects();
-            renderAIAgents();
-            updateProjectOptions();
-        }
-
-        // === NAVIGATION ===
-        function setupNav() {
-            document.querySelectorAll('.nav-item').forEach(el => {
-                el.addEventListener('click', () => {
-                    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-                    el.classList.add('active');
-                    document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
-                    document.getElementById(el.dataset.page).classList.remove('hidden');
-                });
-            });
-        }
-
-        // === STATS ===
-        function renderStats() {
-            document.getElementById('stat-total').textContent = candidates.length;
-            document.getElementById('stat-shift').textContent = candidates.filter(c=>c.type==='shift').length;
-            document.getElementById('stat-retail').textContent = candidates.filter(c=>c.type==='retail').length;
-            document.getElementById('stat-hired').textContent = candidates.filter(c=>c.status==='hired').length;
-            document.getElementById('pipeline-count').textContent = candidates.filter(c=>c.status!=='hired' && c.status!=='reject').length;
-
-            // Funnel chart
-            const stages = [
-                {id:'new', label:'Новая', count:candidates.filter(c=>c.status==='new').length, color:'#3B82F6'},
-                {id:'contact', label:'Контакт', count:candidates.filter(c=>c.status==='contact').length, color:'#F59E0B'},
-                {id:'interview', label:'Собеседование', count:candidates.filter(c=>c.status==='interview').length, color:'#8B5CF6'},
-                {id:'offer', label:'Оффер', count:candidates.filter(c=>c.status==='offer').length, color:'#10B981'},
-                {id:'hired', label:'Трудоустроено', count:candidates.filter(c=>c.status==='hired').length, color:'#059669'}
-            ];
-            
-            const max = Math.max(...stages.map(s=>s.count), 1);
-            document.getElementById('funnel-chart').innerHTML = stages.map(s => `
-                <div style="margin-bottom:12px;">
-                    <div style="display:flex; justify-content:space-between; margin-bottom:4px; font-size:13px;">
-                        <span style="font-weight:600;">${s.label}</span>
-                        <span style="font-weight:700; color:${s.color};">${s.count}</span>
-                    </div>
-                    <div style="height:24px; background:#F1F5F9; border-radius:6px; overflow:hidden;">
-                        <div style="height:100%; background:${s.color}; width:${(s.count/max)*100}%; transition:width 0.5s; display:flex; align-items:center; justify-content:flex-end; padding-right:8px; color:#fff; font-size:11px; font-weight:700;">${s.count}</div>
-                    </div>
-                </div>
-            `).join('');
-
-            // AI Activity
-            document.getElementById('ai-activity').innerHTML = aiAgents.map(a => `
-                <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--border);">
-                    <span style="font-weight:600;">${a.name}</span>
-                    <span style="color:var(--success); font-size:12px;">● ${a.lastRun}</span>
-                </div>
-            `).join('');
-        }
-
-        // === PIPELINE (KANBAN) ===
-        function renderPipeline() {
-            const search = document.getElementById('pipeline-search')?.value.toLowerCase() || '';
-            const filtered = candidates.filter(c=> c.name.toLowerCase().includes(search) || c.phone.includes(search) || (c.project && c.project.toLowerCase().includes(search)));
-            
-            const stages = [
-                {id:'new', label:'🆕 Новая заявка', color:'#3B82F6'},
-                {id:'contact', label:'📞 Первый контакт', color:'#F59E0B'},
-                {id:'interview', label:'👔 Собеседование', color:'#8B5CF6'},
-                {id:'offer', label:'📄 Оффер', color:'#10B981'},
-                {id:'hired', label:'✅ Трудоустроено', color:'#059669'},
-                {id:'reject', label:'❌ Отказ', color:'#EF4444'}
-            ];
-
-            document.getElementById('kanban-board').innerHTML = stages.map(s => {
-                const items = filtered.filter(c=>c.status===s.id);
-                return `
-                    <div class="kanban-column">
-                        <div class="kanban-header">
-                            <div class="kanban-title">${s.label}</div>
-                            <div class="kanban-count">${items.length}</div>
-                        </div>
-                        ${items.map(c => `
-                            <div class="kanban-card" style="border-left-color:${s.color}">
-                                <div class="kanban-card-header">
-                                    <div class="kanban-card-title">${c.name}</div>
-                                    <div class="kanban-card-type ${c.type==='shift'?'shift':'retail'}">${c.type==='shift'?'Вахта':'Ритейл'}</div>
-                                </div>
-                                <div class="kanban-card-meta"><i class="fas fa-phone"></i> ${c.phone}</div>
-                                <div class="kanban-card-meta"><i class="fas fa-map-marker-alt"></i> ${c.city}</div>
-                                ${c.project ? `<div class="kanban-card-project"><i class="fas fa-briefcase"></i> ${c.project}</div>` : ''}
-                                <div class="kanban-actions">
-                                    ${s.id!=='hired' && s.id!=='reject' ? `
-                                        <button class="btn btn-sm btn-success" onclick="changeStatus(${c.id}, 'hired')" title="Трудоустроить">✅</button>
-                                        <button class="btn btn-sm btn-danger" onclick="changeStatus(${c.id}, 'reject')" title="Отказать">❌</button>
-                                    ` : ''}
-                                    <button class="btn btn-sm btn-outline" onclick="editCandidate(${c.id})" title="Редактировать">✏️</button>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
-            }).join('');
-        }
-
-        // === CANDIDATES TABLE ===
-        function renderCandidates() {
-            const search = document.getElementById('candidates-search')?.value.toLowerCase() || '';
-            const filtered = candidates.filter(c=> c.name.toLowerCase().includes(search) || c.phone.includes(search) || (c.project && c.project.toLowerCase().includes(search)));
-            
-            const statusLabels = {new:'Новая', contact:'Контакт', interview:'Собеседование', offer:'Оффер', hired:'Трудоустроено', reject:'Отказ'};
-            
-            document.getElementById('candidates-tbody').innerHTML = filtered.map(c => `
-                <tr>
-                    <td><b>${c.name}</b></td>
-                    <td>${c.phone}</td>
-                    <td>${c.city}</td>
-                    <td><span class="status-badge ${c.type==='shift'?'status-new':'status-offer'}">${c.type==='shift'?'Вахта':'Ритейл'}</span></td>
-                    <td>${c.project || '-'}</td>
-                    <td><span class="status-badge status-${c.status}">${statusLabels[c.status]}</span></td>
-                    <td>${c.date}</td>
-                    <td>
-                        <button class="btn btn-sm btn-outline" onclick="editCandidate(${c.id})">✏️</button>
-                        <button class="btn btn-sm btn-danger" onclick="deleteCandidate(${c.id})">🗑️</button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        // === PROJECTS ===
-        function renderProjects() {
-            const filter = document.getElementById('project-filter')?.value || 'all';
-            const filtered = filter==='all' ? projects : projects.filter(p=>p.type===filter);
-            
-            document.getElementById('projects-grid').innerHTML = filtered.map(p => `
-                <div class="project-card" onclick="openModal('addCandidate'); document.querySelector('[name=project]').value='${p.name}';">
-                    <div class="project-header">
-                        <div>
-                            <div class="project-title">${p.name}</div>
-                            <div class="project-location"><i class="fas fa-map-marker-alt"></i> ${p.location}</div>
-                        </div>
-                        <div class="project-salary">${p.salary}</div>
-                    </div>
-                    <div class="project-details">
-                        <div class="project-detail"><i class="fas fa-thermometer-half"></i> ${p.temp}</div>
-                        <div class="project-detail"><i class="fas fa-utensils"></i> ${p.food}</div>
-                        <div class="project-detail"><i class="fas fa-bus"></i> ${p.transport}</div>
-                        <div class="project-detail"><i class="fas fa-user-clock"></i> ${p.age}</div>
-                    </div>
-                    <div class="project-tags">
-                        <span class="project-tag">${p.duties}</span>
-                        <span class="project-tag">${p.conditions}</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // === AI AGENTS ===
-        function renderAIAgents() {
-            document.getElementById('ai-agents-grid').innerHTML = aiAgents.map(a => `
-                <div class="integration-card ai">
-                    <div class="integration-header">
-                        <div class="integration-icon ai-icon"><i class="fas fa-robot"></i></div>
-                        <div>
-                            <div class="integration-title">${a.name}</div>
-                            <div class="integration-status">
-                                <span class="status-dot active"></span>
-                                <span>Готов к работе</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="font-size:13px; color:var(--text-light); margin-bottom:16px;">${a.desc}</div>
-                    <div style="display:flex; gap:8px;">
-                        <button class="btn btn-sm btn-purple" onclick="runAgent('${a.id}')"><i class="fas fa-play"></i> Запустить</button>
-                        <button class="btn btn-sm btn-outline" onclick="viewAgentLog('${a.id}')"><i class="fas fa-list"></i> Лог</button>
-                    </div>
-                    <div class="log-box" id="log-${a.id}">
-                        <div class="log-entry"><span class="log-time">${a.lastRun}</span>✅ Агент готов к работе</div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // === ACTIONS ===
-        function changeStatus(id, status) {
-            const c = candidates.find(x=>x.id===id);
-            if(c) { c.status = status; saveDB(); renderAll(); }
-        }
-
-        function editCandidate(id) {
-            const c = candidates.find(x=>x.id===id);
-            if(!c) return;
-            const f = document.getElementById('candidate-form');
-            f.name.value=c.name; f.phone.value=c.phone; f.city.value=c.city;
-            f.citizenship.value=c.citizenship; f.type.value=c.type;
-            f.project.value=c.project||''; f.comment.value=c.comment||'';
-            openModal('addCandidate');
-            candidates = candidates.filter(x=>x.id!==id);
-            saveDB();
-        }
-
-        function deleteCandidate(id) {
-            if(confirm('Удалить кандидата?')) {
-                candidates = candidates.filter(c=>c.id!==id);
-                saveDB(); renderAll();
-            }
-        }
-
-        function updateProjectOptions() {
-            const type = document.querySelector('[name=type]')?.value || 'shift';
-            const select = document.getElementById('modal-project-select');
-            const filtered = type==='shift' ? projects.filter(p=>p.type==='shift') : projects.filter(p=>p.type==='retail');
-            select.innerHTML = '<option value="">Не выбран</option>' + filtered.map(p=>`<option value="${p.name}">${p.name}</option>`).join('');
-        }
-
-        function setupForms() {
-            document.getElementById('candidate-form').addEventListener('submit', e => {
-                e.preventDefault();
-                const f = e.target;
-                const newC = {
-                    id: Date.now(),
-                    name: f.name.value, phone: f.phone.value, city: f.city.value,
-                    citizenship: f.citizenship.value, type: f.type.value,
-                    project: f.project.value, status: 'new',
-                    comment: f.comment.value, date: new Date().toLocaleDateString()
-                };
-                candidates.push(newC);
-                saveDB();
-                closeModal('addCandidate');
-                f.reset();
-                renderAll();
-            });
-
-            document.getElementById('project-filter')?.addEventListener('change', renderProjects);
-        }
-
-        function setupSearch() {
-            document.getElementById('pipeline-search')?.addEventListener('input', renderPipeline);
-            document.getElementById('candidates-search')?.addEventListener('input', renderCandidates);
-        }
-
-        // === MODALS ===
-        function openModal(id) { document.getElementById(id).classList.add('active'); }
-        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-
-        // === INTEGRATIONS ===
-        async function syncBot(type) {
-            const logEl = document.getElementById(`${type}-log`);
-            logEl.innerHTML += `<div class="log-entry"><span class="log-time">${new Date().toLocaleTimeString()}</span>🔄 Синхронизация...</div>`;
-            await new Promise(r=>setTimeout(r,1000));
-            logEl.innerHTML += `<div class="log-entry"><span class="log-time">${new Date().toLocaleTimeString()}</span>✅ Синхронизировано</div>`;
-        }
-
-        async function testBot(type) {
-            const logEl = document.getElementById(`${type}-log`);
-            logEl.innerHTML += `<div class="log-entry"><span class="log-time">${new Date().toLocaleTimeString()}</span>🧪 Тестовое сообщение...</div>`;
-            await new Promise(r=>setTimeout(r,800));
-            logEl.innerHTML += `<div class="log-entry"><span class="log-time">${new Date().toLocaleTimeString()}</span>✅ Бот ответил</div>`;
-        }
-
-        async function runAgent(id) {
-            const agent = aiAgents.find(a=>a.id===id);
-            const logEl = document.getElementById(`log-${id}`);
-            logEl.innerHTML += `<div class="log-entry"><span class="log-time">${new Date().toLocaleTimeString()}</span>🚀 Запуск...</div>`;
-            await new Promise(r=>setTimeout(r,1500));
-            agent.lastRun = `Сегодня в ${new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}`;
-            logEl.innerHTML += `<div class="log-entry"><span class="log-time">${new Date().toLocaleTimeString()}</span>✅ Задача выполнена</div>`;
-            renderAIAgents();
-        }
-
-        async function runAllAgents() {
-            for(const agent of aiAgents) {
-                await runAgent(agent.id);
-                await new Promise(r=>setTimeout(r,500));
-            }
-        }
-
-        function viewAgentLog(id) {
-            alert(`Лог агента ${id}:\n${document.getElementById(`log-${id}`).innerText}`);
-        }
-
-        function exportData() {
-            alert('Экспорт данных в CSV...');
-        }
-
-        function exportCandidates() {
-            let csv = 'ID,ФИО,Телефон,Город,Гражданство,Тип,Проект,Статус,Дата\n';
-            candidates.forEach(c => {
-                csv += `${c.id},"${c.name}","${c.phone}","${c.city}","${c.citizenship}","${c.type}","${c.project}","${c.status}","${c.date}"\n`;
-            });
-            const blob = new Blob([csv], {type:'text/csv'});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a'); a.href=url; a.download='candidates.csv'; a.click();
-        }
-
-        window.onclick = e => { if(e.target.classList.contains('modal')) e.target.classList.remove('active'); }
-    </script>
-<!-- Подключение API адаптера -->
-<script src="api-adapter.js"></script>
-
-<!-- Инициализация API вместо localStorage -->
-<script>
-    // Переопределяем загрузку данных
-    const originalSeedData = window.seedData;
-
-    // Загружаем данные с сервера при старте
-    document.addEventListener('DOMContentLoaded', async () => {
-        // Пробуем загрузить с API
-        try {
-            const apiData = await HR_API.getCandidates();
-            if (apiData.data && apiData.data.length > 0) {
-                // Конвертируем формат API в формат фронтенда
-                window.candidates = apiData.data.map(c => ({
-                    id: c.id, name: c.name, phone: c.phone, city: c.city,
-                    citizenship: c.citizenship, type: c.type, project: c.project,
-                    status: c.status, comment: c.comment, date: c.date
-                }));
-                renderAll();
-                console.log('✅ Данные загружены с API');
-                return;
-            }
-        } catch (e) {
-            console.log('⚠️ API недоступен, используем localStorage');
-        }
-
-        // Fallback на localStorage
-        if (window.candidates.length === 0) originalSeedData();
-        renderAll();
-    });
-
-    // Переопределяем saveDB для отправки на сервер
-    const originalSaveDB = window.saveDB;
-    window.saveDB = async function() {
-        originalSaveDB(); // Сохраняем в localStorage как кэш
-
-        // Отправляем изменения на сервер (упрощённо)
-        // В продакшене здесь нужно сравнивать и отправлять только изменения
-    };
-
-    // Переопределяем changeStatus для API
-    const originalChangeStatus = window.changeStatus;
-    window.changeStatus = async function(id, status) {
-        // Сначала меняем локально для мгновенного отклика
-        originalChangeStatus(id, status);
-
-        // Затем отправляем на сервер
-        try {
-            await HR_API.changeStatus(id, status);
-            console.log('✅ Статус обновлён на сервере');
-        } catch (e) {
-            console.error('❌ Ошибка синхронизации:', e);
-        }
-    };
-</script>
+    <script src="app.js"></script>
 </body>
 </html>
